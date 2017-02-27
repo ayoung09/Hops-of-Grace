@@ -29,6 +29,7 @@ const Address = db.define('address', {
     allowNull: false,
     validate: {
       isNumeric: true,
+      len: [10],
     },
   },
 }, {

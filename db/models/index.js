@@ -7,14 +7,14 @@
 const User = require('./user');
 const OAuth = require('./oauth');
 const Seller = require('./seller');
-const Address = require('./Address');
+const Address = require('./address');
 
 OAuth.belongsTo(User);
 User.hasOne(OAuth);
 Seller.belongsTo(User);
 User.hasOne(Seller);
 
-User.belongsTo(Address, {as: 'shipping_address'});
-User.belongsTo(Address, {as: 'billing_address'});
-Seller.belongsTo(Address);
+User.belongsTo(Address, {as: 'shipping'});
+User.belongsTo(Address, {as: 'billing'});
+Seller.belongsTo(Address, {as: 'contact'});
 module.exports = {User};
