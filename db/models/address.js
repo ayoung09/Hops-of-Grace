@@ -19,6 +19,10 @@ const Address = db.define('address', {
   zipCode: {
     type: Sequelize.STRING, //to do: validate for accuracy
     allowNull: false,
+    validate: {
+      isNumeric: true,
+      len: [5],
+    },
   },
   phoneNumber: {
     type: Sequelize.STRING,
