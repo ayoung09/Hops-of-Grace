@@ -18,6 +18,13 @@ const User = db.define('users', {
   // We support oauth, so users may or may not have passwords.
   password_digest: Sequelize.STRING, // This column stores the hashed password in the DB, via the beforeCreate/beforeUpdate hooks
 	password: Sequelize.VIRTUAL, // Note that this is a virtual, and not actually stored in DB
+  dob: {
+    type: Sequelize.DATEONLY,
+    validate: {
+      isDate: true,
+      isAfter: "1996-03-01", //user must be over 21
+    }
+  },
   isAuthenticated: Sequelize.BOOLEAN,
   isAdmin: {
     type: Sequelize.BOOLEAN,
