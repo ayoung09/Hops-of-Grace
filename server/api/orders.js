@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('APP/db')
-const Order = db.model('orders')
+const Order = db.model('order')
 
 module.exports = require('express').Router()
 // get all orders

@@ -9,7 +9,7 @@ api
   .use('/users', require('./users'))
   .use('/sellers', require('./sellers'))
   .use('/products', require('./products'))
-  .use('/shoppingCarts', require('./shoppingCart'))
+  .use('/carts', require('./carts'))
   .use('/reviews', require('./reviews'))
   .use('/orders', require('./orders'))
   .use('/addresses', require('./addresses'))

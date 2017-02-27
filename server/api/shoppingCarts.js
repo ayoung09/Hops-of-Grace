@@ -1,31 +1,31 @@
 'use strict'
 
 const db = require('APP/db')
-const ShoppingCart = db.model('shoppingCarts')
+const Cart = db.model('cart')
 
 module.exports = require('express').Router()
 // list all carts
 	.get('/', (req, res, next) =>
-		ShoppingCart.findAll()
+		Cart.findAll()
 		.then()
 		.catch())
 // make a new cart
 	.post('/', (req, res, next) =>
-		ShoppingCart.create()
+		Cart.create()
 		.then()
 		.catch())
 // update a cart
-	.put('/:shoppingCartId', (req, res, next) =>
-		ShoppingCart.update()
+	.put('/:cartId', (req, res, next) =>
+		Cart.update()
 		.then()
 		.catch())
 // delete a cart
 	.delete('/', (req, res, next) =>
-		ShoppingCart.destroy()
+		Cart.destroy()
 		.then()
 		.catch())
 // get a single cart
-	.get('/:shoppingCartId', (req, res, next) =>
-		ShoppingCart.findById()
+	.get('/:cartId', (req, res, next) =>
+		Cart.findById()
 		.then()
 		.catch())

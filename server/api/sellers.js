@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('APP/db')
-const Seller = db.model('sellers')
+const Seller = db.model('seller')
 
 module.exports = require('express').Router()
 // list all breweries?

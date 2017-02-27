@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('APP/db')
-const Address = db.model('addresses')
+const Address = db.model('address')
 
 module.exports = require('express').Router()
 // get all addresses
