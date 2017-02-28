@@ -3,7 +3,7 @@
 const Sequelize = require('sequelize');
 const db = require('APP/db');
 
-const Cart = db.define('cart', {
+const Cart = db.define('carts', {
   contents: { // productId:quantity pairs as a JSONB
     type: Sequelize.JSONB,
     allowNull: false,
