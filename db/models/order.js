@@ -20,10 +20,6 @@ const Order = db.define('orders', {
     defaultValue: 'Created'
   },
 
-  // I'm assuming that the following will be added thru associations (see index)
-  // UserID... where it goes... enables link to delivery & billing associations, the email for updates
-  // BuyerID... where it comes from...
-  // other? review reminders?... via user.
 }, {
   hooks: { //set to add date of shipping based on status update...
     beforeUpdate: (() => {
