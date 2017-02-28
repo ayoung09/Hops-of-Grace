@@ -3,15 +3,15 @@ const Promise = require('bluebird');
 
 
 const seedUsers = () => db.Promise.map([
-  {name: 'Mary Poppins', email: 'super@example.com', password: '1234', dob: '1970-11-17', contactId: 1},
-  {name: 'Tony Tiger', email: 'frosted@example.com', password: '1234', dob: '1986-04-01', contactId: 2},
-  {name: 'Grandmother Willow', email: 'listenwithheart@example.com', password: '1234', dob: '1684-01-01', shippingId: 3}
+  {name: 'Mary Poppins', email: 'super@example.com', password: '1234', dob: '1970-11-17', contact_id: 1},
+  {name: 'Tony Tiger', email: 'frosted@example.com', password: '1234', dob: '1986-04-01', contact_id: 2},
+  {name: 'Grandmother Willow', email: 'listenwithheart@example.com', password: '1234', dob: '1684-01-01', shipping_id: 3}
 ], user => db.model('users').create(user));
 
 
 const seedSellers = () => db.Promise.map([
-  {breweryName: 'Buzzed While Brewing', description: 'Beer so good, we can\'t work without drinking it!', userId: 1},
-  {breweryName: 'Frosted Lakes', description: 'Beer\'s grrrrrreat!', userId: 2}
+  {breweryName: 'Buzzed While Brewing', description: 'Beer so good, we can\'t work without drinking it!', user_id: 1},
+  {breweryName: 'Frosted Lakes', description: 'Beer\'s grrrrrreat!', user_id: 2}
 ], seller => db.model('sellers').create(seller));
 
 
@@ -41,7 +41,7 @@ const seedUnits = () => db.Promise.map([
 
 
 const seedProducts = () => db.Promise.map([
-  {name: 'Penguin Popper Ale', flavor: ['nutty', 'caramel'], description: 'So good, your penguin waiter might take a sip first', price: 19.95, quantity: 40, unitId: 1, sellerId: 1, brewId: 6},
+  {name: 'Penguin Popper Ale', flavor: ['nutty', 'caramel'], description: 'So good, your penguin waiter might take a sip first', price: 19.95, quantity: 40, unit_id: 1, seller_id: 1, brew_id: 6},
   ], product => db.model('products').create(product));
 
 
