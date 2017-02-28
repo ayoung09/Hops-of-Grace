@@ -21,21 +21,21 @@ const Unit = require('./unit');
 OAuth.belongsTo(User);
 User.hasOne(OAuth);
 
-Product.belongsTo(Seller, {as: 'seller'}); //sellerID on product
-Seller.hasMany(Product, {as: 'product'}); //symmetrical
+Product.belongsTo(Seller); //sellerID on product
+Seller.hasMany(Product); //symmetrical
 
 Seller.hasMany(Photo, {as: 'seller'}); //sellerID on photo
 
 //symetrical associations?
 Product.belongsTo(BrewType, {as: 'brew'}); //brewID on product
-Product.belongsTo(Unit, {as: 'unit'}); //unitID on product
+Product.belongsTo(Unit); //unitID on product
 
 Product.hasMany(Photo, {as: 'product'}); //productID on photo
 
 //reviews - created from/after product by logged-in user
-Review.belongsTo(Product, {as: 'product'}); //productID on review
-Review.belongsTo(User, {as: 'user'}); //userID on review
-
+Review.belongsTo(Product); //productID on review
+Review.belongsTo(User); //userID on review
+Review.hasMany(Photo, {as: 'review'});
 
 module.exports = {
 	User,
