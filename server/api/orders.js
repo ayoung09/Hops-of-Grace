@@ -1,33 +1,43 @@
-'use strict'
+'use strict';
 
-const db = require('APP/db')
-const Order = db.model('orders')
+const db = require('APP/db');
+const Order = db.model('orders');
+const User = db.model('users');
+const Seller = db.model('sellers');
 
-const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
+const { mustBeLoggedIn, forbidden } = require('./auth.filters');
 
 module.exports = require('express').Router()
 // get all orders
 	.get('/', (req, res, next) =>
-		Orders.findAll()
-		.then()
+		Order.findAll({
+			where: req.query,
+			include: [ User, Seller ]
+		})
+		.then(orders => res.json(orders))
 		.catch())
 // add a new order
 	.post('/', (req, res, next) =>
-		Orders.create()
-		.then()
+		Order.create(req.body)
+		.then(newOrder => res.json(newOrder))
 		.catch())
 // edit an order info (maybe not necessary?)
-	.put('/:ordersId', (req, res, next) =>
-		Orders.update()
-		.then()
+	.put('/:orderId', (req, res, next) =>
+		Order.findById(req.params.orderId)
+		.then(order => order.update(req.body))
+		.then(updatedOrder => res.json(updatedOrder))
 		.catch())
 // delete an order (hopefully won't ever want to use this)
-	.delete('/', (req, res, next) =>
-		Orders.destroy()
-		.then()
+	.delete('/:orderId', (req, res, next) =>
+		Order.findById(req.params.orderId)
+		.then(order => order.destroy())
+		.then(() => res.sendStatus(204))
 		.catch())
 // get info for order by ID
-	.get('/:ordersId', (req, res, next) =>
-		Orders.findById()
-		.then()
+	.get('/:orderId', (req, res, next) =>
+		Order.findOne({
+			where: {id: req.params.orderId},
+			include: [ User, Seller ]
+		})
+		.then(order => res.json(order))
 		.catch())
