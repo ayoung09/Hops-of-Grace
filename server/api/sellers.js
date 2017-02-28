@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('APP/db')
-const Seller = db.model('seller')
+const Seller = db.model('sellers')
 const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
 
 module.exports = require('express').Router()

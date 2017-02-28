@@ -1,33 +1,32 @@
 'use strict'
 
 const db = require('APP/db')
-const User = db.model('users')
-
+const BrewType = db.model('brews')
 const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
 
 module.exports = require('express').Router()
-// get all users (shoppers and sellers)
+// get all types
 	.get('/', (req, res, next) =>
-		User.findAll()
+		BrewType.findAll()
 		.then()
 		.catch())
-// create a new user
+// add a new type of beer
 	.post('/', (req, res, next) =>
-		User.create()
+		BrewType.create()
 		.then()
 		.catch())
-// update a user (user info?)
-	.put('/:userId', (req, res, next) =>
-		User.update()
+// edit info for a type of beer
+	.put('/:brewTypeId', (req, res, next) =>
+		BrewType.update()
 		.then()
 		.catch())
-// delete a user (admin or user itself)
+// delete a brew type
 	.delete('/', (req, res, next) =>
-		User.destroy()
+		BrewType.destroy()
 		.then()
 		.catch())
-// get an individual user
-	.get('/:userId', (req, res, next) =>
-		User.findById()
+// get a single brew type
+	.get('/:brewTypeId', (req, res, next) =>
+		BrewType.findById()
 		.then()
 		.catch())

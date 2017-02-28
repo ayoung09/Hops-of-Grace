@@ -13,6 +13,8 @@ api
   .use('/reviews', require('./reviews'))
   .use('/orders', require('./orders'))
   .use('/addresses', require('./addresses'))
+  .use('/photos', require('./photos'))
+  .use('/brewTypes', require('./brewTypes'))
 
 // No routes matched? 404.
 api.use((req, res) => res.status(404).end())
