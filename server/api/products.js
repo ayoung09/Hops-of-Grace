@@ -6,9 +6,9 @@ const Product = db.model('products')
 const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
 
 module.exports = require('express').Router()
-// list all beers or all beers by tag or beers by brewType
+// list all beers or all beers by tag or beers by brewType -- add eager loading here too
 	.get('/', (req, res, next) =>
-		Product.findAll({ where: req.query })
+		Product.findAll({ where: req.query },{ include: [ seller_id, brew_id, unit_id, photos, reviews ] }) //what are the aliases? rework
 		.then(products => res.send(products))
 		// .then(products => res.send('hit route'))
 		.catch(next))
@@ -29,12 +29,13 @@ module.exports = require('express').Router()
 		.then(product => product.destroy())
 		.then(() => res.sendStatus(204))
 		.catch())
-// get info for an individual beer - eager-loading gallore!
+// get info for an individual beer
 	.get('/:productId', (req, res, next) =>
-		Product.findById(req.params.productId)
+		Product.findOne({ where: req.params.productId },{ include: [ seller_id, brew_id, unit_id, photos, reviews ] }) //again structure
 		.then(product => { // EAGER ME!
 			res.send(product);
 		})
 		.catch(next))
 
 	//eager loading of sellerId, brewTypes, photos, review (userName, photos)
+	//{ include: [ User ] }
