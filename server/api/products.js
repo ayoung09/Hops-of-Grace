@@ -3,6 +3,8 @@
 const db = require('APP/db')
 const Product = db.model('product')
 
+const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
+
 module.exports = require('express').Router()
 // list all beers
 	.get('/', (req, res, next) =>

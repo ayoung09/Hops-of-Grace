@@ -2,6 +2,7 @@
 
 const db = require('APP/db')
 const Seller = db.model('seller')
+const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
 
 module.exports = require('express').Router()
 // list all breweries?

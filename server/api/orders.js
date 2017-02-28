@@ -3,6 +3,8 @@
 const db = require('APP/db')
 const Order = db.model('order')
 
+const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
+
 module.exports = require('express').Router()
 // get all orders
 	.get('/', (req, res, next) =>

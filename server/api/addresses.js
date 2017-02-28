@@ -3,6 +3,9 @@
 const db = require('APP/db')
 const Address = db.model('address')
 
+const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
+
+
 module.exports = require('express').Router()
 // get all addresses
 	.get('/', (req, res, next) =>

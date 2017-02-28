@@ -2,6 +2,7 @@
 
 const db = require('APP/db')
 const Review = db.model('review')
+const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
 
 module.exports = require('express').Router()
 // list all reviews
