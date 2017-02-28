@@ -12,18 +12,28 @@ const Order = db.define('orders', {
     type: Sequelize.DATE,
     defaultValue: Sequelize.NOW
   },
-  posted: { //track date updated for states...
-    type: Sequelize.DATE
+  mailed: { //track date updated for states...
+    type: Sequelize.DATE,
   },
   status: { //track last edits and auto-save... finish added model structure
-    type: Sequelize.ENUM()
-    defaultValue: Sequelize.NOW
+    type: Sequelize.ENUM('Created', 'Processing', 'Cancelled', 'Completed'),
+    defaultValue: 'Created'
   },
 
   // I'm assuming that the following will be added thru associations (see index)
   // UserID... where it goes... enables link to delivery & billing associations, the email for updates
   // BuyerID... where it comes from...
   // other? review reminders?... via user.
+}, {
+  hooks: { //set to add date of shipping based on status update...
+    beforeUpdate: (() => {
+      let currentStatus = this.getDataValue('status');
+      if (currentStatus === 'Processing') {
+        this.setDataValue('mailed', Sequelize.NOW);
+      };
+    }),
+  }//hooks done
+
 })
 
 module.exports = Order;

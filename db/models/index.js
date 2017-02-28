@@ -42,7 +42,8 @@ Review.belongsTo(User, {as: 'user'}); //userID on review
 //shopping sessions - auto-save cart and deliberate purchases
 Cart.belongsTo(User, {as: 'user'}); //userID on cart... within cart.contents there are the productIDs (keys) and Quantities (values)
 
-//need to add order
+
+//need to add order status
 
 
 
