@@ -18,6 +18,9 @@ const Photo = require('./photo');
 const BrewType = require('./brewType');
 const Unit = require('./unit');
 
+const Order = require('./order');
+const Cart = require('./cart');
+
 OAuth.belongsTo(User);
 User.hasOne(OAuth);
 Seller.belongsTo(User);
@@ -37,6 +40,10 @@ Product.belongsTo(Unit); //unitID on product
 Product.hasMany(Photo, {as: 'product'}); //productID on photo
 
 //reviews - created from/after product by logged-in user
+
+
+//shopping sessions - auto-save cart and deliberate purchases
+Cart.belongsTo(User); //userID on cart... within cart.contents there are the productIDs (keys) and Quantities (values)
 Review.belongsTo(Product); //productID on review
 Review.belongsTo(User); //userID on review
 Review.hasMany(Photo, {as: 'review'});
