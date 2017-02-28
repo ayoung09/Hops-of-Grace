@@ -1,33 +1,32 @@
 'use strict'
 
 const db = require('APP/db')
-const User = db.model('users')
-
+const Photo = db.model('photos')
 const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
 
 module.exports = require('express').Router()
-// get all users (shoppers and sellers)
+// get all pictures
 	.get('/', (req, res, next) =>
-		User.findAll()
+		Photo.findAll()
 		.then()
 		.catch())
-// create a new user
+// add a new picture
 	.post('/', (req, res, next) =>
-		User.create()
+		Photo.create()
 		.then()
 		.catch())
-// update a user (user info?)
-	.put('/:userId', (req, res, next) =>
-		User.update()
+// change a picture (necessary?)
+	.put('/:photoId', (req, res, next) =>
+		Photo.update()
 		.then()
 		.catch())
-// delete a user (admin or user itself)
+// delete a picture
 	.delete('/', (req, res, next) =>
-		User.destroy()
+		Photo.destroy()
 		.then()
 		.catch())
-// get an individual user
-	.get('/:userId', (req, res, next) =>
-		User.findById()
+// get a single picture
+	.get('/:photoId', (req, res, next) =>
+		Photo.findById()
 		.then()
 		.catch())
