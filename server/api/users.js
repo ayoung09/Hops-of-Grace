@@ -2,13 +2,25 @@
 
 const db = require('APP/db')
 const User = db.model('users')
+const Cart = db.model('carts')
+const Address = db.model('addresses')
+const Seller = db.model('sellers')
 
 const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
 
 module.exports = require('express').Router()
 // get all users with query string
 	.get('/', (req, res, next) =>
-		User.findAll({ where: req.query })
+		User.findAll({
+			where: req.query,
+			include: [{
+				model: Address,
+				as: 'shipping'
+			}, {
+				model: Address,
+				as: 'billing'
+			}]
+		 })
 		.then(users => res.json(users))
 		.catch(next))
 // create a new user
@@ -29,7 +41,21 @@ module.exports = require('express').Router()
 		.then(() => res.sendStatus(204))
 		.catch(next))
 // get an individual user
+// eager loading does not currently include Seller and Cart, will be approached later
 	.get('/:userId', (req, res, next) =>
-		User.findById(req.params.userId)
+		User.findOne({
+			where: {
+				id: req.params.userId
+			},
+			include: [{
+				model: Address,
+				as: 'shipping'
+			}, {
+				model: Address,
+				as: 'billing'
+			}]
+		})
 		.then(user => res.json(user))
 		.catch(next))
+
+		// include: [ Cart ]
