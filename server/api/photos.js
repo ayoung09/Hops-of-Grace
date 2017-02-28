@@ -1,32 +1,32 @@
 'use strict'
 
 const db = require('APP/db')
-const Cart = db.model('carts')
+const Photo = db.model('photos')
 const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
 
 module.exports = require('express').Router()
-// list all carts
+// get all pictures
 	.get('/', (req, res, next) =>
-		Cart.findAll()
+		Photo.findAll()
 		.then()
 		.catch())
-// make a new cart
+// add a new picture
 	.post('/', (req, res, next) =>
-		Cart.create()
+		Photo.create()
 		.then()
 		.catch())
-// update a cart
-	.put('/:cartId', (req, res, next) =>
-		Cart.update()
+// change a picture (necessary?)
+	.put('/:photoId', (req, res, next) =>
+		Photo.update()
 		.then()
 		.catch())
-// delete a cart
+// delete a picture
 	.delete('/', (req, res, next) =>
-		Cart.destroy()
+		Photo.destroy()
 		.then()
 		.catch())
-// get a single cart
-	.get('/:cartId', (req, res, next) =>
-		Cart.findById()
+// get a single picture
+	.get('/:photoId', (req, res, next) =>
+		Photo.findById()
 		.then()
 		.catch())
