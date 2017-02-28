@@ -29,13 +29,11 @@ Seller.belongsTo(Address, {as: 'contact'});
 
 Product.belongsTo(Seller); //sellerID on product
 Seller.hasMany(Product); //symmetrical
-
 Seller.hasMany(Photo, {as: 'seller'}); //sellerID on photo
 
 //symetrical associations?
 Product.belongsTo(BrewType, {as: 'brew'}); //brewID on product
 Product.belongsTo(Unit); //unitID on product
-
 Product.hasMany(Photo, {as: 'product'}); //productID on photo
 
 //reviews - created from/after product by logged-in user
