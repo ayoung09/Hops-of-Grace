@@ -17,7 +17,7 @@ const seedSellers = () => db.Promise.map([
 
 const seedAddresses = () => db.Promise.map([
   {streetAddress: '321 Horse Race Road', city: 'Painting On The', state: 'Sidewalk', zipCode: '54321', phoneNumber: '1234567890'},
-  {streetAddress: '425 Super Flakey Street', city: 'Cartoon City', state: 'TV', zipCode: '11111', phoneNumber: ''},
+  {streetAddress: '425 Super Flakey Street', city: 'Cartoon City', state: 'TV', zipCode: '11111', phoneNumber: '2345678901'},
   {streetAddress: '199 Willow Way', city: 'Middle of the Forest', state: 'Woods', zipCode: '22222', phoneNumber: '0987654321'}
   ], address => db.model('addresses').create(address));
 
@@ -31,7 +31,7 @@ const seedBrewTypes = () => db.Promise.map([
   {name: 'Doppelbock', description: 'Doppelbocks are stronger than the traditional style and boast a higher alcohol content and a fuller body.'},
   {name: 'English Brown Ale', description: 'English brown ales feature a nutty malt flavor with a caramel aroma.'},
   {name: 'American IPA', description: 'American IPAs have more hops, big herbal or citrus flavors, and high bitterness compared to pale ale.'},
-  ], brewType => db.model('brewType').create(brewType));
+  ], brewType => db.model('brews').create(brewType));
 
 
 const seedUnits = () => db.Promise.map([
@@ -47,7 +47,7 @@ const seedProducts = () => db.Promise.map([
 
 db.didSync
   .then(() => db.sync({force: true}))
-  .then(() => Promise.all([seedUsers(), seedSellers(), seedAddresses(), seedBrewTypes(), seedUnits, seedProducts()]))
+  .then(() => Promise.all([seedUsers(), seedSellers(), seedAddresses(), seedBrewTypes(), seedUnits(), seedProducts()]))
   .then((results) => {
     console.log(`Data seeded successfully`);
     console.log('These are the results: ', results);
