@@ -22,7 +22,7 @@ const User = db.define('users', {
     type: Sequelize.DATEONLY,
     validate: {
       isDate: true,
-      isAfter: "1996-03-01", //user must be over 21
+      isBefore: "1996-03-01", //user must be over 21
     }
   },
   isAuthenticated: Sequelize.BOOLEAN,
