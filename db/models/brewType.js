@@ -7,9 +7,6 @@ const BrewType = db.define('brews', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
-    validate: {
-
-    }
   },
   flavor: {
     type: Sequelize.ARRAY(Sequelize.TEXT),

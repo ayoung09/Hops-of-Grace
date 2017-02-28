@@ -6,12 +6,12 @@
 
 //I'm commenting out, but including models from Alexia in order to set relationships...
 
-
 const User = require('./user');
 const OAuth = require('./oauth');
+const Seller = require('./seller');
+const Address = require('./address');
 
 const Product = require('./product');
-const Seller = require('./seller');
 const Review = require('./review');
 
 const Photo = require('./photo');
@@ -23,30 +23,30 @@ const Cart = require('./cart');
 
 OAuth.belongsTo(User);
 User.hasOne(OAuth);
+Seller.belongsTo(User);
+User.hasOne(Seller);
 
-Product.belongsTo(Seller, {as: 'seller'}); //sellerID on product
-Seller.hasMany(Product, {as: 'product'}); //symmetrical
+User.belongsTo(Address, {as: 'shipping'});
+User.belongsTo(Address, {as: 'billing'});
+Seller.belongsTo(Address, {as: 'contact'});
 
+Product.belongsTo(Seller); //sellerID on product
+Seller.hasMany(Product); //symmetrical
 Seller.hasMany(Photo, {as: 'seller'}); //sellerID on photo
 
 //symetrical associations?
 Product.belongsTo(BrewType, {as: 'brew'}); //brewID on product
-Product.belongsTo(Unit, {as: 'unit'}); //unitID on product
-
+Product.belongsTo(Unit); //unitID on product
 Product.hasMany(Photo, {as: 'product'}); //productID on photo
 
 //reviews - created from/after product by logged-in user
-Review.belongsTo(Product, {as: 'product'}); //productID on review
-Review.belongsTo(User, {as: 'user'}); //userID on review
+
 
 //shopping sessions - auto-save cart and deliberate purchases
-Cart.belongsTo(User, {as: 'user'}); //userID on cart... within cart.contents there are the productIDs (keys) and Quantities (values)
-
-
-//need to add order status
-
-
-
+Cart.belongsTo(User); //userID on cart... within cart.contents there are the productIDs (keys) and Quantities (values)
+Review.belongsTo(Product); //productID on review
+Review.belongsTo(User); //userID on review
+Review.hasMany(Photo, {as: 'review'});
 
 module.exports = {
 	User,
