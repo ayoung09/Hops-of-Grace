@@ -47,7 +47,8 @@ const seedProducts = () => db.Promise.map([
 
 db.didSync
   .then(() => db.sync({force: true}))
-  .then(() => Promise.all([seedUsers(), seedSellers(), seedAddresses(), seedBrewTypes(), seedUnits(), seedProducts()]))
+  .then(() => Promise.all([seedUsers(), seedAddresses(), seedBrewTypes(), seedUnits()]))
+  .then(() => Promise.all([seedSellers(), seedProducts()]))
   .then((results) => {
     console.log(`Data seeded successfully`);
     console.log('These are the results: ', results);
