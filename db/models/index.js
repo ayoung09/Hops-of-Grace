@@ -6,12 +6,12 @@
 
 //I'm commenting out, but including models from Alexia in order to set relationships...
 
-
 const User = require('./user');
 const OAuth = require('./oauth');
+const Seller = require('./seller');
+const Address = require('./address');
 
 const Product = require('./product');
-const Seller = require('./seller');
 const Review = require('./review');
 
 const Photo = require('./photo');
@@ -20,6 +20,12 @@ const Unit = require('./unit');
 
 OAuth.belongsTo(User);
 User.hasOne(OAuth);
+Seller.belongsTo(User);
+User.hasOne(Seller);
+
+User.belongsTo(Address, {as: 'shipping'});
+User.belongsTo(Address, {as: 'billing'});
+Seller.belongsTo(Address, {as: 'contact'});
 
 Product.belongsTo(Seller); //sellerID on product
 Seller.hasMany(Product); //symmetrical
