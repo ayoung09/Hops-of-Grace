@@ -3,7 +3,7 @@
 const Sequelize = require('sequelize');
 const db = require('APP/db');
 
-const Address = db.define('address', {
+const Address = db.define('addresses', {
   streetAddress: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -20,7 +20,6 @@ const Address = db.define('address', {
     type: Sequelize.STRING, //to do: validate for accuracy
     allowNull: false,
     validate: {
-      isNumeric: true,
       len: [5],
     },
   },
@@ -28,7 +27,6 @@ const Address = db.define('address', {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      isNumeric: true,
       len: [10],
     },
   },
