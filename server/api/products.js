@@ -19,19 +19,15 @@ module.exports = require('express').Router()
 		.catch(next))
 // edit a beer's info (seller only)
 	.put('/:productId', (req, res, next) =>
-		Product.update({
-			where: { id: req.params.productId }
-		})
+		Product.findById(req.params.productId)
+		.then(product => product.update(req.body))
 		.then(productUpdated => res.send(productUpdated))
 		.catch(next))
 // delete a beer (seller only)
 	.delete('/:productId', (req, res, next) =>
-		Product.destroy({
-			where: { id: req.params.productId }
-		})
-		.then(done =>{
-			res.send('product destroyed!')
-		})
+		Product.findById(req.params.productId)
+		.then(product => product.destroy())
+		.then(() => res.sendStatus(204))
 		.catch())
 // get info for an individual beer - eager-loading gallore!
 	.get('/:productId', (req, res, next) =>
