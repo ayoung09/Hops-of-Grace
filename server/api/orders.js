@@ -15,24 +15,24 @@ module.exports = require('express').Router()
 			include: [ User, Seller ]
 		})
 		.then(orders => res.json(orders))
-		.catch())
+		.catch(next))
 // add a new order
 	.post('/', (req, res, next) =>
 		Order.create(req.body)
 		.then(newOrder => res.json(newOrder))
-		.catch())
+		.catch(next))
 // edit an order info (maybe not necessary?)
 	.put('/:orderId', (req, res, next) =>
 		Order.findById(req.params.orderId)
 		.then(order => order.update(req.body))
 		.then(updatedOrder => res.json(updatedOrder))
-		.catch())
+		.catch(next))
 // delete an order (hopefully won't ever want to use this)
 	.delete('/:orderId', (req, res, next) =>
 		Order.findById(req.params.orderId)
 		.then(order => order.destroy())
 		.then(() => res.sendStatus(204))
-		.catch())
+		.catch(next))
 // get info for order by ID
 	.get('/:orderId', (req, res, next) =>
 		Order.findOne({
@@ -40,4 +40,4 @@ module.exports = require('express').Router()
 			include: [ User, Seller ]
 		})
 		.then(order => res.json(order))
-		.catch())
+		.catch(next))
