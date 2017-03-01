@@ -45,13 +45,54 @@ const seedProducts = () => db.Promise.map([
   ], product => db.model('products').create(product));
 
 
+const seedPhotos = () => db.Promise.map([
+  {source: 'this is a photo url', caption: 'Some dang good beer', product_id: 1, seller_id: 1},
+  {source: 'this is a second photo url', caption: 'Your penguin waiter will definitely take a sip', product_id: 1, seller_id: 1}
+  ], photo => db.model('photos').create(photo));
+
+
+const seedReviews = () => db.Promise.map([
+  {writeUp: 'Definitely a must-try! Just trust me, you NEED to buy this!', stars: 5, product_id: 1, user_id: 3},
+  {writeUp: 'Eh... It was okay. Not super impressive, but I might consider buying again.', stars: 3, product_id: 1, user_id: 2}
+  ], review => db.model('reviews').create(review));
+
+
+const seedCarts = () => db.Promise.map([
+  {contents: [{
+      product: {
+        id: 1,
+        name: 'Penguin Popper Ale',
+        price: 19.95,
+        seller_id: 1},
+      unit: 'growler',
+      quantity: 4
+    }],
+    user_id: 3},
+  ], cart => db.model('carts').create(cart));
+
+
+const seedOrders = () => db.Promise.map([
+  {contents: [{
+      product: {
+        id: 1,
+        name: 'Penguin Popper Ale',
+        price: 19.95,
+        seller_id: 1},
+      unit: 'growler',
+      quantity: 1
+    }],
+    user_id: 3},
+  ], order => db.model('orders').create(order));
+
+
 db.didSync
   .then(() => db.sync({force: true}))
   .then(() => Promise.all([seedUsers(), seedAddresses(), seedBrewTypes(), seedUnits()]))
-  .then(() => Promise.all([seedSellers(), seedProducts()]))
-  .then((results) => {
+  .then(() => Promise.all([seedSellers()]))
+  .then(() => Promise.all([seedProducts()]))
+  .then(() => Promise.all([seedPhotos(), seedReviews(), seedCarts(), seedOrders()]))
+  .then(() => {
     console.log(`Data seeded successfully`);
-    console.log('These are the results: ', results);
   })
   .catch(error => console.error(error))
   .finally(() => db.close());

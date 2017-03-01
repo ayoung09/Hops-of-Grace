@@ -5,12 +5,12 @@ const db = require('APP/db');
 
 const Cart = db.define('carts', {
   contents: { // productId:quantity pairs as a JSONB
-    type: Sequelize.JSONB,
+    type: Sequelize.ARRAY(Sequelize.JSONB),
     allowNull: false,
   },
   session: { //from cookies when logged-in
     type: Sequelize.INTEGER,
-    allowNull: false,
+    //allowNull: false, //comment back in later
   },
   date: { //track last edits and auto-save
     type: Sequelize.DATE,

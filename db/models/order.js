@@ -5,7 +5,7 @@ const db = require('APP/db');
 
 const Order = db.define('orders', {
   contents: { // productId:quantity pairs as a JSONB
-    type: Sequelize.JSONB,
+    type: Sequelize.ARRAY(Sequelize.JSONB),
     allowNull: false,
   },
   date: { //track date submitted
