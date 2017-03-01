@@ -5,6 +5,10 @@ const api = module.exports = require('express').Router()
 
 api
   .get('/heartbeat', (req, res) => res.send({ok: true,}))
+  .use('/', (req, res, next) => {
+    console.log(req.session)
+    next();
+  })
   .use('/auth', require('./auth'))
   .use('/users', require('./users'))
   .use('/sellers', require('./sellers'))

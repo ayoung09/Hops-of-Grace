@@ -8,33 +8,14 @@ const Product = db.define('products', {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  flavor: {
-    type: Sequelize.ARRAY(Sequelize.TEXT),
-  },
   description: {
     type: Sequelize.TEXT
   },
   price: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.DECIMAL,
     allowNull: false,
-  },
-  quantity: {
-    type: Sequelize.INTEGER,
-    defaultValue: 0,
-    validate: {
-      isInt: true,
-    }
-  },
-  // I'm assuming that the following will be added thru associations (see index)
-  // BrewID... unique brew types... each product can have one
-  // SellerID... one seller per product
-  // Photos... multiple to one product entry
-  // UnitID... set types of sale
-}, {
-	indexes: [{fields: ['name'], unique: true,}],
-  // hooks: {
-  //   beforeValidate: //set a method of setting baseline price
-  // },
+  }
+  // Removed 'Quantity'...inventory to be implemented elsewhere
 })
 
 module.exports = Product;

@@ -3,11 +3,11 @@
 const Sequelize = require('sequelize');
 const db = require('APP/db');
 
-const Unit = db.define('units', {
+const Flavor = db.define('flavors', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
   }
 })
 
-module.exports = Unit;
+module.exports = Flavor;

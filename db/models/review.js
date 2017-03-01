@@ -13,6 +13,7 @@ const Review = db.define('reviews', {
     allowNull: false,
     defaultValue: 0,
     validate: {
+      min: 1,
       max: 5,
     }
   },
