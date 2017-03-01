@@ -15,7 +15,7 @@ module.exports = require('express').Router()
 	.get('/', (req, res, next) =>
 		Product.findAll({
 			where: req.query,
-			include: [ Seller, Unit, Reviews, {
+			include: [ Seller, Unit, Reviews, {  //Do we need all these things?
 				model: Brew,
 				as: 'brew'
 			}] //Photos - rework these associations
@@ -26,7 +26,7 @@ module.exports = require('express').Router()
 // add a new beer (seller only)
 	.post('/', (req, res, next) =>
 		Product.create(req.body)
-		.then(newProduct => res.json(newProduct))
+		.then(newProduct => res.json(newProduct)) //status 201
 		.catch(next))
 // edit a beer's info (seller only)
 	.put('/:productId', (req, res, next) =>

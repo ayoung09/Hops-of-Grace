@@ -15,7 +15,7 @@ module.exports = require('express').Router()
 // make a new address
 	.post('/', (req, res, next) =>
 		Address.create(req.body)
-		.then(newAddress => res.json(newAddress))
+		.then(newAddress => res.json(newAddress)) //Probably need a 201
 		.catch(next))
 // change an address
 	.put('/:addressId', (req, res, next) =>
@@ -26,16 +26,18 @@ module.exports = require('express').Router()
 		.then(address => res.json(address))
 		.catch(next))
 // delete an address
+//Protect this route? Who has permissions to do this?
 	.delete('/:addressId', (req, res, next) =>
 		Address.findById(req.params.addressId)
 		.then(address => {
-			return address.destroy()
+			return address.destroy()  //where clause needed
 		})
 		.then(() => {
 			res.sendStatus(204)
 		})
 		.catch(next))
 // get an address by id
+//Maybe put this up top with the other get
 	.get('/:addressId', (req, res, next) =>
 		Address.findById(req.params.addressId)
 		.then(address => res.json(address))

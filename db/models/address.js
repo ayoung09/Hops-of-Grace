@@ -14,18 +14,19 @@ const Address = db.define('addresses', {
   },
   state: {
     type: Sequelize.STRING, //to do: validate for actual state
-    allowNull: false,
+    allowNull: false, // Do we just want a length of 2 validation?
   },
   zipCode: {
     type: Sequelize.STRING, //to do: validate for accuracy
     allowNull: false,
     validate: {
-      len: [5],
+      len: [5], // what about 9 digit codes?
     },
   },
+  // Does it make sense to separate area code?
   phoneNumber: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: false,  // They need a phoneNumber?
     validate: {
       len: [10],
     },
@@ -36,7 +37,7 @@ const Address = db.define('addresses', {
       return this.streetAddress + '\n' + this.city + ', ' + this.state + ' ' + this.zipCode;
     },
     cityState: function() {
-      return this.city + ', ' + this.address;
+      return this.city + ', ' + this.address;  //what is this.address? does this work?
     },
   },
 });

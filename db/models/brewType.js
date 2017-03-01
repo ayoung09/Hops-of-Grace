@@ -3,13 +3,13 @@
 const Sequelize = require('sequelize');
 const db = require('APP/db');
 
-const BrewType = db.define('brews', {
+const BrewType = db.define('brews', {  // table name different from model name?
   name: {
     type: Sequelize.STRING,
     allowNull: false,
   },
   flavor: {
-    type: Sequelize.ARRAY(Sequelize.TEXT),
+    type: Sequelize.ARRAY(Sequelize.TEXT), // Why use an array vs. an ENUM or foreign key to another table?
   },
   description: {
     type: Sequelize.TEXT
@@ -19,7 +19,7 @@ const BrewType = db.define('brews', {
   // SellerID... one to one
   // Photos... multiple to one product entry
 }, {
-	indexes: [{fields: ['name'], unique: true,}],
+	indexes: [{fields: ['name'], unique: true,}], //why index on name instead of flavor?
 })
 
 module.exports = BrewType;

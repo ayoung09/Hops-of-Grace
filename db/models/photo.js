@@ -4,7 +4,7 @@ const Sequelize = require('sequelize');
 const db = require('APP/db');
 
 const Photo = db.define('photos', {
-  source: {
+  source: { //Maybe filepath instead?
     type: Sequelize.STRING,
     allowNull: false,
   },
