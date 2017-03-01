@@ -14,10 +14,18 @@ module.exports = require('express').Router()
 			include: [ Product, Photo ] })
 		.then(reviews => res.json(reviews))
 		.catch(next))
+// get a single review
+	.get('/:reviewId', (req, res, next) =>
+		Review.findById({
+			where: {id: req.params.reviewId},
+			include: [ Product, Photo ]
+		})
+		.then(review => res.json(review))
+		.catch(next))
 // add a new review
 	.post('/', (req, res, next) =>
 		Review.create(req.body)
-		.then(newReview => res.json(newReview))
+		.then(newReview => res.status(201).json(newReview))
 		.catch(next))
 // edit a review
 	.put('/:reviewId', (req, res, next) =>
@@ -30,12 +38,4 @@ module.exports = require('express').Router()
 		Review.findOne()
 		.then(review => review.destroy())
 		.then(() => res.sendStatus(204))
-		.catch(next))
-// get a single review
-	.get('/:reviewId', (req, res, next) =>
-		Review.findById({
-			where: {id: req.params.reviewId},
-			include: [ Product, Photo ]
-		})
-		.then(review => res.json(review))
 		.catch(next))
