@@ -6,7 +6,7 @@ const seedUsers = () => db.Promise.map([
   {name: 'Mary Poppins', email: 'super@example.com', password: '1234', dob: '1970-11-17', contact_id: 1},
   {name: 'Tony Tiger', email: 'frosted@example.com', password: '1234', dob: '1986-04-01', contact_id: 2},
   {name: 'Grandmother Willow', email: 'listenwithheart@example.com', password: '1234', dob: '1684-01-01', shipping_id: 3}
-], user => db.model('users').create(user));
+], user => db.model('users').create(user, {hooks: true}));
 
 
 const seedSellers = () => db.Promise.map([
