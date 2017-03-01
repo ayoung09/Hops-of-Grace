@@ -7,6 +7,8 @@ const Seller = db.model('sellers');
 
 const { mustBeLoggedIn, forbidden } = require('./auth.filters');
 
+//eager loading to be considered after general discussion...
+
 module.exports = require('express').Router()
 // get all orders
 	.get('/', (req, res, next) =>
@@ -16,10 +18,18 @@ module.exports = require('express').Router()
 		})
 		.then(orders => res.json(orders))
 		.catch(next))
+// get info for order by ID
+	.get('/:orderId', (req, res, next) =>
+		Order.findOne({
+			where: {id: req.params.orderId},
+			include: [ User, Seller ]
+		})
+		.then(order => res.json(order))
+		.catch(next))
 // add a new order
 	.post('/', (req, res, next) =>
 		Order.create(req.body)
-		.then(newOrder => res.json(newOrder))
+		.then(newOrder => res.status(201).json(newOrder))
 		.catch(next))
 // edit an order info (maybe not necessary?)
 	.put('/:orderId', (req, res, next) =>
@@ -33,11 +43,4 @@ module.exports = require('express').Router()
 		.then(order => order.destroy())
 		.then(() => res.sendStatus(204))
 		.catch(next))
-// get info for order by ID
-	.get('/:orderId', (req, res, next) =>
-		Order.findOne({
-			where: {id: req.params.orderId},
-			include: [ User, Seller ]
-		})
-		.then(order => res.json(order))
-		.catch(next))
+

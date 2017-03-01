@@ -12,10 +12,15 @@ module.exports = require('express').Router()
 		Address.findAll({ where: req.query })
 		.then(addresses => res.json(addresses))
 		.catch(next))
+// get an address by id
+	.get('/:addressId', (req, res, next) =>
+		Address.findById(req.params.addressId)
+		.then(address => res.json(address))
+		.catch(next))
 // make a new address
 	.post('/', (req, res, next) =>
 		Address.create(req.body)
-		.then(newAddress => res.json(newAddress))
+		.then(newAddress => res.status(201).json(newAddress))
 		.catch(next))
 // change an address
 	.put('/:addressId', (req, res, next) =>
@@ -34,9 +39,4 @@ module.exports = require('express').Router()
 		.then(() => {
 			res.sendStatus(204)
 		})
-		.catch(next))
-// get an address by id
-	.get('/:addressId', (req, res, next) =>
-		Address.findById(req.params.addressId)
-		.then(address => res.json(address))
 		.catch(next))

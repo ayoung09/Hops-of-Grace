@@ -23,23 +23,6 @@ module.exports = require('express').Router()
 		 })
 		.then(users => res.json(users))
 		.catch(next))
-// create a new user
-	.post('/', (req, res, next) =>
-		User.create(req.body)
-		.then(newUser => res.json(newUser))
-		.catch(next))
-// update a user
-	.put('/:userId', (req, res, next) =>
-		User.findById(req.params.userId)
-		.then(user => user.update(req.body))
-		.then(user => res.json(user))
-		.catch(next))
-// delete a user (admin or user itself)
-	.delete('/:userId', (req, res, next) =>
-		User.findById(req.params.userId)
-		.then(user => user.destroy())
-		.then(() => res.sendStatus(204))
-		.catch(next))
 // get an individual user
 // eager loading does not currently include Seller and Cart, will be approached later
 	.get('/:userId', (req, res, next) =>
@@ -59,3 +42,21 @@ module.exports = require('express').Router()
 		.catch(next))
 
 		// include: [ Cart ]
+
+// create a new user
+	.post('/', (req, res, next) =>
+		User.create(req.body)
+		.then(newUser => res.status(201).json(newUser))
+		.catch(next))
+// update a user
+	.put('/:userId', (req, res, next) =>
+		User.findById(req.params.userId)
+		.then(user => user.update(req.body))
+		.then(user => res.json(user))
+		.catch(next))
+// delete a user (admin or user itself)
+	.delete('/:userId', (req, res, next) =>
+		User.findById(req.params.userId)
+		.then(user => user.destroy())
+		.then(() => res.sendStatus(204))
+		.catch(next))
