@@ -23,21 +23,21 @@ const Cart = require('./cart');
 
 OAuth.belongsTo(User);
 User.hasOne(OAuth);
-Seller.belongsTo(User);
+Seller.belongsTo(User); //Sellers are users? I guess that makes sense
 User.hasOne(Seller);
 
 User.belongsTo(Address, {as: 'shipping'});
 User.belongsTo(Address, {as: 'billing'});
-Seller.belongsTo(Address, {as: 'contact'});
+Seller.belongsTo(Address, {as: 'contact'});  //So then sellers effectively have shipping and billing addresses too? Because of the association above Seller.belongsTo(User)
 
 Product.belongsTo(Seller); //sellerID on product
 Seller.hasMany(Product); //symmetrical
-Seller.hasMany(Photo, {as: 'seller'}); //sellerID on photo
+Seller.hasMany(Photo, {as: 'seller'}); //sellerID on photo //Photos of the brewery? Also wrong direction
 
 //symetrical associations?
 Product.belongsTo(BrewType, {as: 'brew'}); //brewID on product
 Product.belongsTo(Unit); //unitID on product
-Product.hasMany(Photo, {as: 'product'}); //productID on photo
+Product.hasMany(Photo, {as: 'product'}); //productID on photo  //Shouldn't this be the other way around?
 Photo.belongsTo(Product); //brewID on product
 
 
@@ -46,8 +46,9 @@ Cart.belongsTo(User); //userID on cart... within cart.contents there are the pro
 Review.belongsTo(Product); //productID on review
 Product.hasMany(Review); //reviewID on product
 Review.belongsTo(User); //userID on review
-Review.hasMany(Photo, {as: 'review'});
+Review.hasMany(Photo, {as: 'review'});  //Wrong direction
 
+//We aren't exporting everything
 module.exports = {
 	User,
 	Product,

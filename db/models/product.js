@@ -9,15 +9,16 @@ const Product = db.define('products', {
     allowNull: false,
   },
   flavor: {
-    type: Sequelize.ARRAY(Sequelize.TEXT),
+    type: Sequelize.ARRAY(Sequelize.TEXT), // Why not use another table with FKs?
   },
   description: {
     type: Sequelize.TEXT
   },
   price: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.FLOAT, //use decimal
     allowNull: false,
   },
+  // Is it appropriate to couple product and quantity?
   quantity: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
@@ -31,7 +32,7 @@ const Product = db.define('products', {
   // Photos... multiple to one product entry
   // UnitID... set types of sale
 }, {
-	indexes: [{fields: ['name'], unique: true,}],
+	indexes: [{fields: ['name'], unique: true,}], //Probably not what we want
   // hooks: {
   //   beforeValidate: //set a method of setting baseline price
   // },
