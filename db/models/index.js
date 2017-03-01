@@ -32,13 +32,12 @@ Seller.belongsTo(Address, {as: 'contact'});
 
 Product.belongsTo(Seller); //sellerID on product
 Seller.hasMany(Product); //symmetrical
-Seller.hasMany(Photo, {as: 'seller'}); //sellerID on photo
+Seller.belongsTo(Photo); //photoID on seller
 
 //symetrical associations?
 Product.belongsTo(BrewType, {as: 'brew'}); //brewID on product
 Product.belongsTo(Unit); //unitID on product
-Product.hasMany(Photo, {as: 'product'}); //productID on photo
-Photo.belongsTo(Product); //brewID on product
+Product.belongsTo(Photo); //photoID on product
 
 
 //shopping sessions - auto-save cart and deliberate purchases
@@ -46,7 +45,7 @@ Cart.belongsTo(User); //userID on cart... within cart.contents there are the pro
 Review.belongsTo(Product); //productID on review
 Product.hasMany(Review); //reviewID on product
 Review.belongsTo(User); //userID on review
-Review.hasMany(Photo, {as: 'review'});
+Review.belongsTo(Photo); //photoID on review
 
 module.exports = {
 	User,
