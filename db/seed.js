@@ -16,9 +16,9 @@ const seedSellers = () => db.Promise.map([
 
 
 const seedAddresses = () => db.Promise.map([
-  {streetAddress: '321 Horse Race Road', city: 'Painting On The', state: 'Sidewalk', zipCode: '54321', phoneNumber: '1234567890'},
+  {streetAddress: '321 Horse Race Road', city: 'Painting On The', state: 'SW', zipCode: '54321', phoneNumber: '1234567890'},
   {streetAddress: '425 Super Flakey Street', city: 'Cartoon City', state: 'TV', zipCode: '11111', phoneNumber: '2345678901'},
-  {streetAddress: '199 Willow Way', city: 'Middle of the Forest', state: 'Woods', zipCode: '22222', phoneNumber: '0987654321'}
+  {streetAddress: '199 Willow Way', city: 'Middle of the Forest', state: 'WD', zipCode: '22222', phoneNumber: '0987654321'}
   ], address => db.model('addresses').create(address));
 
 
