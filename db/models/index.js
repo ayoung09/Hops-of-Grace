@@ -38,13 +38,13 @@ Seller.hasMany(Photo, {as: 'seller'}); //sellerID on photo
 Product.belongsTo(BrewType, {as: 'brew'}); //brewID on product
 Product.belongsTo(Unit); //unitID on product
 Product.hasMany(Photo, {as: 'product'}); //productID on photo
-
-//reviews - created from/after product by logged-in user
+Photo.belongsTo(Product); //brewID on product
 
 
 //shopping sessions - auto-save cart and deliberate purchases
 Cart.belongsTo(User); //userID on cart... within cart.contents there are the productIDs (keys) and Quantities (values)
 Review.belongsTo(Product); //productID on review
+Product.hasMany(Review); //reviewID on product
 Review.belongsTo(User); //userID on review
 Review.hasMany(Photo, {as: 'review'});
 

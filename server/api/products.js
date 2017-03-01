@@ -2,13 +2,24 @@
 
 const db = require('APP/db')
 const Product = db.model('products')
+const Seller = db.model('sellers')
+const Brew = db.model('brews')
+const Unit = db.model('units')
+const Photos = db.model('photos')
+const Reviews = db.model('reviews')
 
 const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
 
 module.exports = require('express').Router()
 // list all beers or all beers by tag or beers by brewType -- add eager loading here too
 	.get('/', (req, res, next) =>
-		Product.findAll({ where: req.query },{ include: [ seller_id, brew_id, unit_id, photos, reviews ] }) //what are the aliases? rework
+		Product.findAll({
+			where: req.query,
+			include: [ Seller, Unit, Reviews, {
+				model: Brew,
+				as: 'brew'
+			}] //Photos - rework these associations
+		})
 		.then(products => res.send(products))
 		// .then(products => res.send('hit route'))
 		.catch(next))
@@ -31,7 +42,13 @@ module.exports = require('express').Router()
 		.catch())
 // get info for an individual beer
 	.get('/:productId', (req, res, next) =>
-		Product.findOne({ where: req.params.productId },{ include: [ seller_id, brew_id, unit_id, photos, reviews ] }) //again structure
+		Product.findOne({
+			where: req.params.productId,
+			include: [ Seller, Unit, Reviews, {
+				model: Brew,
+				as: 'brew'
+			}] //Photos ]
+		}) //see above for association rework...
 		.then(product => { // EAGER ME!
 			res.send(product);
 		})
