@@ -11,7 +11,7 @@ module.exports = require('express').Router()
 	.get('/', (req, res, next) =>
 		Review.findAll({
 			where: req.query,
-			include: [ Product, Photo ] })
+			include: [ Product, Photo ] }) //photos not working, products fine.
 		.then(reviews => res.json(reviews))
 		.catch(next))
 // add a new review
@@ -35,7 +35,7 @@ module.exports = require('express').Router()
 	.get('/:reviewId', (req, res, next) =>
 		Review.findById({
 			where: {id: req.params.reviewId},
-			include: [ Product, Photo ]
+			include: [ Product ] //, Photo ]
 		})
 		.then(review => res.json(review))
 		.catch(next))
