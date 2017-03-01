@@ -25,7 +25,15 @@ const User = db.define('users', {
       isBefore: "1996-03-01", //user must be over 21
     }
   },
-  isAuthenticated: Sequelize.BOOLEAN,
+  isAuthenticated: {
+    type: Sequelize.BOOLEAN,
+    //not sure if this getter method will work... we may want to rethink how we determine if a user is authenticated
+    get: function() {
+      var password = this.getDataValue('password_digest');
+      var oAuth = this.getOAuth();
+      return (password || oAuth);
+    }
+  },
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
@@ -33,7 +41,7 @@ const User = db.define('users', {
 }, {
 	indexes: [{fields: ['email'], unique: true}],
   hooks: {
-    beforeCreate: function(user) {setEmailAndPassword(user); setAuthentication(user)},
+    beforeCreate: setEmailAndPassword,
     beforeUpdate: setEmailAndPassword,
   },
   instanceMethods: {
@@ -61,10 +69,10 @@ function setEmailAndPassword(user) {
   );
 }
 
-function setAuthentication(user) {
-  if (!user.password && !user.OAuthId) user.isAuthenticated = false;
-  else user.isAuthenticated = true;
-  return Promise.resolve(user);
-}
+// function setAuthentication(user) {
+//   if (!user.password && !user.OAuthId) user.isAuthenticated = false;
+//   else user.isAuthenticated = true;
+//   return Promise.resolve(user);
+// }
 
 module.exports = User;
