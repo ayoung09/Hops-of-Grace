@@ -7,26 +7,28 @@ const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
 module.exports = require('express').Router()
 // get all types
 	.get('/', (req, res, next) =>
-		BrewType.findAll()
-		.then()
-		.catch())
+		BrewType.findAll({ where: req.query })
+		.then(types => res.json(types))
+		.catch(next))
 // add a new type of beer
 	.post('/', (req, res, next) =>
-		BrewType.create()
-		.then()
-		.catch())
+		BrewType.create(req.body)
+		.then(newType => res.json(newType))
+		.catch(next))
 // edit info for a type of beer
 	.put('/:brewTypeId', (req, res, next) =>
-		BrewType.update()
-		.then()
-		.catch())
+		BrewType.findById(req.params.brewTypeId)
+		.then(type => type.update(req.body))
+		.then(updatedType => res.json(updatedType))
+		.catch(next))
 // delete a brew type
-	.delete('/', (req, res, next) =>
-		BrewType.destroy()
-		.then()
-		.catch())
+	.delete('/:brewTypeId', (req, res, next) =>
+		BrewType.findById(req.params.brewTypeId)
+		.then(type => type.destroy())
+		.then(() => res.sendStatus(204))
+		.catch(next))
 // get a single brew type
 	.get('/:brewTypeId', (req, res, next) =>
-		BrewType.findById()
-		.then()
-		.catch())
+		BrewType.findById(req.params.brewTypeId)
+		.then(type => res.json(type))
+		.catch(next))
