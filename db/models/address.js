@@ -15,12 +15,15 @@ const Address = db.define('addresses', {
   state: {
     type: Sequelize.STRING, //to do: validate for actual state
     allowNull: false,
+    validate: {
+      len: [2],
+    }
   },
   zipCode: {
     type: Sequelize.STRING, //to do: validate for accuracy
     allowNull: false,
     validate: {
-      len: [5],
+      len: [5, 10],
     },
   },
   phoneNumber: {
@@ -36,7 +39,7 @@ const Address = db.define('addresses', {
       return this.streetAddress + '\n' + this.city + ', ' + this.state + ' ' + this.zipCode;
     },
     cityState: function() {
-      return this.city + ', ' + this.address;
+      return this.city + ', ' + this.state;
     },
   },
 });
