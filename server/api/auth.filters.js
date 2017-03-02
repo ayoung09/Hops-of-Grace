@@ -17,7 +17,7 @@ const forbidden = message => (req, res, next) => {
 };
 
 const adminOnly = (req, res, next) => {
-  if (!req.params.isAdmin) {
+  if (!req.user.isAdmin) {
     return forbidden('You must be an admin to access.');
   }
   next();
