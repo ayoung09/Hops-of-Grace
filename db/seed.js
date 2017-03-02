@@ -31,7 +31,7 @@ const seedBrewTypes = () => db.Promise.map([
   {name: 'Doppelbock', description: 'Doppelbocks are stronger than the traditional style and boast a higher alcohol content and a fuller body.'},
   {name: 'English Brown Ale', description: 'English brown ales feature a nutty malt flavor with a caramel aroma.'},
   {name: 'American IPA', description: 'American IPAs have more hops, big herbal or citrus flavors, and high bitterness compared to pale ale.'},
-  ], brewType => db.model('brews').create(brewType));
+  ], brewType => db.model('brewTypes').create(brewType));
 
 
 const seedUnits = () => db.Promise.map([
