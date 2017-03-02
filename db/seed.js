@@ -48,7 +48,7 @@ const seedUnits = () => db.Promise.map([
 
 
 const seedProducts = () => db.Promise.map([
-  {name: 'Penguin Popper Ale', flavor: ['nutty', 'caramel'], description: 'So good, your penguin waiter might take a sip first', price: 19.95, quantity: 40, unit_id: 1, seller_id: 1, brew_id: 6, inventory_id: 1},
+  {name: 'Penguin Popper Ale', flavor: ['nutty', 'caramel'], description: 'So good, your penguin waiter might take a sip first', price: 19.95, unit_id: 1, seller_id: 1, brew_id: 6, inventory_id: 1},
   ], product => db.model('products').create(product));
 
   const seedInventories = () => db.Promise.map([
@@ -88,8 +88,8 @@ db.didSync
   .then(() => db.sync({force: true}))
   .then(() => Promise.all([seedUsers(), seedAddresses(), seedBrewTypes(), seedUnits()]))
   .then(() => Promise.all([seedSellers()]))
-  .then(() => Promise.all([seedProducts(), seedInventories()]))
-  .then(() => Promise.all([seedPhotos(), seedReviews(), seedCarts(), seedOrders(), seedCartProductQtys()]))
+  .then(() => Promise.all([seedProducts()]))
+  .then(() => Promise.all([seedPhotos(), seedReviews(), seedCarts(), seedOrders(), seedCartProductQtys(), seedInventories()]))
   .then(() => {
     console.log(`Data seeded successfully`);
   })
