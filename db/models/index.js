@@ -33,7 +33,6 @@ User.belongsTo(Address, {as: 'shipping'});
 User.belongsTo(Address, {as: 'billing'});
 Seller.belongsTo(Address, {as: 'contact'});
 
-Product.belongsTo(Inventory);
 Inventory.belongsTo(Product);
 Product.belongsTo(Seller); //sellerID on product
 Seller.hasMany(Product); //symmetrical
