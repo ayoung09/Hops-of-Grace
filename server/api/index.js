@@ -20,6 +20,7 @@ api
   .use('/photos', require('./photos'))
   .use('/brewTypes', require('./brewTypes'))
   .use('/flavors', require('./flavors'))
+  .use('/cartProductQts', require('./cartProductQts'))
   //will need to update routes for the new structure of cart/order if we create additional elements
 
 // No routes matched? 404.

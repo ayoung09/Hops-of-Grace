@@ -3,7 +3,9 @@
 const db = require('APP/db');
 const Order = db.model('orders');
 const User = db.model('users');
-const Seller = db.model('sellers');
+const Product = db.model('products');
+const Cart = db.model('carts');
+const CartProductQty = db.model('cartProductQtys');
 
 const { mustBeLoggedIn, forbidden } = require('./auth.filters');
 
@@ -14,7 +16,6 @@ module.exports = require('express').Router()
 	.get('/', (req, res, next) =>
 		Order.findAll({
 			where: req.query,
-			include: [ User, Seller ]
 		})
 		.then(orders => res.json(orders))
 		.catch(next))
@@ -22,7 +23,14 @@ module.exports = require('express').Router()
 	.get('/:orderId', (req, res, next) =>
 		Order.findOne({
 			where: {id: req.params.orderId},
-			include: [ User, Seller ]
+			include: [ {
+				model: Cart,
+				include: [ {
+					model: User}, {
+					model: CartProductQty,
+					include: [ Product ]}
+				]
+			}]
 		})
 		.then(order => res.json(order))
 		.catch(next))
