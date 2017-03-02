@@ -50,8 +50,8 @@ Product.belongsToMany(Flavor, {through: 'BrewTypeFlavor'});
 
 //shopping sessions - auto-save cart and deliberate purchases
 Cart.belongsTo(User); //userID on cart... within cart.contents there are the productIDs (keys) and Quantities (values)
-CartProductQty.belongsToMany(Cart); //cartID on cartProductQty
-CartProductQty.belongsToMany(Product); //productID on cartProductQty
+Cart.belongsToMany(Product, {through: 'CartProductQty'});
+Product.belongsToMany(Cart, { through: 'CartProductQty'});
 Order.belongsTo(Cart);
 
 Review.belongsTo(Product); //productID on review
@@ -68,5 +68,9 @@ module.exports = {
 	Unit,
 	Review,
 	Flavor,
-	Cart
+	Cart,
+	CartProductQty,
+	Order,
+	Address,
+	OAuth,
 };
