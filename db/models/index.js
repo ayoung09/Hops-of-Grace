@@ -33,7 +33,7 @@ User.belongsTo(Address, {as: 'billing'});
 Seller.belongsTo(Address, {as: 'contact'});
 
 Product.belongsTo(Inventory);
-//Inventory.belongsTo(Product); no real use case for using inventory to get back to product...
+Inventory.belongsTo(Product);
 Product.belongsTo(Seller); //sellerID on product
 Seller.hasMany(Product); //symmetrical
 Seller.belongsTo(Photo); //photoID on seller
@@ -66,5 +66,6 @@ module.exports = {
 	Unit,
 	Review,
 	Flavor,
-	Cart
+	Cart,
+	Inventory
 };
