@@ -13,6 +13,7 @@ const Address = require('./address');
 
 const Product = require('./product');
 const Review = require('./review');
+const Inventory = require('./inventory');
 
 const Photo = require('./photo');
 const BrewType = require('./brewType');
@@ -32,6 +33,7 @@ User.belongsTo(Address, {as: 'shipping'});
 User.belongsTo(Address, {as: 'billing'});
 Seller.belongsTo(Address, {as: 'contact'});
 
+Inventory.belongsTo(Product);
 Product.belongsTo(Seller); //sellerID on product
 Seller.hasMany(Product); //symmetrical
 Seller.belongsTo(Photo); //photoID on seller
@@ -50,8 +52,8 @@ Product.belongsToMany(Flavor, {through: 'BrewTypeFlavor'});
 
 //shopping sessions - auto-save cart and deliberate purchases
 Cart.belongsTo(User); //userID on cart... within cart.contents there are the productIDs (keys) and Quantities (values)
-CartProductQty.belongsToMany(Cart); //cartID on cartProductQty
-CartProductQty.belongsToMany(Product); //productID on cartProductQty
+Cart.belongsToMany(Product, {through: 'cartProductQtys'});
+Product.belongsToMany(Cart, { through: 'cartProductQtys'});
 Order.belongsTo(Cart);
 
 Review.belongsTo(Product); //productID on review
@@ -68,5 +70,10 @@ module.exports = {
 	Unit,
 	Review,
 	Flavor,
-	Cart
+	Cart,
+	Inventory,
+	CartProductQty,
+	Order,
+	Address,
+	OAuth,
 };
