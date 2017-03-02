@@ -69,5 +69,6 @@ module.exports = {
 	Review,
 	Flavor,
 	Cart,
-	CartProductQty
+	CartProductQty,
+	Order,
 };
