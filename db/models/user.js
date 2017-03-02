@@ -69,10 +69,4 @@ function setEmailAndPassword(user) {
   );
 }
 
-// function setAuthentication(user) {
-//   if (!user.password && !user.OAuthId) user.isAuthenticated = false;
-//   else user.isAuthenticated = true;
-//   return Promise.resolve(user);
-// }
-
 module.exports = User;

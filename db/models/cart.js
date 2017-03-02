@@ -4,20 +4,20 @@ const Sequelize = require('sequelize');
 const db = require('APP/db');
 
 const Cart = db.define('carts', {
-  contents: { // productId:quantity pairs as a JSONB
-    type: Sequelize.ARRAY(Sequelize.JSONB),
-    allowNull: false,
-  },
   session: { //from cookies when logged-in
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     //allowNull: false, //comment back in later
   },
-  date: { //track last edits and auto-save
+  lastEdited: { //track last edits and auto-save
     type: Sequelize.DATE,
     defaultValue: Sequelize.NOW
-  }
+  },
+  status: {
+    type: Sequelize.ENUM('Active', 'Purchased'),
+    defaultValue: 'Active',
+  },
   // I'm assuming that the following will be added thru associations (see index)
   // UserID... one seller per product
-})
+});
 
 module.exports = Cart;
