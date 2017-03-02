@@ -13,6 +13,7 @@ const Address = require('./address');
 
 const Product = require('./product');
 const Review = require('./review');
+const Inventory = require('./inventory');
 
 const Photo = require('./photo');
 const BrewType = require('./brewType');
@@ -32,6 +33,8 @@ User.belongsTo(Address, {as: 'shipping'});
 User.belongsTo(Address, {as: 'billing'});
 Seller.belongsTo(Address, {as: 'contact'});
 
+Product.belongsTo(Inventory);
+Inventory.belongsTo(Product);
 Product.belongsTo(Seller); //sellerID on product
 Seller.hasMany(Product); //symmetrical
 Seller.belongsTo(Photo); //photoID on seller
@@ -69,6 +72,7 @@ module.exports = {
 	Review,
 	Flavor,
 	Cart,
+	Inventory,
 	CartProductQty,
 	Order,
 	Address,

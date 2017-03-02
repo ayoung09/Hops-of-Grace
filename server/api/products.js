@@ -7,6 +7,7 @@ const Brew = db.model('brewTypes')
 const Unit = db.model('units')
 const Photos = db.model('photos')
 const Reviews = db.model('reviews')
+const Inventory =db.model('inventories')
 
 const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
 
@@ -15,7 +16,7 @@ module.exports = require('express').Router()
 	.get('/', (req, res, next) =>
 		Product.findAll({
 			where: req.query,
-			include: [ Seller, Unit, Reviews, Photos, {
+			include: [ Seller, Unit, Reviews, Inventory, Photos, {
 				model: Brew,
 				as: 'brew'
 			}] //Photos - rework these associations
@@ -27,7 +28,7 @@ module.exports = require('express').Router()
 	.get('/:productId', (req, res, next) =>
 		Product.findOne({
 			where: req.params.productId,
-			include: [ Seller, Unit, Reviews, Photos, {
+			include: [ Seller, Unit, Reviews, Inventory, Photos, {
 				model: Brew,
 				as: 'brew'
 			}] //Photos ]
