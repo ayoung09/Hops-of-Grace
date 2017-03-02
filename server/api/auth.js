@@ -1,10 +1,10 @@
-const app = require('APP'), {env} = app
-const debug = require('debug')(`${app.name}:auth`)
-const passport = require('passport')
+const app = require('APP'), {env} = app;
+const debug = require('debug')(`${app.name}:auth`);
+const passport = require('passport');
 
-const User = require('APP/db/models/user')
-const OAuth = require('APP/db/models/oauth')
-const auth = require('express').Router()
+const User = require('APP/db/models/user');
+const OAuth = require('APP/db/models/oauth');
+const auth = require('express').Router();
 
 
 /*************************
