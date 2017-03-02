@@ -1,8 +1,11 @@
 'use strict'
 
-const db = require('APP/db')
-const Cart = db.model('carts')
-const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
+const db = require('APP/db');
+const Cart = db.model('carts');
+const Product = db.model('products');
+const CartProductQty = db.model('cartProductQtys');
+
+const { mustBeLoggedIn, forbidden } = require('./auth.filters');
 
 // changes to structure and required eager loading after the card/order discussion
 
@@ -14,7 +17,10 @@ module.exports = require('express').Router()
 		.catch(next))
 // get a single cart
 	.get('/:cartId', (req, res, next) =>
-		Cart.findById(req.params.cartId)
+		Cart.findOne({
+			where: {id: req.params.cartId},
+			include: [ Product, CartProductQty ],
+		})
 		.then(cart => res.json(cart))
 		.catch(next))
 // make a new cart
@@ -25,7 +31,7 @@ module.exports = require('express').Router()
 // update a cart
 	.put('/:cartId', (req, res, next) =>
 		Cart.findById(req.params.cartId)
-		.then(cart => cart.uodate(req.body))
+		.then(cart => cart.update(req.body))
 		.then(updatedCart => res.json(updatedCart))
 		.catch(next))
 // delete a cart
