@@ -76,5 +76,5 @@ module.exports = {
 	CartProductQty,
 	Order,
 	Address,
-	OAuth
+	OAuth,
 };
