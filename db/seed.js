@@ -39,10 +39,21 @@ const seedUnits = () => db.Promise.map([
   {name: 'six-pack'},
   ], unit => db.model('units').create(unit));
 
+  const seedCartProductQtys = () => db.Promise.map([
+  {quantity: 2,
+   cart_id: 1,
+   product_id: 1,
+   },
+  ], cartProductQty => db.model('cartProductQtys').create(cartProductQty));
+
 
 const seedProducts = () => db.Promise.map([
-  {name: 'Penguin Popper Ale', flavor: ['nutty', 'caramel'], description: 'So good, your penguin waiter might take a sip first', price: 19.95, quantity: 40, unit_id: 1, seller_id: 1, brew_id: 6},
+  {name: 'Penguin Popper Ale', flavor: ['nutty', 'caramel'], description: 'So good, your penguin waiter might take a sip first', price: 19.95, quantity: 40, unit_id: 1, seller_id: 1, brew_id: 6, inventory_id: 1},
   ], product => db.model('products').create(product));
+
+  const seedInventories = () => db.Promise.map([
+  {qtyAvailable: 20, qtySold: 5, lastPurchaed: '2015-02-09'},
+  ], inventory => db.model('inventories').create(inventory));
 
 
 const seedPhotos = () => db.Promise.map([
@@ -58,30 +69,18 @@ const seedReviews = () => db.Promise.map([
 
 
 const seedCarts = () => db.Promise.map([
-  {contents: [{
-      product: {
-        id: 1,
-        name: 'Penguin Popper Ale',
-        price: 19.95,
-        seller_id: 1},
-      unit: 'growler',
-      quantity: 4
-    }],
+  { session: '1234',
+    lastEdited: '2015-02-09',
+    status: 'Purchased',
     user_id: 3},
   ], cart => db.model('carts').create(cart));
 
 
 const seedOrders = () => db.Promise.map([
-  {contents: [{
-      product: {
-        id: 1,
-        name: 'Penguin Popper Ale',
-        price: 19.95,
-        seller_id: 1},
-      unit: 'growler',
-      quantity: 1
-    }],
-    user_id: 3},
+  { date: '2015-02-09',
+    mailedOn: '2015-02-10',
+    status: 'Completed',
+    cart_id: 1},
   ], order => db.model('orders').create(order));
 
 
@@ -89,8 +88,8 @@ db.didSync
   .then(() => db.sync({force: true}))
   .then(() => Promise.all([seedUsers(), seedAddresses(), seedBrewTypes(), seedUnits()]))
   .then(() => Promise.all([seedSellers()]))
-  .then(() => Promise.all([seedProducts()]))
-  .then(() => Promise.all([seedPhotos(), seedReviews(), seedCarts(), seedOrders()]))
+  .then(() => Promise.all([seedProducts(), seedInventories()]))
+  .then(() => Promise.all([seedPhotos(), seedReviews(), seedCarts(), seedOrders(), seedCartProductQtys()]))
   .then(() => {
     console.log(`Data seeded successfully`);
   })
