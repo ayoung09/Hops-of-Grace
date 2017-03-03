@@ -38,6 +38,12 @@ module.exports = app
     keys: [process.env.SESSION_SECRET || 'an insecure secret key'],
   }))
 
+  //session-logging middleware
+  // .use((req, res, next) => {
+  //   console.log('Session is: ', req.session);
+  //   next();
+  // })
+
   // Body parsing middleware
   .use(bodyParser.urlencoded({ extended: true }))
   .use(bodyParser.json())

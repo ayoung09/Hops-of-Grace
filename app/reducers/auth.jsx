@@ -21,6 +21,14 @@ export const login = (username, password) =>
       .then(() => dispatch(whoami()))
       .catch(() => dispatch(whoami()))
 
+export const loginOAuth = (strategy) =>
+  dispatch => {
+    console.log('got to loginOAuth');
+    axios.post(`/api/auth/login/${strategy}`)
+      .then(() => dispatch(whoami()))
+      .catch(() => dispatch(whoami()))
+  }
+
 export const logout = () =>
   dispatch =>
     axios.post('/api/auth/logout')
