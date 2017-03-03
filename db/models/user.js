@@ -25,15 +25,6 @@ const User = db.define('users', {
       isBefore: "1996-03-01", //user must be over 21
     }
   },
-  isAuthenticated: {
-    type: Sequelize.BOOLEAN,
-    //not sure if this getter method will work... we may want to rethink how we determine if a user is authenticated
-    get: function() {
-      var password = this.getDataValue('password_digest');
-      var oAuth = this.getOAuth();
-      return (password || oAuth);
-    }
-  },
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
