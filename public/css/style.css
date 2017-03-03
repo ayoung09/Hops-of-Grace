@@ -1,0 +1,167 @@
+.pad10 {
+	padding:10px 20px;
+}
+
+.pad20 {
+	padding:20px;
+}
+
+.pad40 {
+	padding:40px;
+}
+
+.of20{
+	margin-left:20px;
+}
+
+.t20{
+	margin-top:20px;
+}
+
+.b20{
+	margin-bottom:20px;
+}
+
+.bclose{
+	margin-bottom:0px;
+}
+
+.white{
+	color: #ffffff;
+}
+
+.brown{
+	color: #786211;
+}
+
+.gold{
+	color: #daa520;
+}
+
+.dust{
+	color: #e8c15f;
+}
+
+.light{
+	color: #f2dba1;
+}
+
+.offwhite{
+	color: #f8ecce;
+}
+
+
+.no-overflow {
+	overflow: hidden;
+}
+
+.logoHeader{
+	height: 10vh;
+	display: flex;
+	align-items: center;
+	border-top: #ae8419 solid 5px;
+	background-color: #daa520;
+	box-shadow:
+}
+
+.nav{
+	height: 7vh;
+	display: flex;
+	align-items: center;
+	border-top: #f8ecce solid 2px;
+	background-color: #e8c15f;
+}
+
+.search{
+	height: 35vh;
+	display: flex;
+	align-items: center;
+	border-top: #ae8419 solid 2px;
+	border-bottom: #ae8419 solid 2px;
+	background-color: #f8ecce;
+}
+
+.bottom{
+	display: flex;
+	align-items: flex-end;
+}
+
+.opening{
+	height: 42vh;
+	display: flex;
+	align-items: center;
+	background-color: #f2dba1;
+}
+
+.thumbB{
+	height: 90%;
+	width: 240px;
+	background-color: #f8ecce;
+	border: #ffffff solid 2px;
+	align-content: center;
+}
+
+.thumbB:hover{
+	border: #daa520 solid 4px;
+}
+
+.thumbBimg{
+	height:150px;
+	width: 150px;
+	border: #ffffff solid 4px;
+}
+
+.arrows{
+	display: flex;
+	align-items: center;
+}
+
+
+.sm{
+	font-size:.75em;
+}
+
+.lrg{
+	font-size:6em;
+}
+
+.lrg:hover{
+	display: flex;
+	align-items: center;
+	color: #daa520 ;
+}
+
+.footer{
+	height: 6vh;
+	width:100%;
+	position:fixed;
+	bottom: 0px;
+	display: flex;
+	align-items: center;
+	border-top: #f8ecce solid 5px;
+	background-color: #daa520;
+}
+
+.btxt{
+	font-family: Choplin-Medium;
+	width: 100%;
+}
+
+.tshadow{
+	text-shadow: 0px 0px 4px #000000;
+}
+
+.bshadow{
+	box-shadow: 0px 0px 4px #3d3d3d;
+}
+
+.tshadowl{
+	text-shadow: 0px 0px 2px #3d3d3d;
+}
+
+
+.backgroundBeer{
+	background-image: url('img/00s_wheathops.jpg');
+	background-size: cover;
+    background-repeat: no-repeat;
+}
