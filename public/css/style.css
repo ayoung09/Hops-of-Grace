@@ -22,6 +22,10 @@
 	margin-bottom:20px;
 }
 
+.bclose{
+	margin-bottom:0px;
+}
+
 .white{
 	color: #ffffff;
 }
@@ -82,15 +86,49 @@
 	align-items: flex-end;
 }
 
-.tagline{
-
-}
-
 .opening{
 	height: 42vh;
 	display: flex;
 	align-items: center;
 	background-color: #f2dba1;
+}
+
+.thumbB{
+	height: 90%;
+	width: 240px;
+	background-color: #f8ecce;
+	border: #ffffff solid 2px;
+	align-content: center;
+}
+
+.thumbB:hover{
+	border: #daa520 solid 4px;
+}
+
+.thumbBimg{
+	height:150px;
+	width: 150px;
+	border: #ffffff solid 4px;
+}
+
+.arrows{
+	display: flex;
+	align-items: center;
+}
+
+
+.sm{
+	font-size:.75em;
+}
+
+.lrg{
+	font-size:6em;
+}
+
+.lrg:hover{
+	display: flex;
+	align-items: center;
+	color: #daa520 ;
 }
 
 .footer{
@@ -114,7 +152,7 @@
 }
 
 .bshadow{
-	text-shadow: 0px 0px 4px #000000;
+	box-shadow: 0px 0px 4px #3d3d3d;
 }
 
 .tshadowl{

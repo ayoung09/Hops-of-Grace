@@ -16,6 +16,7 @@ class Frame extends React.Component {
 
           {/* header for log-in */}
             <div className="row logoHeader pad20 bshadow">
+
               <div className="col-xs-10 col-sm-9 col-lg-8 logo">
                 <h1 className="hidden-xs offwhite CoreMagic tshadowl"><span className="EvelethShapes">r</span> Hops of Grace <span className="EvelethShapes">s</span></h1>
                 <h4 className="hidden-sm hidden-md hidden-lg white CoreMagic"><span className="EvelethShapes">r</span> Hops of Grace <span className="EvelethShapes">s</span></h4>
@@ -94,25 +95,26 @@ class Frame extends React.Component {
           {/* splash image with main search */}
             {/* on products - likely main photo/info .... break down this into smaller sections*/}
             <div className="row pad20 backgroundBeer search">
-              <div className="col-sm-12 col-lg-4">
-                <form className="form-inline">
-                  <div className="form-group white">
-                    <label className="sr-only">Search your Favorite Brew</label>
-                    <div className="input-group">
-                      <div className="input-group-addon"><span className="EvelethShapes">J</span></div>
-                      <input type="text" className="form-control" id="exampleInputAmount" placeholder="find microbrews"></input>
-                      <div className="input-group-addon"><span className="EvelethShapes">K</span></div>
-                    </div>
-                  </div>
-                  <button type="submit" className="btn btn-default of20">Search</button>
-                </form>
 
-              </div>
-              <div className="col-sm-12 col-lg-8 text-center">
-                <h1 className="white CoreMagic tshadow">brew & barter</h1>
-                <h2 className="white EvelethShapes tshadow">" " " " " " " "</h2>
-                <h3 className="white ThirstyRoughReg tshadow"><span className="white EvelethShapes">u </span> discover great small batch beer <span className="white EvelethShapes"> v</span> </h3>
-              </div>
+                <div className="col-sm-12 col-lg-4">
+                  <form className="form-inline">
+                    <div className="form-group white">
+                      <label className="sr-only">Search your Favorite Brew</label>
+                      <div className="input-group">
+                        <div className="input-group-addon"><span className="EvelethShapes">J</span></div>
+                        <input type="text" className="form-control" id="exampleInputAmount" placeholder="find microbrews"></input>
+                        <div className="input-group-addon"><span className="EvelethShapes">K</span></div>
+                      </div>
+                    </div>
+                    <button type="submit" className="btn btn-default of20">Search</button>
+                  </form>
+
+                </div>
+                <div className="col-sm-12 col-lg-8 text-center">
+                  <h1 className="white CoreMagic tshadow">brew & barter</h1>
+                  <h2 className="white EvelethShapes tshadow">" " " " " " " "</h2>
+                  <h3 className="white ThirstyRoughReg tshadow"><span className="white EvelethShapes">u </span> discover great small batch beer <span className="white EvelethShapes"> v</span> </h3>
+                </div>
 
             </div>
 
@@ -120,15 +122,76 @@ class Frame extends React.Component {
             {/* on products - secondary info or related tags, etc. ...break down this into smaller sections */}
             <div className="row opening pad20">
 
-                <div className="col-sm-12 col-lg-2 thumbB">
-                  product thumbnails slider here
+            {/*
+              <div className="col-sm-1 col-lg-1 arrows">
+                <h1 className="EvelethShapes lrg white tshadowl">p</h1>
+              </div>
+
+
+              <div className="col-sm-10 col-lg-10"> */}
+
+                <div className="col-sm-12 col-lg-3 block-center ">
+                  <div className="thumbB pad20 bshadow text-center">
+                    <img src="img/s04.jpg" className="thumbBimg" />
+                    <h4 className="Choplin-Medium bclose">Product Name</h4>
+                    <p className="Choplin-Light sm">brew type from brewery</p>
+                  </div>
                 </div>
+
+                <div className="col-sm-12 col-lg-3 block-center ">
+                  <div className="thumbB pad20 bshadow text-center">
+                    <img src="img/s06.jpg" className="thumbBimg" />
+                    <h4 className="Choplin-Medium bclose">Product Name</h4>
+                    <p className="Choplin-Light sm">brew type from brewery</p>
+                  </div>
+                </div>
+
+                <div className="col-sm-12 col-lg-3 block-center ">
+                  <div className="thumbB pad20 bshadow text-center">
+                    <img src="img/s01.jpg" className="thumbBimg" />
+                    <h4 className="Choplin-Medium bclose">Product Name</h4>
+                    <p className="Choplin-Light sm">brew type from brewery</p>
+                  </div>
+                </div>
+
+                <div className="col-sm-12 col-lg-3 block-center ">
+                  <div className="thumbB pad20 bshadow text-center">
+                    <img src="img/s05.jpg" className="thumbBimg" />
+                    <h4 className="Choplin-Medium bclose">Product Name</h4>
+                    <p className="Choplin-Light sm">brew type from brewery</p>
+                  </div>
+                </div>
+
+                <div className="col-sm-12 col-lg-3 block-center ">
+                  <div className="thumbB pad20 bshadow text-center">
+                    <img src="img/s00.jpg" className="thumbBimg" />
+                    <h4 className="Choplin-Medium bclose">Product Name</h4>
+                    <p className="Choplin-Light sm">brew type from brewery</p>
+                  </div>
+                </div>
+
+              {/*
+              </div>
+
+
+              <div className="col-sm-1 col-lg-1 arrows">
+                <h1 className="EvelethShapes lrg white tshadowl">o</h1>
+              </div> */}
 
             </div>
 
           {/* footer */}
             <div className="row footer pad20">
-              footer stuff here
+              {/* iterate if possible */}
+              <div className="col-sm-6 col-lg-4 text-center">
+                <h5 className="Choplin-Light">must be 21 etc</h5>
+              </div>
+              <div className="col-sm-6 col-lg-4 text-center">
+                <h5 className="Choplin-Light">dev team credits</h5>
+              </div>
+              <div className="col-sm-6 col-lg-4 text-center">
+                <h5 className="Choplin-Light">not a real site</h5>
+              </div>
             </div>
 
           </div>
