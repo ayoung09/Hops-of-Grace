@@ -39,8 +39,8 @@ OAuth.setupStrategy({
   provider: 'facebook',
   strategy: require('passport-facebook').Strategy,
   config: {
-    clientID: env.FACEBOOK_CLIENT_ID,
-    clientSecret: env.FACEBOOK_CLIENT_SECRET,
+    clientID: "1320455981353112",
+    clientSecret: "d7a3a561f1841d00b5e27ba7e3623475",
     callbackURL: `${app.baseUrl}/api/auth/login/facebook`,
   },
   passport
@@ -52,8 +52,8 @@ OAuth.setupStrategy({
   provider: 'google',
   strategy: require('passport-google-oauth').OAuth2Strategy,
   config: {
-    consumerKey: env.GOOGLE_CLIENT_ID,
-    consumerSecret: env.GOOGLE_CLIENT_SECRET,
+    clientID: "1024793127234-v795r8dj9e95mlnlek7152cr7i9sh2r7.apps.googleusercontent.com",
+    clientSecret: "MaYspVdnyPPxY9dZtlG_-oQ3",
     callbackURL: `${app.baseUrl}/api/auth/login/google`,
   },
   passport

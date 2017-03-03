@@ -10,18 +10,14 @@ export const Login = ({ login }) => (
       <input name="password" type="password" />
       <input type="submit" value="Login" />
     </form>
-    <button name="google" onClick={evt => {
-      console.log('this is event target name: ', evt.target.name);
-      loginOAuth(evt.target.name);
-      console.log('what is loginOAuth? ', loginOAuth);
-    } }>Google Login</button>
+    <a href='/api/auth/login/google'>Google Login</a>
   </div>
 );
 
-import { login, loginOAuth } from 'APP/app/reducers/auth';
+import { login} from 'APP/app/reducers/auth';
 import {connect} from 'react-redux';
 
 export default connect (
   state => ({}),
-  { login, loginOAuth }
+  { login }
 )(Login);
