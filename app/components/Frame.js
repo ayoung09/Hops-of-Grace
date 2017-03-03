@@ -118,16 +118,17 @@ class Frame extends React.Component {
 
           {/* array of random products */}
             {/* on products - secondary info or related tags, etc. ...break down this into smaller sections */}
-            <div className="row opening">
+            <div className="row opening pad20">
 
                 <div className="col-sm-12 col-lg-2 thumbB">
-
+                  product thumbnails slider here
                 </div>
 
             </div>
 
           {/* footer */}
-            <div className="row footer">
+            <div className="row footer pad20">
+              footer stuff here
             </div>
 
           </div>
