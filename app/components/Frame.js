@@ -106,7 +106,7 @@ class Frame extends React.Component {
                         <div className="input-group-addon"><span className="EvelethShapes">K</span></div>
                       </div>
                     </div>
-                    <button type="submit" className="btn btn-default of20">Search</button>
+                    <button type="submit" className="btn btn-default of20 Choplin-Medium">Search</button>
                   </form>
 
                 </div>
