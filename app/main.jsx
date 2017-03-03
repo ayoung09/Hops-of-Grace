@@ -11,7 +11,8 @@ import Jokes from './components/Jokes'
 import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 
-import Frame from './components/Frame'
+//import Frame from './components/Frame'
+import Framefake from './components/Framefake'
 
 const ExampleApp = connect(
   ({ auth }) => ({ user: auth })
@@ -25,6 +26,17 @@ const ExampleApp = connect(
     </div>
 )
 
+const initialLoad = (nextRouterState) => {
+  //to fill in the header we want...
+
+  /* to fill in the navBar we need:
+
+
+  */
+
+
+};
+
 render (
   <Provider store={store}>
     <Router history={browserHistory}>
@@ -32,7 +44,8 @@ render (
         <IndexRedirect to="/jokes" />
         <Route path="/jokes" component={Jokes} />
       </Route>
-      <Route path="/frame" component={Frame} />
+      <Route path="/framefake" component={Framefake} />
+      {/*<Route path="/frame" component={Frame} onEnter={initialLoad}/>*/}
     </Router>
   </Provider>,
   document.getElementById('main')

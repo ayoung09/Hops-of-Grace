@@ -1,32 +1,10 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-//import any use of link, hashhistory, etc....
 
 //import dumb components later
-import Footer from './Footer.js';
-
-//import needed actions for dispatch and bubbling changes up...
-
+//import any use of link, hashhistory, etc....
 
 class Frame extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      contactLabel : '',
-      types: 'Summary',
-      siteLabel: {},
-      siteLabels : [],
-    };
-
-    this.filterBeer = this.filterBeer.bind(this);
-  }
-
-  filterBeer = (event => { //onSubmit for the selection options... filters search categories
-    let choice = event.target.value;
-    //so finish writing as we make the actions...
-
-  })
-
 
 // add props/super/local state as necessary later
 
@@ -66,8 +44,53 @@ class Frame extends React.Component {
 
             </div>
 
-          {/* navigation bar with mini search box, 6 spaces ?...props = info to pass, methods = inactive event handlers */}
-          <Navbar props={} methods={} />
+          {/* navigation bar with mini search box, 6 spaces ?...iterate through later */}
+            <div className="row pad10 nav">
+              {/* <form> how do we want to have these work options or something else*/}
+                <div className="col-sm-12 col-lg-2">
+                  <select className="form-control brown btxt">
+                    <option>Brew Type</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </div>
+                <div className="col-sm-12 col-lg-2">
+                  <select className="form-control brown btxt">
+                    <option>Flavors</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </div>
+                <div className="col-sm-12 col-lg-2">
+                  <select className="form-control brown btxt">
+                    <option>Origins</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </div>
+                <div className="col-sm-12 col-lg-2">
+                  <select className="form-control brown btxt">
+                    <option>Brewery</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </div>
+                <div className="col-sm-12 col-lg-2">
+                  <span className="glyphicon glyphicon-search brown" aria-hidden="true"></span>
+                </div>
+
+                <div className="col-sm-12 col-lg-2">
+                </div>
+              {/*</form>*/}
+            </div>
 
           {/* splash image with main search */}
             {/* on products - likely main photo/info .... break down this into smaller sections*/}
@@ -157,8 +180,27 @@ class Frame extends React.Component {
 
             </div>
 
-          <Footer />
+          {/* footer */}
+            <div className="row footer pad20">
+              {/* iterate if possible */}
+              <div className="col-sm-6 col-lg-4 text-center">
+                <h5 className="Choplin-Light">must be 21 etc</h5>
+              </div>
+              <div className="col-sm-6 col-lg-4 text-center">
+                <h5 className="Choplin-Light">dev team credits</h5>
+              </div>
+              <div className="col-sm-6 col-lg-4 text-center">
+                <h5 className="Choplin-Light">not a real site</h5>
+              </div>
+            </div>
+
           </div>
+
+
+
+
+
+
     )
   }
 }
