@@ -3,8 +3,16 @@ import React from 'react'
 import {Router, Route, IndexRedirect, browserHistory} from 'react-router'
 import {render} from 'react-dom'
 import {connect, Provider} from 'react-redux'
+import axios from 'axios'
 
-//import * as bootstrap from 'react-bootstrap'; -- for nav and tabs, etc.
+import store from './store'
+
+import {loadAllProducts} from './reducers/products'
+import {loadAllSellers, loadAllStates} from './reducers/sellers'
+import {loadAllBrews} from './reducers/brews'
+import {loadAllFlavors} from './reducers/flavors'
+
+
 
 import store from './store'
 import Jokes from './components/Jokes'
@@ -36,13 +44,33 @@ const onEnter = (nextRouterState) => {
   allsellers : [],
   brews : [],
   flavors : [],
+  // below are derived from above plus session info and sign-in
   states : [],
   currentCart : {},
   currentUser : {},
 } */
 
+      const productsA = axios.get('/api/products');
+      const sellersA = axios.get('/api/sellers');
+      const brewsA = axios.get('/api/brewTypes');
+      const flavorsA = axios.get('/api/flavors');
 
 
+      return Promise
+      .all([productsA, sellersA, brewsA, flavorsA])
+      .then(responses => responses.map(r => r.data))
+      .then(([products, sellers, brews, flavors]) => {
+
+        store.dispatch(loadAllProducts(products));
+        store.dispatch(loadAllSellers(sellers));
+        store.dispatch(loadAllBrews(brews));
+        store.dispatch(loadAllFlavors(flavors));
+        store.dispatch(loadAllStates(sellers));
+        //user recognized in above... cart?
+
+      }).catch(err=>{
+        console.log(err);
+      });
 
 };
 

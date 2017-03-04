@@ -34,47 +34,48 @@ class Products extends React.Component { // (props => {
 
 
 	render(){
+
+		console.log(this.props);
+
 		return (
 	            <div className="row opening pad20">
-	                <div className="col-sm-12 col-lg-3 block-center ">
-	                  <div className="thumbB pad20 bshadow text-center">
+
+	                  <div className="thumbB pad20 marg20 bshadow text-center">
 	                    <img src="img/s04.jpg" className="thumbBimg" />
 	                    <h4 className="Choplin-Medium bclose">Product Name</h4>
 	                    <p className="Choplin-Light sm">brew type from brewery</p>
 	                  </div>
-	                </div>
 
-	                <div className="col-sm-12 col-lg-3 block-center ">
-	                  <div className="thumbB pad20 bshadow text-center">
+	                  <div className="thumbB pad20 marg20 bshadow text-center">
 	                    <img src="img/s06.jpg" className="thumbBimg" />
 	                    <h4 className="Choplin-Medium bclose">Product Name</h4>
 	                    <p className="Choplin-Light sm">brew type from brewery</p>
 	                  </div>
-	                </div>
 
-	                <div className="col-sm-12 col-lg-3 block-center ">
-	                  <div className="thumbB pad20 bshadow text-center">
-	                    <img src="img/s01.jpg" className="thumbBimg" />
+	                  <div className="thumbB pad20 marg20 bshadow text-center">
+	                    <img src="img/s04.jpg" className="thumbBimg" />
 	                    <h4 className="Choplin-Medium bclose">Product Name</h4>
 	                    <p className="Choplin-Light sm">brew type from brewery</p>
 	                  </div>
-	                </div>
 
-	                <div className="col-sm-12 col-lg-3 block-center ">
-	                  <div className="thumbB pad20 bshadow text-center">
-	                    <img src="img/s05.jpg" className="thumbBimg" />
+	                  <div className="thumbB pad20 marg20 bshadow text-center">
+	                    <img src="img/s06.jpg" className="thumbBimg" />
 	                    <h4 className="Choplin-Medium bclose">Product Name</h4>
 	                    <p className="Choplin-Light sm">brew type from brewery</p>
 	                  </div>
-	                </div>
 
-	                <div className="col-sm-12 col-lg-3 block-center ">
-	                  <div className="thumbB pad20 bshadow text-center">
-	                    <img src="img/s00.jpg" className="thumbBimg" />
+	                  <div className="thumbB pad20 marg20 bshadow text-center">
+	                    <img src="img/s04.jpg" className="thumbBimg" />
 	                    <h4 className="Choplin-Medium bclose">Product Name</h4>
 	                    <p className="Choplin-Light sm">brew type from brewery</p>
 	                  </div>
-	                </div>
+
+	                  <div className="thumbB pad20 marg20 bshadow text-center">
+	                    <img src="img/s06.jpg" className="thumbBimg" />
+	                    <h4 className="Choplin-Medium bclose">Product Name</h4>
+	                    <p className="Choplin-Light sm">brew type from brewery</p>
+	                  </div>
+
 
 	              {/*
 	              </div>
@@ -91,7 +92,7 @@ class Products extends React.Component { // (props => {
 
 //--- connect methods to add/integrate------- what's needed from store/state for the above?
 
-/*
+
 const mapStateToProps = (state => {
 
 });
@@ -102,6 +103,6 @@ const mapDispatchToProps = (dispatch => {
 
 const ProductsContainer = connect(mapStateToProps, mapDispatchToProps)(Products);
 export default ProductsContainer;
-*/
 
-export default Products;
+
+//export default Products;
