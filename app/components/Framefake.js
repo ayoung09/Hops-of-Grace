@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 //import dumb components later
+import Footer from './Footer.js';
+import Products from './Products';
+
 //import any use of link, hashhistory, etc....
 
 class Frame extends React.Component {
@@ -118,89 +121,9 @@ class Frame extends React.Component {
 
             </div>
 
-          {/* array of random products */}
-            {/* on products - secondary info or related tags, etc. ...break down this into smaller sections */}
-            <div className="row opening pad20">
-
-            {/*
-              <div className="col-sm-1 col-lg-1 arrows">
-                <h1 className="EvelethShapes lrg white tshadowl">p</h1>
-              </div>
-
-
-              <div className="col-sm-10 col-lg-10"> */}
-
-                <div className="col-sm-12 col-lg-3 block-center ">
-                  <div className="thumbB pad20 bshadow text-center">
-                    <img src="img/s04.jpg" className="thumbBimg" />
-                    <h4 className="Choplin-Medium bclose">Product Name</h4>
-                    <p className="Choplin-Light sm">brew type from brewery</p>
-                  </div>
-                </div>
-
-                <div className="col-sm-12 col-lg-3 block-center ">
-                  <div className="thumbB pad20 bshadow text-center">
-                    <img src="img/s06.jpg" className="thumbBimg" />
-                    <h4 className="Choplin-Medium bclose">Product Name</h4>
-                    <p className="Choplin-Light sm">brew type from brewery</p>
-                  </div>
-                </div>
-
-                <div className="col-sm-12 col-lg-3 block-center ">
-                  <div className="thumbB pad20 bshadow text-center">
-                    <img src="img/s01.jpg" className="thumbBimg" />
-                    <h4 className="Choplin-Medium bclose">Product Name</h4>
-                    <p className="Choplin-Light sm">brew type from brewery</p>
-                  </div>
-                </div>
-
-                <div className="col-sm-12 col-lg-3 block-center ">
-                  <div className="thumbB pad20 bshadow text-center">
-                    <img src="img/s05.jpg" className="thumbBimg" />
-                    <h4 className="Choplin-Medium bclose">Product Name</h4>
-                    <p className="Choplin-Light sm">brew type from brewery</p>
-                  </div>
-                </div>
-
-                <div className="col-sm-12 col-lg-3 block-center ">
-                  <div className="thumbB pad20 bshadow text-center">
-                    <img src="img/s00.jpg" className="thumbBimg" />
-                    <h4 className="Choplin-Medium bclose">Product Name</h4>
-                    <p className="Choplin-Light sm">brew type from brewery</p>
-                  </div>
-                </div>
-
-              {/*
-              </div>
-
-
-              <div className="col-sm-1 col-lg-1 arrows">
-                <h1 className="EvelethShapes lrg white tshadowl">o</h1>
-              </div> */}
-
-            </div>
-
-          {/* footer */}
-            <div className="row footer pad20">
-              {/* iterate if possible */}
-              <div className="col-sm-6 col-lg-4 text-center">
-                <h5 className="Choplin-Light">must be 21 etc</h5>
-              </div>
-              <div className="col-sm-6 col-lg-4 text-center">
-                <h5 className="Choplin-Light">dev team credits</h5>
-              </div>
-              <div className="col-sm-6 col-lg-4 text-center">
-                <h5 className="Choplin-Light">not a real site</h5>
-              </div>
-            </div>
-
+          <Products />
+          <Footer />
           </div>
-
-
-
-
-
-
     )
   }
 }

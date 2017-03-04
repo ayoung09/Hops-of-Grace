@@ -11,8 +11,12 @@ import Jokes from './components/Jokes'
 import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 
-//import Frame from './components/Frame'
 import Framefake from './components/Framefake'
+
+import Frame from './components/Frame'
+import StartPage from './components/Start'
+
+
 
 const ExampleApp = connect(
   ({ auth }) => ({ user: auth })
@@ -26,13 +30,18 @@ const ExampleApp = connect(
     </div>
 )
 
-const initialLoad = (nextRouterState) => {
-  //to fill in the header we want...
+const onEnter = (nextRouterState) => {
+/* initialstate = { //things to load through axio call...
+  allproducts : [],
+  allsellers : [],
+  brews : [],
+  flavors : [],
+  states : [],
+  currentCart : {},
+  currentUser : {},
+} */
 
-  /* to fill in the navBar we need:
 
-
-  */
 
 
 };
@@ -45,7 +54,29 @@ render (
         <Route path="/jokes" component={Jokes} />
       </Route>
       <Route path="/framefake" component={Framefake} />
-      {/*<Route path="/frame" component={Frame} onEnter={initialLoad}/>*/}
+
+    {/* general structure below comment on and off to work with additions */}
+
+      <Route path="/frame" component={Frame} >
+        <IndexRedirect to="/welcome" />
+        <Route path="/welcome" component={StartPage} />
+
+        {/*<Route path="/signIn" component={SignIn} />
+        <Route path="/signUp" component={SignUp} />
+        <Route path="/signUpSeller" component={SignUpSeller} />
+
+        <Route path="/products/:filters" component={ProductsPage} />
+        <Route path="/product/:productId" component={ProductPage} />
+
+        <Route path="/user/:userId" component={UserPage} />
+        <Route path="/user/:userId/cart" component={UserCart} />
+        <Route path="/user/:userId/cart" component={UserCheckout} />
+
+        <Route path="/brewery/:userId" component={BreweryPage} />
+        <Route path="/brewery/:userId/newProduct" component={CreateProduct} />
+        <Route path="/brewery/:userId/mgmtProduct" component={MgmtProduct} />*/}
+
+      </Route>
     </Router>
   </Provider>,
   document.getElementById('main')

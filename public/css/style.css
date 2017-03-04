@@ -52,7 +52,7 @@
 
 
 .no-overflow {
-	overflow: hidden;
+
 }
 
 .logoHeader{
@@ -73,7 +73,7 @@
 }
 
 .search{
-	height: 35vh;
+	height: 40vh;
 	display: flex;
 	align-items: center;
 	border-top: #ae8419 solid 2px;
@@ -87,15 +87,24 @@
 }
 
 .opening{
-	height: 42vh;
+	height: 45vh;
 	display: flex;
 	align-items: center;
 	background-color: #f2dba1;
 }
 
+.openingW{
+	height: 42vh;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	background-color: #f2dba1;
+}
+
 .thumbB{
-	height: 90%;
+	height: 240px;
 	width: 240px;
+	border-radius: 5px;
 	background-color: #f8ecce;
 	border: #ffffff solid 2px;
 	align-content: center;
