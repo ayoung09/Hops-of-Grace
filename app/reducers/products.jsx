@@ -13,48 +13,33 @@ import axios from 'axios';
     other?
 
 */
-
-
-
-
-
-
-
-const productReducer = (state=null, action) => {
-  switch(action.type) {
-  case AUTHENTICATED:
-    return action.user;
-  }
-  return state;
+let initState={
+  allproducts : [],
 }
 
-const AUTHENTICATED = 'AUTHENTICATED';
+const productsReducer = (prevState = initState, action) => {
+  let nextState = Object.assign({}, prevState);
 
-export const authenticated = user => ({
-  type: AUTHENTICATED, user
-})
+  switch(action.type) {
+    case LOAD_ALL_PRODUCTS:
+      nextState.allproducts = action.products;
+      break;
 
-export const login = (username, password) =>
-  dispatch =>
-    axios.post('/api/auth/login/local',
-      {username, password})
-      .then(() => dispatch(whoami()))
-      .catch(() => dispatch(whoami()))
+    default:
+      return prevState;
+  }
+  return nextState;
+}
 
-export const logout = () =>
-  dispatch =>
-    axios.post('/api/auth/logout')
-      .then(() => dispatch(whoami()))
-      .catch(() => dispatch(whoami()))
+const LOAD_ALL_PRODUCTS='LOAD_ALL_PRODUCTS';
 
-export const whoami = () =>
-  dispatch =>
-    axios.get('/api/auth/whoami')
-      .then(response => {
-        const user = response.data
-        dispatch(authenticated(user))
-      })
-      .catch(failed => dispatch(authenticated(null)))
+export const loadAllProducts = (products => {
+  return {
+    type: LOAD_ALL_PRODUCTS,
+    products
+  }
+
+});
 
 
-export default productReducer;
+export default productsReducer;

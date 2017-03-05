@@ -9,7 +9,9 @@ const brewReducer = (prevState = initState, action) => {
 
   switch(action.type) {
     case LOAD_ALL_BREWS:
-      return action.brews;
+      nextState.brews = action.brews;
+      break;
+
     default:
       return prevState;
   }

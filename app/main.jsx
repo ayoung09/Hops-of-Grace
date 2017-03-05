@@ -7,20 +7,21 @@ import axios from 'axios'
 
 import store from './store'
 
+//actions
 import {loadAllProducts} from './reducers/products'
 import {loadAllSellers, loadAllStates} from './reducers/sellers'
 import {loadAllBrews} from './reducers/brews'
 import {loadAllFlavors} from './reducers/flavors'
 
-
-
-import store from './store'
+//jokes to be combined
 import Jokes from './components/Jokes'
 import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 
+//old formatting
 import Framefake from './components/Framefake'
 
+//new pieces
 import Frame from './components/Frame'
 import StartPage from './components/Start'
 
@@ -45,7 +46,7 @@ const onEnter = (nextRouterState) => {
   brews : [],
   flavors : [],
   // below are derived from above plus session info and sign-in
-  states : [],
+  states : {}... use with Object.keys()later
   currentCart : {},
   currentUser : {},
 } */
@@ -67,7 +68,6 @@ const onEnter = (nextRouterState) => {
         store.dispatch(loadAllFlavors(flavors));
         store.dispatch(loadAllStates(sellers));
         //user recognized in above... cart?
-
       }).catch(err=>{
         console.log(err);
       });
@@ -85,7 +85,7 @@ render (
 
     {/* general structure below comment on and off to work with additions */}
 
-      <Route path="/frame" component={Frame} >
+      <Route path="/frame" component={Frame} onEnter={onEnter}>
         <IndexRedirect to="/welcome" />
         <Route path="/welcome" component={StartPage} />
 

@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 let initState={
-  sellers : [],
-  states : [],
+  allsellers : [],
+  states : {},
 }
 
 const sellersReducer = (prevState = initState, action) => {
@@ -10,9 +10,13 @@ const sellersReducer = (prevState = initState, action) => {
 
   switch(action.type) {
     case LOAD_ALL_SELLERS:
-      return action.sellers;
+      nextState.allsellers = action.sellers;
+      break;
+
     case LOAD_ALL_STATES:
-      return action.states;
+      nextState.states = action.states;
+      break;
+
     default:
       return prevState;
   }
@@ -31,8 +35,18 @@ export const loadAllSellers = (sellers => {
 });
 
 export const loadAllStates = (sellers => {
-  const states = [];
-  //finish this series of actions after dinner!
+  const states = {};
+  //key=state abbrev, value is an array of sellerIDs
+
+  sellers.forEach(brewery=>{
+    if (brewery.contact.state) {
+      if (states.hasOwnProperty(brewery.contact.state)){
+        states[brewery.contact.state].push(brewery.id);
+      } else {
+        states[brewery.contact.state]=[brewery.id];
+      }
+    }
+  })
 
   return {
     type: LOAD_ALL_STATES,

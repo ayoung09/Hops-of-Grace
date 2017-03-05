@@ -9,7 +9,9 @@ const flavorsReducer = (prevState = initState, action) => {
 
   switch(action.type) {
     case LOAD_ALL_FLAVORS:
-      return action.flavors;
+      nextState.flavors = action.flavors;
+      break;
+
     default:
       return prevState;
   }

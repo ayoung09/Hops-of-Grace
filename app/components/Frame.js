@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import {connect} from 'react-redux';
+import { browserHistory, Link } from 'react-router';
 //import any use of link, hashhistory, etc....
 
 //import dumb components later
 import Footer from './Footer.js';
+//import NavBar
+//import
 
 //import needed actions for dispatch and bubbling changes up...
 
-class Frame extends React.Component {
+class FrameBase extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -16,6 +20,7 @@ class Frame extends React.Component {
 
 // the dumb HTML/JSV
   render() {
+
 
     return (
           <div className="container-fluid no-overflow">
@@ -60,5 +65,26 @@ class Frame extends React.Component {
     )
   }
 }
+
+const mapStateToProps = (state => {
+  return {
+      allproducts : state.allproducts,
+      allsellers : state.allsellers,
+      brews : state.brews,
+      flavors : state.flavors,
+      states : state.states,
+      //currentCart : {},
+      //currentUser : {},
+  }
+
+});
+
+const mapDispatchToProps = (dispatch => {
+  return {
+
+    }
+});
+
+const Frame = connect(mapStateToProps, mapDispatchToProps)(FrameBase);
 
 export default Frame;

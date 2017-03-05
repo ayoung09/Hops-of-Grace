@@ -94,11 +94,16 @@ class Products extends React.Component { // (props => {
 
 
 const mapStateToProps = (state => {
+	return {
+
+	}
 
 });
 
 const mapDispatchToProps = (dispatch => {
+	return {
 
+		}
 });
 
 const ProductsContainer = connect(mapStateToProps, mapDispatchToProps)(Products);
