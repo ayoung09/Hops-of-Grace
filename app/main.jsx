@@ -85,9 +85,9 @@ render (
 
     {/* general structure below comment on and off to work with additions */}
 
-      <Route path="/frame" component={Frame} onEnter={onEnter}>
+      <Route path="/frame" component={Frame} onEnter={onEnter} >
         <IndexRedirect to="/welcome" />
-        <Route path="/welcome" component={StartPage} />
+        <Route path="/welcome" component={StartPage} onEnter={onEnter} />
 
         {/*<Route path="/signIn" component={SignIn} />
         <Route path="/signUp" component={SignUp} />
