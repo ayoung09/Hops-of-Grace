@@ -28,6 +28,7 @@ import Frame from './components/Frame'
 import StartPage from './components/Start'
 import ProductsPage from './components/Products'
 import ProductPage from './components/Product'
+import Cart from './components/Cart'
 
 
 
@@ -90,6 +91,7 @@ render (
 
         <Route path="/products/:filter" component={ProductsPage} />
         <Route path="/product/:productId" component={ProductPage} />
+        <Route path="/cart" component={Cart} />
 
         {/*<Route path="/signIn" component={SignIn} />
 

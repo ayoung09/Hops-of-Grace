@@ -34,6 +34,23 @@ const seedBrewTypes = () => db.Promise.map([
   ], brewType => db.model('brewTypes').create(brewType));
 
 
+const seedFlavors = () => db.Promise.map([
+  {name: 'bitter'},
+  {name: 'hoppy'},
+  {name: 'sharp'},
+  {name: 'dark'},
+  {name: 'refreshing'},
+  {name: 'rich'},
+  {name: 'robust'},
+  {name: 'complicated'},
+  {name: 'mild'},
+  {name: 'citrus-tinged'},
+  {name: 'creamy'},
+  {name: 'hints of caramel'},
+  {name: 'fruity edges'},
+  ], flavor => db.model('flavors').create(flavor));
+
+
 const seedUnits = () => db.Promise.map([
   {name: 'growler'},
   {name: 'six-pack'},
@@ -86,7 +103,7 @@ const seedOrders = () => db.Promise.map([
 
 db.didSync
   .then(() => db.sync({force: true}))
-  .then(() => Promise.all([seedUsers(), seedAddresses(), seedBrewTypes(), seedUnits()]))
+  .then(() => Promise.all([seedUsers(), seedAddresses(), seedBrewTypes(), seedFlavors(), seedUnits()]))
   .then(() => Promise.all([seedSellers()]))
   .then(() => Promise.all([seedProducts()]))
   .then(() => Promise.all([seedPhotos(), seedReviews(), seedCarts(), seedOrders(), seedCartProductQtys(), seedInventories()]))
