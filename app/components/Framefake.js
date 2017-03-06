@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 //import dumb components later
 import Footer from './Footer.js';
-import Products from './Products';
+import Products from './Products.js'
 
 //import any use of link, hashhistory, etc....
 

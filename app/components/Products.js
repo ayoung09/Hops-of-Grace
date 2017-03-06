@@ -3,7 +3,12 @@ import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import { browserHistory, Link } from 'react-router';
 
-//import {actions} from '../reducers/products';
+import fakePhotos from './utilities';
+
+//import {actions} from
+import {addItem} from '../reducers/cart';
+import {addFavs} from '../reducers/reviews';
+
 
 //COMBINED COMPONENT AND CONTAINER FILE!
 
@@ -11,103 +16,179 @@ class Products extends React.Component { // (props => {
 	constructor(props) {
     super(props); // for cart, session, user info and so on
     this.state = { // for local interactions and display options... show cart - add to cart button
-    	current: '',
-    	etc : 'other things?'
+    	localCartColor: Object.keys(this.props.currentCart).map(each=> +each), // to re-color cart icons
+    	localHeartColor: Object.keys(this.props.currentFavs).map(each=> +each),
     };
 
-    this.selectItem = this.selectItem.bind(this);
-    this.selectToCart = this.selectToCart.bind(this);
+    //actual interactions
+    this.addToCart = this.addToCart.bind(this);
+    this.addToFavs = this.addToFavs.bind(this);
     this.priorOrders = this.priorOrders.bind(this);
+
+    //only during seeding stage
+    this.productsEnlarged = this.productsEnlarged.bind(this);
+    this.productsPhotos = this.productsPhotos.bind(this);
 	}
 
-	selectItem = (event => { // click photo to dispatch as current item (add data ?) and head to that item's page.
 
-	}) // this might be fine as a <Link to="...whatever"> </Link>
+	addToCart= (event => {
+		let prodId = event.target.attributes.value.value;
+		this.props.addItem(prodId);
 
-	selectToCart = (event => { // click on icon to add to cart w/o going to order page
+		let cart = this.state.localCartColor.concat(+prodId);
+		this.setState({localCartColor:cart});
+	});
+
+	addToFavs= (event => {
+		let prodId = event.target.attributes.value.value;
+		this.props.addFavs(prodId);
+
+		let cart = this.state.localHeartColor.concat(+prodId);
+		this.setState({localHeartColor:cart});
+	});
+
+	priorOrders = (event => { // set icon color/css to differ if they've purchased before... once we've got user history in the mix...
 
 	})
 
-	priorOrders = (event => { // set icon color/css to differ if they've purchased before
+
+	// to assist with extra seeding and appearance of full database...
+	productsEnlarged = (()=>{ //creating fake-larger product list.
+		var productsE =[];
+		if (this.props.allproducts && this.props.allproducts.length<10){
+			productsE = this.props.allproducts;
+
+			let multipage=Math.floor(Math.random()*25) + 10; // up to 18 entries
+			for (let i=this.props.allproducts.length; i<multipage; i++){
+				let originalRandom = Math.floor(Math.random()*i); // copy from existing
+				productsE.push(productsE[originalRandom]);
+			}; //padded # of products
+		} else if (this.props.allproducts && this.props.allproducts.length>=6){
+			productsE = this.props.allproducts;
+		};
+
+		return productsE;
+	})
+
+	// to assist with extra seeding and appearance of full database...
+	productsPhotos = ((pEArr)=>{ //photos list, pre-photo seeding
+		let photos = fakePhotos();
+
+		if (pEArr[0]!== undefined){
+
+			pEArr.forEach((prod)=> {
+				prod.photo = photos[prod.id].source;
+				prod.photo_id = prod.id;
+			})
+			return pEArr;
+		};
+
+		return pEArr;
 
 	})
+
 
 
 	render(){
 
-		console.log(this.props);
+	//set below to props.allproducts or props.filteredproducts once seeding is done
+	let entries = this.productsPhotos(this.productsEnlarged()) ;
+
+	//className for css half page = productsHalf, for full page = productsFull
+	let sizeClass = this.props.size;
+		if (!this.props.size){
+			sizeClass = "productsFull";
+		}
+
+	let shrink=-(entries.length%5); //grids of 5 (not actually all entries)
+	(sizeClass!=="productsFull") ? entries = entries.slice(0,5) : entries = entries.slice(0,shrink) ; //half vs. continuous thumbnails
+
 
 		return (
-	            <div className="row opening pad20">
+		        <div>
+	            	{sizeClass==="productsFull" && this.props.filters &&// on full page only - filtering/search categories:
+	            		<div className="row CoreMagic filter text-center">
+	            			<h3 className="white tshadowL">filtering: {this.props.params.filter}</h3>
+	            		</div>
+	            	}
+	            	{sizeClass==="productsFull" &&  // on first page only
+		            		<div className="row CoreMagic moreTop text-center">
+		            			<Link to="/welcome"><h5 className="white tshadowL moreT bclose">clear filter : search again</h5></Link>
+		            		</div>
+		            }
+		            <div className={`row ${sizeClass} pad20`}>
+		            	{entries[0]!==undefined && entries.map((entry, i) => {
+		            		let cartColor='white';
+		            		if (this.state.localCartColor.indexOf(+entry.id)!== -1){
+		            			cartColor = 'gold';
+		            		};
+		            		let heartColor = 'white';
+		            		if (this.state.localHeartColor.indexOf(+entry.id)!== -1){
+		            			heartColor = 'gold';
+		            		};
 
-	                  <div className="thumbB pad20 marg20 bshadow text-center">
-	                    <img src="img/s04.jpg" className="thumbBimg" />
-	                    <h4 className="Choplin-Medium bclose">Product Name</h4>
-	                    <p className="Choplin-Light sm">brew type from brewery</p>
-	                  </div>
+		            		return (
+				                  <div className="thumbB pad20 marg20 bshadow text-center" key={entry.name+i} >
 
-	                  <div className="thumbB pad20 marg20 bshadow text-center">
-	                    <img src="img/s06.jpg" className="thumbBimg" />
-	                    <h4 className="Choplin-Medium bclose">Product Name</h4>
-	                    <p className="Choplin-Light sm">brew type from brewery</p>
-	                  </div>
-
-	                  <div className="thumbB pad20 marg20 bshadow text-center">
-	                    <img src="img/s04.jpg" className="thumbBimg" />
-	                    <h4 className="Choplin-Medium bclose">Product Name</h4>
-	                    <p className="Choplin-Light sm">brew type from brewery</p>
-	                  </div>
-
-	                  <div className="thumbB pad20 marg20 bshadow text-center">
-	                    <img src="img/s06.jpg" className="thumbBimg" />
-	                    <h4 className="Choplin-Medium bclose">Product Name</h4>
-	                    <p className="Choplin-Light sm">brew type from brewery</p>
-	                  </div>
-
-	                  <div className="thumbB pad20 marg20 bshadow text-center">
-	                    <img src="img/s04.jpg" className="thumbBimg" />
-	                    <h4 className="Choplin-Medium bclose">Product Name</h4>
-	                    <p className="Choplin-Light sm">brew type from brewery</p>
-	                  </div>
-
-	                  <div className="thumbB pad20 marg20 bshadow text-center">
-	                    <img src="img/s06.jpg" className="thumbBimg" />
-	                    <h4 className="Choplin-Medium bclose">Product Name</h4>
-	                    <p className="Choplin-Light sm">brew type from brewery</p>
-	                  </div>
-
-
-	              {/*
-	              </div>
-
-
-	              <div className="col-sm-1 col-lg-1 arrows">
-	                <h1 className="EvelethShapes lrg white tshadowl">o</h1>
-	              </div> */}
-
+				                  	<span className={`glyphicon glyphicon-shopping-cart CL ${cartColor}`} onClick={this.addToCart} value={entry.id}></span>
+				                  	<span className={`glyphicon glyphicon-heart CR ${heartColor}`} onClick={this.addToFavs} value={entry.id}></span>
+				                  	<div>
+					                    <Link to={`/product/${entry.id}`}><img src={entry.photo} className="thumbBimg" />
+					                    <h4 className="Choplin-Medium bclose thumbT">{entry.name}</h4>
+					                    <p className="Choplin-Light sm thumbT">{entry.brew.name}</p>
+					                    </Link>
+				                    </div>
+				                  </div>
+			            		)
+			            	})
+			            }
+		            </div>
+		            {sizeClass!=="productsFull" &&  // on first page only
+		            		<div className="row CoreMagic more text-center">
+		            			<Link to="/products/show-all"><h5 className="white tshadowL moreT bclose">explore more</h5></Link>
+		            		</div>
+		            }
+		            {sizeClass==="productsFull" &&  // on first page only
+		            		<div className="row CoreMagic more text-center">
+		            			<Link to="/welcome"><h5 className="white tshadowL moreT bclose">clear filter : search again</h5></Link>
+		            		</div>
+		            }
+		            <div className="pad20">
+		            </div>
 	            </div>
             )
 	}
 };
+
 
 //--- connect methods to add/integrate------- what's needed from store/state for the above?
 
 
 const mapStateToProps = (state => {
 	return {
-
-	}
-
+    allproducts : state.products.allproducts,
+	filteredproducts : state.products.filteredproducts,
+  	userproducts : state.products.userproducts,
+  	filters : state.products.filters,
+  	currentCart : state.cart.currentCart,
+  	currentFavs : state.reviews.currentFavs,
+  }
 });
 
 const mapDispatchToProps = (dispatch => {
 	return {
-
-		}
+	    addItem(itemId){
+	      dispatch(addItem(itemId));
+	    },
+	    addFavs(itemId){
+	    	dispatch(addFavs(itemId));
+	    },
+	};
 });
 
-const ProductsContainer = connect(mapStateToProps, mapDispatchToProps)(Products);
-export default ProductsContainer;
+const ProductsPanel = connect(mapStateToProps, mapDispatchToProps)(Products);
+
+export default ProductsPanel;
 
 
 //export default Products;

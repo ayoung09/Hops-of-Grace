@@ -12,6 +12,8 @@ import {loadAllProducts} from './reducers/products'
 import {loadAllSellers, loadAllStates} from './reducers/sellers'
 import {loadAllBrews} from './reducers/brews'
 import {loadAllFlavors} from './reducers/flavors'
+import {getCartStart} from './reducers/cart'
+import {getFavs} from './reducers/reviews'
 
 //jokes to be combined
 import Jokes from './components/Jokes'
@@ -24,6 +26,8 @@ import Framefake from './components/Framefake'
 //new pieces
 import Frame from './components/Frame'
 import StartPage from './components/Start'
+import ProductsPage from './components/Products'
+
 
 
 
@@ -62,12 +66,15 @@ const onEnter = (nextRouterState) => {
       .then(responses => responses.map(r => r.data))
       .then(([products, sellers, brews, flavors]) => {
 
+
         store.dispatch(loadAllProducts(products));
         store.dispatch(loadAllSellers(sellers));
         store.dispatch(loadAllBrews(brews));
         store.dispatch(loadAllFlavors(flavors));
         store.dispatch(loadAllStates(sellers));
-        //user recognized in above... cart?
+        store.dispatch(getCartStart());
+        store.dispatch(getFavs()); // rework to load cart, fav, etc. from user and capture existing cart...
+
       }).catch(err=>{
         console.log(err);
       });
@@ -87,14 +94,16 @@ render (
 
       <Route path="/frame" component={Frame} onEnter={onEnter} >
         <IndexRedirect to="/welcome" />
-        <Route path="/welcome" component={StartPage} onEnter={onEnter} />
+        <Route path="/welcome" component={StartPage} />
+
+        <Route path="/products/:filter" component={ProductsPage} />
 
         {/*<Route path="/signIn" component={SignIn} />
+        <Route path="/product/:productId" component={ProductPage} />
+
         <Route path="/signUp" component={SignUp} />
         <Route path="/signUpSeller" component={SignUpSeller} />
 
-        <Route path="/products/:filters" component={ProductsPage} />
-        <Route path="/product/:productId" component={ProductPage} />
 
         <Route path="/user/:userId" component={UserPage} />
         <Route path="/user/:userId/cart" component={UserCart} />

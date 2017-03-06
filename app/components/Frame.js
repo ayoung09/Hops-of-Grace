@@ -55,6 +55,53 @@ class FrameBase extends React.Component {
 
             </div>
 
+            {/* navigation bar with mini search box, 6 spaces ?...iterate through later */}
+            <div className="row pad10 nav">
+              {/* <form> how do we want to have these work options or something else*/}
+                <div className="col-sm-12 col-lg-2">
+                  <select className="form-control brown btxt">
+                    <option>Brew Type</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </div>
+                <div className="col-sm-12 col-lg-2">
+                  <select className="form-control brown btxt">
+                    <option>Flavors</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </div>
+                <div className="col-sm-12 col-lg-2">
+                  <select className="form-control brown btxt">
+                    <option>Origins</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </div>
+                <div className="col-sm-12 col-lg-2">
+                  <select className="form-control brown btxt">
+                    <option>Brewery</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </div>
+                <div className="col-sm-12 col-lg-2">
+                  <span className="glyphicon glyphicon-search brown" aria-hidden="true"></span>
+                </div>
+
+                <div className="col-sm-12 col-lg-2">
+                </div>
+              {/*</form>*/}
+            </div>
           { this.props &&
               this.props.children && React.cloneElement(this.props.children, Object.assign({}, this.props))
               //this goes to all nested pages... i.e. all pages
@@ -66,25 +113,28 @@ class FrameBase extends React.Component {
   }
 }
 
-const mapStateToProps = (state => {
-  return {
-      allproducts : state.allproducts,
-      allsellers : state.allsellers,
-      brews : state.brews,
-      flavors : state.flavors,
-      states : state.states,
-      //currentCart : {},
-      //currentUser : {},
-  }
+// const mapStateToProps = (state => {
 
-});
+//   //should we clean/shorten the initial state structures?
 
-const mapDispatchToProps = (dispatch => {
-  return {
+//   return {
+//       allproducts : state.products.allproducts,
+//       allsellers : state.sellers.allsellers,
+//       brews : state.brews.brews,
+//       flavors : state.flavors.flavors,
+//       states : state.sellers.states,
+//       //currentCart : {},
+//       //currentUser : {},
+//   }
 
-    }
-});
+// });
 
-const Frame = connect(mapStateToProps, mapDispatchToProps)(FrameBase);
+// const mapDispatchToProps = (dispatch => {
+//   return {
 
-export default Frame;
+//     }
+// });
+
+// const Frame = connect(mapStateToProps, mapDispatchToProps)(FrameBase);
+
+export default FrameBase;
