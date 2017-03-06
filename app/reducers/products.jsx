@@ -13,7 +13,8 @@ import axios from 'axios';
 let initState={
   allproducts : [], //load all and update on create
   filteredproducts : [], //MULTI OR ONE CATEGORY SEARCH,
-  selectproduct : {}, //single page focus - from link or typed search
+  currentProduct : {}, //single page focus - from link or typed search
+  currentInventory : {}, //what's available
   userproducts : [], //stored cart or history
   filters : [], //searched by
 }
@@ -39,7 +40,11 @@ const productsReducer = (prevState = initState, action) => {
       break;
 
     case SELECT_PRODUCT:
-      nextState.selectproduct = action.selected;
+      nextState.currentProduct = action.selected;
+      break;
+
+    case GET_INVENTORY:
+      nextState.currentInventory = action.inventory;
       break;
 
     case SET_FILTERS:
@@ -56,6 +61,7 @@ const LOAD_ALL_PRODUCTS='LOAD_ALL_PRODUCTS';
 const FILTER_PRODUCTS='FILTER_PRODUCTS';
 const FILTERONE_PRODUCTS='FILTERONE_PRODUCTS';
 const SELECT_PRODUCT ='SELECT_PRODUCT';
+const GET_INVENTORY ='GET_INVENTORY';
 const CREATE_PRODUCT = 'CREATE_PRODUCT';
 const SET_FILTERS = 'SET_FILTERS';
 
@@ -132,14 +138,27 @@ export const oneFilterProducts = ((products, filter) => {
 export const selectProduct = ((products, productId) => {
 
   let select = products.filter(product=>{
-    return product.id === productId;
+    return product.id === +productId;
   })
 
   return {
         type: SELECT_PRODUCT,
         selected : select[0],
       };
+});
 
+export const getInventory = (productId => {
+
+  axios.get('/api/inventories/'+productId)
+    .then(product=> product.data)
+    .then(selected=>{
+      console.log('get inventory: ', selected);
+      return {
+            type: GET_INVENTORY,
+            inventory : selected,
+          };
+    })
+    .catch(err=>{console.log('dispatch?: ', err)});
 
 });
 

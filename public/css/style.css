@@ -92,6 +92,13 @@ a {
 	background-color: #f8ecce;
 }
 
+.product{
+	height: 30vh;
+	border-top: #ae8419 solid 2px;
+	border-bottom: #ae8419 solid 2px;
+	background-color: #f8ecce;
+}
+
 .filter{
 	background-color: #e8c15f;
 	border-bottom: #f8ecce solid 2px;
@@ -153,6 +160,13 @@ a {
 .thumbBimg{
 	height:150px;
 	width: 150px;
+	border: #ffffff solid 4px;
+}
+
+.singleBimg{
+	height:180px;
+	width: 180px;
+	margin-right: 20px;
 	border: #ffffff solid 4px;
 }
 

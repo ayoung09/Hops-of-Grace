@@ -6,9 +6,9 @@ import { browserHistory, Link } from 'react-router';
 import fakePhotos from './utilities';
 
 //import {actions} from
-import {selectProduct} from '../reducers/products';
+import {selectProduct, getInventory} from '../reducers/products';
 import {addItem} from '../reducers/cart';
-import {addFavs} from '../reducers/reviews';
+import {addFavs, getReviews} from '../reducers/reviews';
 
 
 //COMBINED COMPONENT AND CONTAINER FILE!
@@ -56,8 +56,11 @@ class Products extends React.Component { // (props => {
 	});
 
 	setProduct= (event => {
-		this.props.selectProduct(this.props.allproducts, this.state.currentId);
-		browserHistory.push('/product/'+this.state.currentId);
+		let id = this.state.currentId;
+		this.props.selectProduct(this.props.allproducts, id);
+		//this.props.getInventory(id);
+		//console.log(this.props.currentProduct);
+		browserHistory.push('/product/'+id);
 	});
 
 
@@ -185,7 +188,7 @@ const mapStateToProps = (state => {
   	filters : state.products.filters,
   	currentCart : state.cart.currentCart,
   	currentFavs : state.reviews.currentFavs,
-  	selectproduct : state.products.selectproduct,
+  	currentProduct : state.products.currentProduct,
   }
 });
 
@@ -197,6 +200,9 @@ const mapDispatchToProps = (dispatch => {
 	    selectProduct(products, itemId){
 	      dispatch(selectProduct(products, itemId));
 	    },
+	    // getInventory(itemId){
+	    //   dispatch(getInventory(itemId));
+	    // },
 	    addFavs(itemId){
 	    	dispatch(addFavs(itemId));
 	    },

@@ -15,10 +15,11 @@ module.exports = require('express').Router()
 		.then(reviews => res.json(reviews))
 		.catch(next))
 // get a single review
-	.get('/:reviewId', (req, res, next) =>
-		Review.findById({
-			where: {id: req.params.reviewId},
-			include: [ Product, Photo ]
+	.get('/:reviewId', (req, res, next) => // associations out for moment
+		Review.findAll({
+			where: { product_id: req.params.reviewId},
+			//include: [ Product, Photo ]
+			include: [ Photo ]
 		})
 		.then(review => res.json(review))
 		.catch(next))
