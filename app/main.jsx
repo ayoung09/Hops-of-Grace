@@ -17,7 +17,6 @@ import {getFavs} from './reducers/reviews'
 
 //jokes to be combined
 import Jokes from './components/Jokes'
-import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 
 //old formatting
@@ -26,6 +25,7 @@ import Framefake from './components/Framefake'
 //new pieces
 import Frame from './components/Frame'
 import StartPage from './components/Start'
+import Login from './components/Login'
 import ProductsPage from './components/Products'
 import ProductPage from './components/Product'
 
@@ -59,13 +59,13 @@ const onEnter = (nextRouterState) => {
       .then(([products, sellers, brews, flavors]) => {
 
 
-        store.dispatch(loadAllProducts(products));
+        //store.dispatch(loadAllProducts(products));
         store.dispatch(loadAllSellers(sellers));
         store.dispatch(loadAllBrews(brews));
         store.dispatch(loadAllFlavors(flavors));
-        store.dispatch(loadAllStates(sellers));
+        //store.dispatch(loadAllStates(sellers));
         store.dispatch(getCartStart());
-        store.dispatch(getFavs()); // rework to load cart, fav, etc. from user and capture existing cart...
+        //store.dispatch(getFavs()); // rework to load cart, fav, etc. from user and capture existing cart...
 
       }).catch(err=>{
         console.log(err);
@@ -87,6 +87,7 @@ render (
       <Route path="/frame" component={Frame} onEnter={onEnter} >
         <IndexRedirect to="/welcome" />
         <Route path="/welcome" component={StartPage} />
+        <Route path="/login" component={Login} />
 
         <Route path="/products/:filter" component={ProductsPage} />
         <Route path="/product/:productId" component={ProductPage} />
