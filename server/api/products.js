@@ -7,7 +7,8 @@ const Brew = db.model('brewTypes')
 const Unit = db.model('units')
 const Photos = db.model('photos')
 const Reviews = db.model('reviews')
-const Inventory =db.model('inventories')
+//const Inventory =db.model('inventories')
+//rework the inventory materials
 
 const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
 
@@ -16,19 +17,19 @@ module.exports = require('express').Router()
 	.get('/', (req, res, next) =>
 		Product.findAll({
 			where: req.query,
-			include: [ Seller, Unit, Reviews, Inventory, Photos, {
+			include: [ Seller, Unit, Reviews, Photos, {
 				model: Brew,
 				as: 'brew'
 			}] //Photos - rework these associations
 		})
 		.then(products => res.send(products))
-		// .then(products => res.send('hit route'))
+		// second query to inventories?
 		.catch(next))
 // get info for an individual beer
 	.get('/:productId', (req, res, next) =>
 		Product.findOne({
 			where: req.params.productId,
-			include: [ Seller, Unit, Reviews, Inventory, Photos, {
+			include: [ Seller, Unit, Reviews, Photos, {
 				model: Brew,
 				as: 'brew'
 			}] //Photos ]
