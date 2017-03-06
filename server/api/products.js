@@ -28,7 +28,7 @@ module.exports = require('express').Router()
 // get info for an individual beer
 	.get('/:productId', (req, res, next) =>
 		Product.findOne({
-			where: req.params.productId,
+			where: { id: req.params.productId},
 			include: [ Seller, Unit, Reviews, Photos, {
 				model: Brew,
 				as: 'brew'
