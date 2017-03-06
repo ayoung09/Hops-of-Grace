@@ -26,7 +26,6 @@ class Products extends React.Component { // (props => {
     this.addToCart = this.addToCart.bind(this);
     this.addToFavs = this.addToFavs.bind(this);
     this.setProduct = this.setProduct.bind(this);
-    this.clearProduct = this.clearProduct.bind(this);
     this.setId = this.setId.bind(this);
     this.priorOrders = this.priorOrders.bind(this);
 
@@ -61,10 +60,6 @@ class Products extends React.Component { // (props => {
 		browserHistory.push('/product/'+this.state.currentId);
 	});
 
-	clearProduct= (event => {
-		this.props.selectProduct(this.props.allproducts, 0);
-		this.setState({currentId:0});
-	});
 
 	priorOrders = (event => { // set icon color/css to differ if they've purchased before... once we've got user history in the mix...
 
@@ -145,7 +140,6 @@ class Products extends React.Component { // (props => {
 		            		if (this.state.localHeartColor.indexOf(+entry.id)!== -1){
 		            			heartColor = 'gold';
 		            		};
-
 
 		            		return (
 				                  <div className="thumbB pad20 marg20 bshadow text-center" key={entry.name+i} >
