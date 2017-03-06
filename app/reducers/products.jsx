@@ -11,12 +11,12 @@ import axios from 'axios';
 
 */
 let initState={
-  allproducts : [], //load all and update on create
-  filteredproducts : [], //MULTI OR ONE CATEGORY SEARCH,
+  allProducts : [], //load all and update on create
+  filteredProducts : [], //MULTI OR ONE CATEGORY SEARCH,
   currentProduct : {}, //single page focus - from link or typed search
   currentInventory : {}, //what's available
-  userproducts : [], //stored cart or history
-  filters : [], //searched by
+  userProducts : [], //stored cart or history
+  filterName: '',
 }
 
 const productsReducer = (prevState = initState, action) => {
@@ -24,19 +24,21 @@ const productsReducer = (prevState = initState, action) => {
 
   switch(action.type) {
     case LOAD_ALL_PRODUCTS:
-      nextState.allproducts = action.products;
+      nextState.allProducts = action.products;
       break;
 
     case CREATE_PRODUCT:
-      nextState.allproducts.push(action.products);
+      nextState.allProducts.push(action.products);
       break;
 
-    case FILTER_PRODUCTS:
-      nextState.filteredproducts = action.products;
+    case FILTER_BY_BREW:
+      nextState.filterName = action.filterName;
+      nextState.filteredProducts = action.products;
+      console.log('got to products reducer and nextState is: ', nextState);
       break;
 
     case FILTERONE_PRODUCTS:
-      nextState.filteredproducts = action.filtered;
+      nextState.filteredProducts = action.filtered;
       break;
 
     case SELECT_PRODUCT:
@@ -58,7 +60,7 @@ const productsReducer = (prevState = initState, action) => {
 }
 
 const LOAD_ALL_PRODUCTS='LOAD_ALL_PRODUCTS';
-const FILTER_PRODUCTS='FILTER_PRODUCTS';
+const FILTER_BY_BREW='FILTER_BY_BREW';
 const FILTERONE_PRODUCTS='FILTERONE_PRODUCTS';
 const SELECT_PRODUCT ='SELECT_PRODUCT';
 const GET_INVENTORY ='GET_INVENTORY';
@@ -74,7 +76,15 @@ export const loadAllProducts = (products => {
 
 });
 
-export const filterProducts = ((products, ...filters) => {
+export const filterByBrew = ((products, filterName) => {
+
+  let filteredProducts = products.filter(product => (product.brew.name === filterName));
+
+  return {
+    type: FILTER_BY_BREW,
+    filterName,
+    filteredProducts,
+  }
   //given products as all products, check the filters received, the .filter().filter() etc. by those.
 
   /* in each product:
@@ -88,20 +98,7 @@ export const filterProducts = ((products, ...filters) => {
   reviews
   seller ... likely match , also grab state on seller contact_id for axios match... super gnaly.
   unit
-
-  //establish what to match...
-  filters.forEach(filter=>{
-
-  })
   */
-
-  //UPDATE LATER WITH ALEXIA'S COMPONENT
-
-  return {
-    type: FILTER_PRODUCTS,
-    products
-  }
-
 });
 
 export const oneFilterProducts = ((products, filter) => {

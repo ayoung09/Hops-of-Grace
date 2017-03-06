@@ -46,7 +46,7 @@ const mapStateToProps = (state => {
   //should we clean/shorten the initial state structures?
 
   return {
-      //allproducts : state.products.allproducts,
+      allproducts : state.products.allProducts,
       allsellers : state.sellers.allsellers,
       brews : state.brews.brews,
       flavors : state.flavors.flavors,
