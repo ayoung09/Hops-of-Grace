@@ -2,23 +2,44 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import { browserHistory, Link } from 'react-router';
+import store from '../store'
 
 import ProductPanel from './ProductSingle.js';
 import ReviewPanel from './Review.js';
 
-const ProductPage = (props=> {
+import {getInventory} from '../reducers/products.jsx';
+
+class ProductPage extends React.Component {
+	constructor(props) {
+    super(props);
+    this.getInv=this.getInv.bind(this);
+	}
 
 	//product panel with inset cart submit panel
 	//review panel with inset review submmit panel
-	console.log(props);
 
-	return (
-	     	<div>
-	      		<ProductPanel />
-	      		<ReviewPanel />
-          	</div>
-	)
-})
+	getInv = (event => {
+		event.preventDefault();
+		let prodId = 0;
+		if (this.props.params.productId){
+			prodId= this.props.params.productId;
+		};
+		console.log(this.props.getInventory(prodId));
+	})
+
+
+	render(){
+
+		console.log(this.props.params.productId);
+
+		return (
+		     	<div>
+		      		<ProductPanel onEnter={this.getInv} />
+		      		<ReviewPanel />
+	          	</div>
+		)
+	}
+}
 
 
 //--- connect methods to add/integrate------- what's needed from store/state for the above?
@@ -32,20 +53,14 @@ const ProductPage = (props=> {
 //   }
 // });
 
-// const mapDispatchToProps = (dispatch => {
-// 	return {
-// 	    addItemFull(itemId, count){ // item to cart w/ specifications
-// 	      dispatch(addItem(itemId, count));
-// 	    },
-// 	    addFavs(itemId){ // signal liking item
-// 	    	dispatch(addFavs(itemId));
-// 	    },
-// 	    addReview(itemId){ // review form submission
-// 	    	dispatch(addFavs(itemId));
-// 	    },
-// 	};
-// });
+const mapDispatchToProps = (dispatch => {
+	return {
+	    getInventory(itemId){ // signal liking item
+	    	dispatch(getInventory(itemId));
+	    },
+	};
+});
 
-// const ProductPan = connect(mapStateToProps, mapDispatchToProps)(ProductPage);
+const ProductPan = connect(null, mapDispatchToProps)(ProductPage);
 
-export default ProductPage;
+export default ProductPan;

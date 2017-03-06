@@ -59,13 +59,13 @@ const onEnter = (nextRouterState) => {
       .then(([products, sellers, brews, flavors]) => {
 
 
-        //store.dispatch(loadAllProducts(products));
+        store.dispatch(loadAllProducts(products));
         store.dispatch(loadAllSellers(sellers));
         store.dispatch(loadAllBrews(brews));
         store.dispatch(loadAllFlavors(flavors));
-        //store.dispatch(loadAllStates(sellers));
+        store.dispatch(loadAllStates(sellers));
         store.dispatch(getCartStart());
-        //store.dispatch(getFavs()); // rework to load cart, fav, etc. from user and capture existing cart...
+        store.dispatch(getFavs()); // rework to load cart, fav, etc. from user and capture existing cart...
 
       }).catch(err=>{
         console.log(err);

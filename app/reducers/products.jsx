@@ -149,13 +149,13 @@ export const selectProduct = ((products, productId) => {
 
 export const getInventory = (productId => {
 
-  axios.get('/api/inventories/'+productId)
+  axios.get('/api/inventories/'+ productId)
     .then(product=> product.data)
-    .then(selected=>{
-      console.log('get inventory: ', selected);
+    .then(inventory=>{
+      console.log('get inventory: ', inventory);
       return {
             type: GET_INVENTORY,
-            inventory : selected,
+            inventory
           };
     })
     .catch(err=>{console.log('dispatch?: ', err)});

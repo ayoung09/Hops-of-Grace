@@ -30,6 +30,10 @@
 	margin-bottom:0px;
 }
 
+.tclose{
+	margin-top:0px;
+}
+
 .white{
 	color: #ffffff;
 }
@@ -93,7 +97,9 @@ a {
 }
 
 .product{
-	height: 30vh;
+	height: 35vh;
+	display: flex;
+	align-items: center;
 	border-top: #ae8419 solid 2px;
 	border-bottom: #ae8419 solid 2px;
 	background-color: #f8ecce;
@@ -108,6 +114,12 @@ a {
 .bottom{
 	display: flex;
 	align-items: flex-end;
+	align-self: flex-end;
+}
+
+.vCenter{
+	display: flex;
+	align-items: center;
 }
 
 .productsHalf{
@@ -166,8 +178,18 @@ a {
 .singleBimg{
 	height:180px;
 	width: 180px;
+	border-radius: 5px;
 	margin-right: 20px;
 	border: #ffffff solid 4px;
+}
+
+.purchaseMe{
+	height: 32vh;
+	border-radius: 5px;
+	background-color: #ffffff;
+	border: #e8c15f solid 5px;
+	align-content: center;
+
 }
 
 .CL{
@@ -180,6 +202,16 @@ a {
 	color: #daa520;
 }
 
+.CLP{
+	position: relative;
+    top: 0px;
+    left: 0px;
+}
+
+.CLP:hover{
+	color: #daa520;
+}
+
 .CR{
 	position: relative;
     top: -8px;
@@ -187,6 +219,16 @@ a {
 }
 
 .CR:hover{
+	color: #daa520;
+}
+
+.CRP{
+	position: relative;
+    top: 0px;
+    right: -12%;
+}
+
+.CRP:hover{
 	color: #daa520;
 }
 

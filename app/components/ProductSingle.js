@@ -18,6 +18,7 @@ class ProductSingle extends React.Component { // (props => {
     this.state = { // for local interactions and display options... show cart - add to cart button
     	existingCartCount: this.props.currentCart[this.props.currentProduct.id], // to re-color cart icons
     	localCartColor: Object.keys(this.props.currentCart).map(each=> +each),
+    	localHeartColor: Object.keys(this.props.currentFavs).map(each=> +each),
     	addCartCount: 0,
     };
 
@@ -46,31 +47,44 @@ class ProductSingle extends React.Component { // (props => {
 	render(){
 
 		console.log(this.props);
+
 		let product = this.props.currentProduct;
+		if (this.props.currentProduct===[]){
+			let product = this.props.allproducts[0];
+		}
+
+		let cartColor='white';
+		let heartColor='white';
+
+		if (this.props.currentProduct){ //once load, compare values
+			if (this.state.localCartColor.indexOf(+product.id)!== -1){
+				cartColor = 'gold';
+			};
+
+			if (this.state.localHeartColor.indexOf(+product.id)!== -1){
+				heartColor = 'gold';
+			};
+		}
 
 		return (
 
 		        <div className="row product pad20 ">
-		        	<div className="col-xs-6 col-sm-6 col-lg-4 text-center">
-		        		<img src="" className="singleBimg" value="" />
-		        		<img src="" className="singleBimg" value="" />
+		        	<div className="col-xs-12 col-sm-12 col-lg-4 text-right">
+		        		<img src={product.photo.source} className="singleBimg bshadow" value="" />
 		        	</div>
-		        	<div className="col-xs-6 col-sm-6 col-lg-4">
-		        			set up the info as variables
-		        			<h1>product.name</h1>
-		        			<h4>product.seller.breweryName</h4>
-		        			<h5>inventory? available</h5>
-		        			<br/>
-		        			<h5>product.description</h5>
-		        			flavors list
-		        			category
-		        			<br/>
-		        			<br/>
-		        			mini-cart button
-		        			mini-like button
-
+		        	<div className="col-xs-12 col-sm-12 col-lg-4">
+		        			<h3 className="bclose tclose CoreMagic brown">{product.name}</h3>
+			        		<h4 className="Choplin-Medium gold">{product.seller.breweryName}, {product.unit.name}(s) avail.</h4>
+		        			<div>
+			        			<span className={`glyphicon glyphicon-shopping-cart tshadowl CLP ${cartColor}`} onClick={this.addToCart} value={product.id}>
+			        			</span>
+				                <span className={`glyphicon glyphicon-heart  tshadowl CRP ${heartColor}`} onClick={this.addToFavs} value={product.id}>
+				                </span>
+			        			<br/>
+			        			<br/>
+				        		<p className="Choplin-Light brown">{product.description.split(' ').slice(0,30).join(' ')+`...`}</p>
+			        		</div>
 		        	</div>
-
 		        	<SubmitToCart />
 
 	            </div>
@@ -84,6 +98,7 @@ class ProductSingle extends React.Component { // (props => {
 
 const mapStateToProps = (state => {
 	return {
+	allproducts : state.products.allproducts,
     currentProduct : state.products.currentProduct, //includes reviews, etc.
     currentInventory : state.products.currentInventory,
   	currentCart : state.cart.currentCart,
