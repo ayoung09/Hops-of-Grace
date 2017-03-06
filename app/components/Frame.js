@@ -57,6 +57,7 @@ const mapStateToProps = (state => {
 
 });
 
+//Just pass in empty {} or nothing
 const mapDispatchToProps = (dispatch => {
   return {};
 });

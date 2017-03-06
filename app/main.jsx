@@ -46,7 +46,7 @@ const ExampleApp = connect(
 
 const onEnter = (nextRouterState) => {
 
-
+      //Spacing? And naming?
       const productsA = axios.get('/api/products');
       const sellersA = axios.get('/api/sellers');
       const brewsA = axios.get('/api/brewTypes');

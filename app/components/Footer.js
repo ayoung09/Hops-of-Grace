@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+//I would desttucture props in params. Self-documenting
+//wait... we never use props
 const Footer = (props => {
 
 	let fakeArr=['must be 21 etc', 'dev team credits', 'not a real site'];

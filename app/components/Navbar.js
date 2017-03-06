@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
+    //unused state? Why is this component stateful?
     this.state = {
       filterType: '',
       filterId: '',

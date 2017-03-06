@@ -15,6 +15,7 @@ const reviewReducer = (prevState = initState, action) => {
       break;
 
     case ADD_FAVS:
+      //same pattern as before?
     	if (nextState.currentFavs.hasOwnProperty(action.item)){
       		nextState.currentFavs[action.item] += 1;
     	} else {

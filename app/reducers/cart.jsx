@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+//Maybe document up here the structure of your state?
 let initState={
   currentCart : {}, //load all and update
 }
@@ -13,6 +14,8 @@ const cartReducer = (prevState = initState, action) => {
       break;
 
     case ADD_ITEM:
+    //This logic is stinky and confusing
+    //Helper function? Maybe itemInCart?
     	if (nextState.currentCart.hasOwnProperty(action.item)){
       		nextState.currentCart[action.item] += 1;
     	} else {
@@ -22,6 +25,7 @@ const cartReducer = (prevState = initState, action) => {
       // for click cart button, edit later
 
     case ADD_ITEM_FULL:
+    //DRY
     	if (nextState.currentCart.hasOwnProperty(action.item[0])){
     		nextState.currentCart[action.item[0]] += +action.item[1];
     	} else {
@@ -31,6 +35,7 @@ const cartReducer = (prevState = initState, action) => {
       // for full product page entry
 
     case EDIT_ITEM:
+    //Why are the type coercion? Why is the action the wrong type?
       	nextState.currentCart[action.item[0]] += +action.item[1]; //list as positive or negative on + or - buttons
       	break;
 
@@ -47,7 +52,7 @@ const ADD_ITEM='ADD_ITEM';
 const ADD_ITEM_FULL='ADD_ITEM_FULL';
 const EDIT_ITEM ='EDIT_ITEM';
 
-
+//Where are the other action creators?
 export const getCartStart = (() => {
   return {
     type: GET_CART_START,

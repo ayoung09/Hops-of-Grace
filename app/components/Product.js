@@ -9,7 +9,7 @@ import SearchPanel from './Search.js';
 const ProductPage = (props=> {
 	//search and products both have local, form actions...
 	//react-redux connection to store for state stuff instead of passing down
-	console.log(props);
+	console.log(props); //Don't commit me :(
 
 	return (
 	     	<div>

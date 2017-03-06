@@ -18,8 +18,10 @@ const brewReducer = (prevState = initState, action) => {
   return nextState;
 }
 
-const LOAD_ALL_BREWS='LOAD_ALL_BREWS';
+const LOAD_ALL_BREWS='LOAD_ALL_BREWS';  //Probably should put this at the top
 
+
+// Maybe put your action creators somewhere else?
 export const loadAllBrews = (brews => {
   return {
     type: LOAD_ALL_BREWS,

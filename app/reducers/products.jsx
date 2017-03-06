@@ -11,9 +11,13 @@ import axios from 'axios';
 
 */
 let initState={
+  //Should probably be an object mapping IDs to product data
   allproducts : [], //load all and update on create
+  //Should probably be an array of product IDs
   filteredproducts : [], //MULTI OR ONE CATEGORY SEARCH,
+  //Should just be an ID linking to a product. selectedProduct a better name?
   selectproduct : {}, //single page focus - from link or typed search
+  //Should also be an array of IDs
   userproducts : [], //stored cart or history
   filters : [], //searched by
 }
@@ -68,6 +72,7 @@ export const loadAllProducts = (products => {
 
 });
 
+//So we do the work in the action creator?
 export const filterProducts = ((products, ...filters) => {
   //given products as all products, check the filters received, the .filter().filter() etc. by those.
 
@@ -97,7 +102,7 @@ export const filterProducts = ((products, ...filters) => {
   }
 
 });
-
+// +/- of doing filtering here vs reducer? Why is quantity business logic in reducer of cart? consistency.
 export const oneFilterProducts = ((products, filter) => {
   //filter = {category:value};
 
@@ -146,6 +151,7 @@ export const selectProduct = ((products, productId) => {
 
 
 
+// Will this have access to dispatch?
 export const createProduct = (product => {
   //presuming form action/axios does the work of making the product
   // add to products list and set as selectProduct... i.e. go to page on submission.
