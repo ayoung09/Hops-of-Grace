@@ -115,15 +115,36 @@ export const oneFilterProducts = ((products, filter) => {
 
 });
 
-export const selectProduct = (product => {
-  //presuming link or form action does the work of sorting
+// export const selectProduct = (productId => {
+
+//   axios.get('/api/products/'+ productId)
+//     .then(product=> product.data)
+//     .then(selected=>{
+//       return {
+//         type: SELECT_PRODUCT,
+//         selected,
+//       };
+//     })
+//     .catch(err=>{console.log(err)});
+
+// }); CHECK ROUTE... GETTING SEQUELIZE ERROR ON GET/:PRODUCTID... RAW QUERY SOMETHING...
+
+export const selectProduct = ((products, productId) => {
+
+  let select = products.filter(product=>{
+    return product.id === productId;
+  })
 
   return {
-    type: SELECT_PRODUCT,
-    product,
-  }
+        type: SELECT_PRODUCT,
+        selected : select[0],
+      };
+
 
 });
+
+
+
 
 export const createProduct = (product => {
   //presuming form action/axios does the work of making the product

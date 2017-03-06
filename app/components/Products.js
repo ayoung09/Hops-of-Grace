@@ -6,6 +6,7 @@ import { browserHistory, Link } from 'react-router';
 import fakePhotos from './utilities';
 
 //import {actions} from
+import {selectProduct} from '../reducers/products';
 import {addItem} from '../reducers/cart';
 import {addFavs} from '../reducers/reviews';
 
@@ -18,17 +19,25 @@ class Products extends React.Component { // (props => {
     this.state = { // for local interactions and display options... show cart - add to cart button
     	localCartColor: Object.keys(this.props.currentCart).map(each=> +each), // to re-color cart icons
     	localHeartColor: Object.keys(this.props.currentFavs).map(each=> +each),
+    	currentId : 0,
     };
 
     //actual interactions
     this.addToCart = this.addToCart.bind(this);
     this.addToFavs = this.addToFavs.bind(this);
+    this.setProduct = this.setProduct.bind(this);
+    this.clearProduct = this.clearProduct.bind(this);
+    this.setId = this.setId.bind(this);
     this.priorOrders = this.priorOrders.bind(this);
 
     //only during seeding stage
     this.productsEnlarged = this.productsEnlarged.bind(this);
-    this.productsPhotos = this.productsPhotos.bind(this);
+    //this.productsPhotos = this.productsPhotos.bind(this);
 	}
+
+	setId= (event => {
+		this.setState({currentId:event.target.attributes.value.value});
+	});
 
 
 	addToCart= (event => {
@@ -45,6 +54,16 @@ class Products extends React.Component { // (props => {
 
 		let cart = this.state.localHeartColor.concat(+prodId);
 		this.setState({localHeartColor:cart});
+	});
+
+	setProduct= (event => {
+		this.props.selectProduct(this.props.allproducts, this.state.currentId);
+		browserHistory.push('/product/'+this.state.currentId);
+	});
+
+	clearProduct= (event => {
+		this.props.selectProduct(this.props.allproducts, 0);
+		this.setState({currentId:0});
 	});
 
 	priorOrders = (event => { // set icon color/css to differ if they've purchased before... once we've got user history in the mix...
@@ -71,28 +90,28 @@ class Products extends React.Component { // (props => {
 	})
 
 	// to assist with extra seeding and appearance of full database...
-	productsPhotos = ((pEArr)=>{ //photos list, pre-photo seeding
-		let photos = fakePhotos();
+	// productsPhotos = ((pEArr)=>{ //photos list, pre-photo seeding
+	// 	let photos = fakePhotos();
 
-		if (pEArr[0]!== undefined){
+	// 	if (pEArr[0]!== undefined){
 
-			pEArr.forEach((prod)=> {
-				prod.photo = photos[prod.id].source;
-				prod.photo_id = prod.id;
-			})
-			return pEArr;
-		};
+	// 		pEArr.forEach((prod)=> {
+	// 			prod.photo = photos[prod.id].source;
+	// 			prod.photo_id = prod.id;
+	// 		})
+	// 		return pEArr;
+	// 	};
 
-		return pEArr;
+	// 	return pEArr;
 
-	})
+	// })
 
 
 
 	render(){
 
 	//set below to props.allproducts or props.filteredproducts once seeding is done
-	let entries = this.productsPhotos(this.productsEnlarged()) ;
+	let entries = this.productsEnlarged() ;
 
 	//className for css half page = productsHalf, for full page = productsFull
 	let sizeClass = this.props.size;
@@ -127,16 +146,16 @@ class Products extends React.Component { // (props => {
 		            			heartColor = 'gold';
 		            		};
 
+
 		            		return (
 				                  <div className="thumbB pad20 marg20 bshadow text-center" key={entry.name+i} >
 
 				                  	<span className={`glyphicon glyphicon-shopping-cart CL ${cartColor}`} onClick={this.addToCart} value={entry.id}></span>
 				                  	<span className={`glyphicon glyphicon-heart CR ${heartColor}`} onClick={this.addToFavs} value={entry.id}></span>
-				                  	<div>
-					                    <Link to={`/product/${entry.id}`}><img src={entry.photo} className="thumbBimg" />
-					                    <h4 className="Choplin-Medium bclose thumbT">{entry.name}</h4>
-					                    <p className="Choplin-Light sm thumbT">{entry.brew.name}</p>
-					                    </Link>
+				                  	<div onClick={this.setProduct} onMouseOver={this.setId} value={entry.id} >
+					                    <img src={entry.photo.source} className="thumbBimg" value={entry.id} />
+					                    <h4 className="Choplin-Medium bclose thumbT" value={entry.id} >{entry.name}</h4>
+					                    <p className="Choplin-Light sm thumbT" value={entry.id} >{entry.brew.name}</p>
 				                    </div>
 				                  </div>
 			            		)
@@ -145,12 +164,12 @@ class Products extends React.Component { // (props => {
 		            </div>
 		            {sizeClass!=="productsFull" &&  // on first page only
 		            		<div className="row CoreMagic more text-center">
-		            			<Link to="/products/show-all"><h5 className="white tshadowL moreT bclose">explore more</h5></Link>
+		            			<Link to="/products/show-all"><h5 className="white tshadowL moreT bclose" >explore more</h5></Link>
 		            		</div>
 		            }
 		            {sizeClass==="productsFull" &&  // on first page only
 		            		<div className="row CoreMagic more text-center">
-		            			<Link to="/welcome"><h5 className="white tshadowL moreT bclose">clear filter : search again</h5></Link>
+		            			<Link to="/welcome"><h5 className="white tshadowL moreT bclose" >clear filter : search again</h5></Link>
 		            		</div>
 		            }
 		            <div className="pad20">
@@ -172,6 +191,7 @@ const mapStateToProps = (state => {
   	filters : state.products.filters,
   	currentCart : state.cart.currentCart,
   	currentFavs : state.reviews.currentFavs,
+  	selectproduct : state.products.selectproduct,
   }
 });
 
@@ -179,6 +199,9 @@ const mapDispatchToProps = (dispatch => {
 	return {
 	    addItem(itemId){
 	      dispatch(addItem(itemId));
+	    },
+	    selectProduct(products, itemId){
+	      dispatch(selectProduct(products, itemId));
 	    },
 	    addFavs(itemId){
 	    	dispatch(addFavs(itemId));

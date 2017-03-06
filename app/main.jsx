@@ -27,6 +27,7 @@ import Framefake from './components/Framefake'
 import Frame from './components/Frame'
 import StartPage from './components/Start'
 import ProductsPage from './components/Products'
+import ProductPage from './components/Product'
 
 
 
@@ -44,16 +45,7 @@ const ExampleApp = connect(
 )
 
 const onEnter = (nextRouterState) => {
-/* initialstate = { //things to load through axio call...
-  allproducts : [],
-  allsellers : [],
-  brews : [],
-  flavors : [],
-  // below are derived from above plus session info and sign-in
-  states : {}... use with Object.keys()later
-  currentCart : {},
-  currentUser : {},
-} */
+
 
       const productsA = axios.get('/api/products');
       const sellersA = axios.get('/api/sellers');
@@ -97,9 +89,9 @@ render (
         <Route path="/welcome" component={StartPage} />
 
         <Route path="/products/:filter" component={ProductsPage} />
+        <Route path="/product/:productId" component={ProductPage} />
 
         {/*<Route path="/signIn" component={SignIn} />
-        <Route path="/product/:productId" component={ProductPage} />
 
         <Route path="/signUp" component={SignUp} />
         <Route path="/signUpSeller" component={SignUpSeller} />
