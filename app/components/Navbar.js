@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 
 const Navbar = ({ brews, flavors }) => {
-  console.log('These are brews on Navbar: ', brews);
 
   return (
     <div className="row pad10 nav">
@@ -12,7 +11,7 @@ const Navbar = ({ brews, flavors }) => {
           <select className="form-control brown btxt">
             <option>Brew Type</option>
             {brews.map(brew => (
-              <option>{brew.name}</option>))
+              <option key={brew.id}>{brew.name}</option>))
             }
           </select>
         </div>
@@ -20,7 +19,7 @@ const Navbar = ({ brews, flavors }) => {
           <select className="form-control brown btxt">
           <option>Flavors</option>
             {flavors.map(flavor => (
-              <option>{flavor.name}</option>))
+              <option key={flavor.id}>{flavor.name}</option>))
             }
           </select>
         </div>
