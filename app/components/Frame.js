@@ -22,8 +22,6 @@ class FrameBase extends React.Component {
 // the dumb HTML/JSV
   render() {
 
-    console.log('This is props on Frame: ', this.props);
-
     return (
           <div className="container-fluid no-overflow">
             <Header />
@@ -32,8 +30,8 @@ class FrameBase extends React.Component {
               brews={this.props.brews}
               flavors={this.props.flavors}/>
 
-          { /*this.props &&
-              this.props.children && React.cloneElement(this.props.children, Object.assign({}, this.props))*/
+          { this.props &&
+              this.props.children && React.cloneElement(this.props.children, Object.assign({}, this.props))
               //this goes to all nested pages... i.e. all pages
           }
 

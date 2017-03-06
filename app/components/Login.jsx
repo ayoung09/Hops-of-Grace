@@ -1,9 +1,10 @@
 import React from 'react';
 import { login } from 'APP/app/reducers/auth';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 
 const Login = ({ login }) => {
+  console.log('GOT TO LOGIN PAGE')
   return (
     <div className="signin-container">
       <div className="buffer local">

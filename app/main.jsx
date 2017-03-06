@@ -76,15 +76,15 @@ const onEnter = (nextRouterState) => {
 render (
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={ExampleApp}>
+      {/*<Route path="/" component={ExampleApp}>
         <IndexRedirect to="/jokes" />
         <Route path="/jokes" component={Jokes} />
       </Route>
-      <Route path="/framefake" component={Framefake} />
+      <Route path="/framefake" component={Framefake} />*/}
 
     {/* general structure below comment on and off to work with additions */}
 
-      <Route path="/frame" component={Frame} onEnter={onEnter} >
+      <Route path="/" component={Frame} onEnter={onEnter} >
         <IndexRedirect to="/welcome" />
         <Route path="/welcome" component={StartPage} />
         <Route path="/login" component={Login} />
