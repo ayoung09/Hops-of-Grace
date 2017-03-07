@@ -98,7 +98,7 @@ class ProductSingle extends React.Component { // (props => {
 		        	<div className="col-xs-12 col-sm-12 col-lg-4">
 		        			<h3 className="bclose tclose CoreMagic brown">{product.name}</h3>
 			        		<h4 className="Choplin-Medium gold">Brewed by : {product.seller.breweryName}</h4>
-			        		<h5 className="Choplin-Medium gold">{this.state.localInventory.qtyAvailable} {product.unit.name}(s) available, at ${product.price} each</h5>
+			        		<h5 className="Choplin-Medium gold"> ${product.price}</h5>
 		        			<div>
 			        			<span className={`glyphicon glyphicon-shopping-cart tshadowl CLP ${cartColor}`} onClick={this.addToCart} value={product.id}>
 			        			</span>

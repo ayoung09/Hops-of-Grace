@@ -104,7 +104,7 @@ const mapDispatchToProps = dispatch => {
   return {
     filterByBrew(allProducts, filterName){
       dispatch(filterByBrew(allProducts, filterName));
-      browserHistory.push(`/products/brewType-${filterName}`);
+      browserHistory.push(`/products/?brewType=${filterName}`);
     }
   };
 };
