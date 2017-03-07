@@ -34,7 +34,6 @@ const cartReducer = (prevState = initState, action) => {
     return nextState;
  }
 
-
 //action creators
 export const setItemQty = (itemId, quantity) => {
   return {

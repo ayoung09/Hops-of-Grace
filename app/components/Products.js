@@ -6,9 +6,9 @@ import { browserHistory, Link } from 'react-router';
 import fakePhotos from './utilities';
 
 //import {actions} from
-import {selectProduct} from '../reducers/products';
+import {selectProduct, getInventory} from '../reducers/products';
 import {addItem} from '../reducers/cart';
-import {addFavs} from '../reducers/reviews';
+import {addFavs, getReviews} from '../reducers/reviews';
 
 
 //COMBINED COMPONENT AND CONTAINER FILE!
@@ -43,7 +43,8 @@ class Products extends React.Component { // (props => {
 		let prodId = event.target.attributes.value.value;
 		this.props.addItem(prodId);
 
-		let cart = this.state.localCartColor.concat(+prodId);
+		let cart = this.state.localCartColor;
+		if (!cart.indexOf(+prodId)){cart = cart.concat(+prodId)};
 		this.setState({localCartColor:cart});
 	});
 
@@ -56,8 +57,11 @@ class Products extends React.Component { // (props => {
 	});
 
 	setProduct= (event => {
-		this.props.selectProduct(this.props.allproducts, this.state.currentId);
-		browserHistory.push('/product/'+this.state.currentId);
+		let id = this.state.currentId;
+		this.props.selectProduct(this.props.allProducts, id);
+		//this.props.getInventory(id);
+		//console.log(this.props.currentProduct);
+		browserHistory.push('/product/'+id);
 	});
 
 
@@ -69,16 +73,16 @@ class Products extends React.Component { // (props => {
 	// to assist with extra seeding and appearance of full database...
 	productsEnlarged = (()=>{ //creating fake-larger product list.
 		var productsE =[];
-		if (this.props.allproducts && this.props.allproducts.length<10){
-			productsE = this.props.allproducts;
+		if (this.props.allProducts && this.props.allProducts.length<10){
+			productsE = this.props.allProducts;
 
 			let multipage=Math.floor(Math.random()*25) + 10; // up to 18 entries
-			for (let i=this.props.allproducts.length; i<multipage; i++){
+			for (let i=this.props.allProducts.length; i<multipage; i++){
 				let originalRandom = Math.floor(Math.random()*i); // copy from existing
 				productsE.push(productsE[originalRandom]);
 			}; //padded # of products
-		} else if (this.props.allproducts && this.props.allproducts.length>=6){
-			productsE = this.props.allproducts;
+		} else if (this.props.allProducts && this.props.allProducts.length>=6){
+			productsE = this.props.allProducts;
 		};
 
 		return productsE;
@@ -105,7 +109,7 @@ class Products extends React.Component { // (props => {
 
 	render(){
 
-	//set below to props.allproducts or props.filteredproducts once seeding is done
+	//set below to props.allProducts or props.filteredproducts once seeding is done
 	let entries = this.productsEnlarged() ;
 
 	//className for css half page = productsHalf, for full page = productsFull
@@ -179,13 +183,13 @@ class Products extends React.Component { // (props => {
 
 const mapStateToProps = (state => {
 	return {
-    allproducts : state.products.allproducts,
+    allProducts : state.products.allProducts,
 	filteredproducts : state.products.filteredproducts,
   	userproducts : state.products.userproducts,
   	filters : state.products.filters,
   	currentCart : state.cart.currentCart,
   	currentFavs : state.reviews.currentFavs,
-  	selectproduct : state.products.selectproduct,
+  	currentProduct : state.products.currentProduct,
   }
 });
 
@@ -197,6 +201,9 @@ const mapDispatchToProps = (dispatch => {
 	    selectProduct(products, itemId){
 	      dispatch(selectProduct(products, itemId));
 	    },
+	    // getInventory(itemId){
+	    //   dispatch(getInventory(itemId));
+	    // },
 	    addFavs(itemId){
 	    	dispatch(addFavs(itemId));
 	    },

@@ -8,7 +8,7 @@ import axios from 'axios'
 import store from './store'
 
 //actions
-import {loadAllProducts} from './reducers/products'
+import {loadAllProducts, allInventories} from './reducers/products'
 import {loadAllSellers, loadAllStates} from './reducers/sellers'
 import {loadAllBrews} from './reducers/brews'
 import {loadAllFlavors} from './reducers/flavors'
@@ -17,7 +17,6 @@ import {getFavs} from './reducers/reviews'
 
 //jokes to be combined
 import Jokes from './components/Jokes'
-import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 
 //old formatting
@@ -26,24 +25,11 @@ import Framefake from './components/Framefake'
 //new pieces
 import Frame from './components/Frame'
 import StartPage from './components/Start'
+import Login from './components/Login'
 import ProductsPage from './components/Products'
 import ProductPage from './components/Product'
 import Cart from './components/Cart'
 
-
-
-
-const ExampleApp = connect(
-  ({ auth }) => ({ user: auth })
-) (
-  ({ user, children }) =>
-    <div>
-      <nav>
-        {user ? <WhoAmI/> : <Login/>}
-      </nav>
-      {children}
-    </div>
-)
 
 const onEnter = (nextRouterState) => {
 
@@ -52,12 +38,13 @@ const onEnter = (nextRouterState) => {
       const sellersA = axios.get('/api/sellers');
       const brewsA = axios.get('/api/brewTypes');
       const flavorsA = axios.get('/api/flavors');
+      const inventoryA = axios.get('/api/inventories');
 
 
       return Promise
-      .all([productsA, sellersA, brewsA, flavorsA])
+      .all([productsA, sellersA, brewsA, flavorsA, inventoryA])
       .then(responses => responses.map(r => r.data))
-      .then(([products, sellers, brews, flavors]) => {
+      .then(([products, sellers, brews, flavors, inventory]) => {
 
 
         store.dispatch(loadAllProducts(products));
@@ -65,6 +52,7 @@ const onEnter = (nextRouterState) => {
         store.dispatch(loadAllBrews(brews));
         store.dispatch(loadAllFlavors(flavors));
         store.dispatch(loadAllStates(sellers));
+        store.dispatch(allInventories(inventory));
         store.dispatch(getCartStart());
         store.dispatch(getFavs()); // rework to load cart, fav, etc. from user and capture existing cart...
 
@@ -77,19 +65,20 @@ const onEnter = (nextRouterState) => {
 render (
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={ExampleApp}>
+      {/*<Route path="/" component={ExampleApp}>
         <IndexRedirect to="/jokes" />
         <Route path="/jokes" component={Jokes} />
       </Route>
-      <Route path="/framefake" component={Framefake} />
+      <Route path="/framefake" component={Framefake} />*/}
 
     {/* general structure below comment on and off to work with additions */}
 
-      <Route path="/frame" component={Frame} onEnter={onEnter} >
+      <Route path="/" component={Frame} onEnter={onEnter} >
         <IndexRedirect to="/welcome" />
         <Route path="/welcome" component={StartPage} />
+        <Route path="/login" component={Login} />
 
-        <Route path="/products/:filter" component={ProductsPage} />
+        <Route path="/products" component={ProductsPage} />
         <Route path="/product/:productId" component={ProductPage} />
         <Route path="/cart" component={Cart} />
 

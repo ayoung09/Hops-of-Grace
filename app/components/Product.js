@@ -2,48 +2,66 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import { browserHistory, Link } from 'react-router';
+import store from '../store'
 
-import ProductsPanel from './Products.js';
-import SearchPanel from './Search.js';
+import ProductPanel from './ProductSingle.js';
+import ReviewPanel from './Review.js';
 
-const ProductPage = (props=> {
-	//search and products both have local, form actions...
-	//react-redux connection to store for state stuff instead of passing down
-	console.log(props);
+import {getInventory} from '../reducers/products.jsx';
 
-	return (
-	     	<div>
-	      		<ProductsPanel size="productsHalf" />
-          	</div>
-	)
-})
+class ProductPage extends React.Component {
+	constructor(props) {
+    super(props);
+    this.getInv=this.getInv.bind(this);
+	}
+
+	//product panel with inset cart submit panel
+	//review panel with inset review submmit panel
+
+	getInv = (event => {
+		event.preventDefault();
+		let prodId = 0;
+		if (this.props.params.productId){
+			prodId= this.props.params.productId;
+		};
+		this.props.all;
+	})
+
+
+	render(){
+
+		console.log(this.props.params.productId);
+		//<LikeProductsBar />
+
+		return (
+		     	<div>
+		      		<ProductPanel />
+		      		<ReviewPanel />
+	          	</div>
+		)
+	}
+}
 
 
 //--- connect methods to add/integrate------- what's needed from store/state for the above?
 
 
-const mapStateToProps = (state => {
-	return {
-    selectproduct : state.products.selectproduct, //includes reviews, etc.
-  	currentCart : state.cart.currentCart,
-  	currentFavs : state.reviews.currentFavs,
-  }
-});
+// const mapStateToProps = (state => {
+// 	return {
+//     currentProduct : state.products.currentProduct, //includes reviews, etc.
+//   	currentCart : state.cart.currentCart,
+//   	currentFavs : state.reviews.currentFavs,
+//   }
+// });
 
-const mapDispatchToProps = (dispatch => {
-	return {
-	    addItemFull(itemId, count){
-	      dispatch(addItem(itemId, count));
-	    },
-	    addFavs(itemId){
-	    	dispatch(addFavs(itemId));
-	    },
-	    addReview(itemId){
-	    	dispatch(addFavs(itemId));
-	    },
-	};
-});
+// const mapDispatchToProps = (dispatch => {
+// 	return {
+// 	    getInventory(itemId){ // signal liking item
+// 	    	dispatch(getInventory(itemId));
+// 	    },
+// 	};
+// });
 
-const ProductPan = connect(mapStateToProps, mapDispatchToProps)(ProductPage);
+// const ProductPan = connect(null, mapDispatchToProps)(ProductPage);
 
-export default ProductPan;
+export default ProductPage;
