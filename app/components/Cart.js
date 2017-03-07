@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import { setItemQty, removeItem, clearCart } from '../reducers/cart.jsx';
 
 const mapStateToProps = (state => {
   return {
@@ -16,19 +17,6 @@ const mapDispatchToProps = (dispatch => {
   }
 })
 
-const CartItem = () => {
-
-  return (
-    <tr>
-      <td><img src="" /></td>
-      <td><input /></td>
-      <td></td>
-      <td></td>
-      <td><span class="remove"><img src={/* trash can picture */} alt="X" /></span></td>
-  </tr>
-  )
-}
-
 export default connect(
   mapStateToProps,
   mapDispatchToProps
@@ -38,6 +26,9 @@ export default connect(
     }
 
     render() {
+      const cart = this.props.currentCart;
+      const allProducts = this.props.products;
+
       return (
         <div>
           <table>
@@ -52,8 +43,36 @@ export default connect(
             </thead>
             <tbody>
               {
-                props.currentCart.map
+                Object.keys(cart).map(productId => {
+                  const beer = allProducts.filter(product => {
+                    return product.id === productId;
+                  })[0];
+
+                  return (
+                    <tr key={productId}>
+                      <td><img src={beer.photo} /></td>
+                      <td>{cart[productId]}</td>
+                      <td>{beer.name}</td>
+                      <td>{beer.price}</td>
+                      <td><button type="button" className="btn btn-danger"></button>Remove From Cart</td>
+                  </tr>
+                  )
+                })
               }
+              <tr>
+                <td>Shipping & Tax</td>
+                <td colspan="2"></td>
+                <td>An amount of Money!</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>Total:</td>
+                <td colspan="2">&nbsp;</td>
+                <td colspan="2">$225.45</td>
+              </tr>
+              <tr>
+                <td colspan="5"><button>Checkout Now!</button></td>
+              </tr>
             </tbody>
           </table>
         </div>

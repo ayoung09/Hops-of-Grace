@@ -5,39 +5,27 @@ let initState = {
 }
 
 //constants
-const GET_CART_START = 'GET_CART_START';
-const ADD_ITEM = 'ADD_ITEM';
-const ADD_ITEM_FULL = 'ADD_ITEM_FULL';
-const EDIT_ITEM = 'EDIT_ITEM';
+const SET_ITEM_QTY = 'SET_ITEM_QTY';
+const REMOVE_ITEM = 'REMOVE_ITEM';
+const CLEAR_CART = 'CLEAR_CART';
 
 //reducer
 const cartReducer = (prevState = initState, action) => {
   const nextState = Object.assign({}, prevState);
 
   switch (action.type) {
-    case GET_CART_START:
-      nextState.currentCart = action.cart;
+
+    case SET_ITEM_QTY:
+    	nextState.currentCart[action.itemId] = action.quantity;
       break;
 
-    case ADD_ITEM:
-    	if (nextState.currentCart.hasOwnProperty(action.item)){
-      		nextState.currentCart[action.item] += action.quantity;
-    	} else {
-    		nextState.currentCart[action.item] = action.quantity;
-    	}
+    case REMOVE_ITEM:
+      delete nextState.currentCart[action.itemId];
       break;
 
-    case ADD_ITEM_FULL:
-    	if (nextState.currentCart.hasOwnProperty(action.item[0])){
-    		nextState.currentCart[action.item[0]] += +action.item[1];
-    	} else {
-      		nextState.currentCart[action.item[0]] = action.item[1];
-      	}
-      	break;
-
-    case EDIT_ITEM:
-      	nextState.currentCart[action.item[0]] += +action.item[1]; //list as positive or negative on + or - buttons
-      	break;
+    case CLEAR_CART:
+      nextState.currentCart = {};
+      break;
 
     default:
     	return prevState;
@@ -48,21 +36,25 @@ const cartReducer = (prevState = initState, action) => {
 
 
 //action creators
-export const getCartStart = (() => {
+export const setItemQty = (itemId, quantity) => {
   return {
-    type: GET_CART_START,
-    cart: {}
-  }
-
-});
-
-export const addItem = (item, quantity) => {
-  return {
-    type: ADD_ITEM,
-    item,
+    type: SET_ITEM_QTY,
+    itemId,
     quantity
   }
-
 };
+
+export const removeItem = (itemId) => {
+  return {
+    type: REMOVE_ITEM,
+    itemId
+  }
+};
+
+export const clearCart = () => {
+  return {
+    type: CLEAR_CART
+  }
+}
 
 export default cartReducer;
