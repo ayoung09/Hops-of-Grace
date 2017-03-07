@@ -77,7 +77,7 @@ render (
         <Route path="/welcome" component={StartPage} />
         <Route path="/login" component={Login} />
 
-        <Route path="/products/:filter" component={ProductsPage} />
+        <Route path="/products" component={ProductsPage} />
         <Route path="/product/:productId" component={ProductPage} />
 
         {/*<Route path="/signIn" component={SignIn} />

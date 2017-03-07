@@ -58,7 +58,7 @@ class Products extends React.Component { // (props => {
 
 	setProduct= (event => {
 		let id = this.state.currentId;
-		this.props.selectProduct(this.props.allproducts, id);
+		this.props.selectProduct(this.props.allProducts, id);
 		//this.props.getInventory(id);
 		//console.log(this.props.currentProduct);
 		browserHistory.push('/product/'+id);
@@ -73,16 +73,16 @@ class Products extends React.Component { // (props => {
 	// to assist with extra seeding and appearance of full database...
 	productsEnlarged = (()=>{ //creating fake-larger product list.
 		var productsE =[];
-		if (this.props.allproducts && this.props.allproducts.length<10){
-			productsE = this.props.allproducts;
+		if (this.props.allProducts && this.props.allProducts.length<10){
+			productsE = this.props.allProducts;
 
 			let multipage=Math.floor(Math.random()*25) + 10; // up to 18 entries
-			for (let i=this.props.allproducts.length; i<multipage; i++){
+			for (let i=this.props.allProducts.length; i<multipage; i++){
 				let originalRandom = Math.floor(Math.random()*i); // copy from existing
 				productsE.push(productsE[originalRandom]);
 			}; //padded # of products
-		} else if (this.props.allproducts && this.props.allproducts.length>=6){
-			productsE = this.props.allproducts;
+		} else if (this.props.allProducts && this.props.allProducts.length>=6){
+			productsE = this.props.allProducts;
 		};
 
 		return productsE;
@@ -109,7 +109,7 @@ class Products extends React.Component { // (props => {
 
 	render(){
 
-	//set below to props.allproducts or props.filteredproducts once seeding is done
+	//set below to props.allProducts or props.filteredproducts once seeding is done
 	let entries = this.productsEnlarged() ;
 
 	//className for css half page = productsHalf, for full page = productsFull
@@ -183,7 +183,7 @@ class Products extends React.Component { // (props => {
 
 const mapStateToProps = (state => {
 	return {
-    allproducts : state.products.allproducts,
+    allProducts : state.products.allProducts,
 	filteredproducts : state.products.filteredproducts,
   	userproducts : state.products.userproducts,
   	filters : state.products.filters,
