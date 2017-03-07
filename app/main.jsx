@@ -30,20 +30,6 @@ import ProductsPage from './components/Products'
 import ProductPage from './components/Product'
 
 
-
-
-const ExampleApp = connect(
-  ({ auth }) => ({ user: auth })
-) (
-  ({ user, children }) =>
-    <div>
-      <nav>
-        {user ? <WhoAmI/> : <Login/>}
-      </nav>
-      {children}
-    </div>
-)
-
 const onEnter = (nextRouterState) => {
 
 
