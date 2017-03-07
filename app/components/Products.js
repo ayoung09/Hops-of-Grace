@@ -43,7 +43,8 @@ class Products extends React.Component { // (props => {
 		let prodId = event.target.attributes.value.value;
 		this.props.addItem(prodId);
 
-		let cart = this.state.localCartColor.concat(+prodId);
+		let cart = this.state.localCartColor;
+		if (!cart.indexOf(+prodId)){cart = cart.concat(+prodId)};
 		this.setState({localCartColor:cart});
 	});
 

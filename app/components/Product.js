@@ -24,17 +24,18 @@ class ProductPage extends React.Component {
 		if (this.props.params.productId){
 			prodId= this.props.params.productId;
 		};
-		console.log(this.props.getInventory(prodId));
+		this.props.all;
 	})
 
 
 	render(){
 
 		console.log(this.props.params.productId);
+		//<LikeProductsBar />
 
 		return (
 		     	<div>
-		      		<ProductPanel onEnter={this.getInv} />
+		      		<ProductPanel />
 		      		<ReviewPanel />
 	          	</div>
 		)
@@ -53,14 +54,14 @@ class ProductPage extends React.Component {
 //   }
 // });
 
-const mapDispatchToProps = (dispatch => {
-	return {
-	    getInventory(itemId){ // signal liking item
-	    	dispatch(getInventory(itemId));
-	    },
-	};
-});
+// const mapDispatchToProps = (dispatch => {
+// 	return {
+// 	    getInventory(itemId){ // signal liking item
+// 	    	dispatch(getInventory(itemId));
+// 	    },
+// 	};
+// });
 
-const ProductPan = connect(null, mapDispatchToProps)(ProductPage);
+// const ProductPan = connect(null, mapDispatchToProps)(ProductPage);
 
-export default ProductPan;
+export default ProductPage;

@@ -12,6 +12,7 @@ import axios from 'axios';
 */
 let initState={
   allproducts : [], //load all and update on create
+  allInventory : [],
   filteredproducts : [], //MULTI OR ONE CATEGORY SEARCH,
   currentProduct : {}, //single page focus - from link or typed search
   currentInventory : {}, //what's available
@@ -47,6 +48,10 @@ const productsReducer = (prevState = initState, action) => {
       nextState.currentInventory = action.inventory;
       break;
 
+    case ALL_INVENTORY:
+      nextState.allInventory = action.inventory;
+      break;
+
     case SET_FILTERS:
       nextState.filters = action.filter;
       break;
@@ -62,6 +67,7 @@ const FILTER_PRODUCTS='FILTER_PRODUCTS';
 const FILTERONE_PRODUCTS='FILTERONE_PRODUCTS';
 const SELECT_PRODUCT ='SELECT_PRODUCT';
 const GET_INVENTORY ='GET_INVENTORY';
+const ALL_INVENTORY ='ALL_INVENTORY';
 const CREATE_PRODUCT = 'CREATE_PRODUCT';
 const SET_FILTERS = 'SET_FILTERS';
 
@@ -72,6 +78,14 @@ export const loadAllProducts = (products => {
     products
   }
 
+});
+
+export const allInventories = (inventory => {
+
+      return {
+            type: ALL_INVENTORY,
+            inventory
+          }
 });
 
 export const filterProducts = ((products, ...filters) => {
@@ -161,6 +175,8 @@ export const getInventory = (productId => {
     .catch(err=>{console.log('dispatch?: ', err)});
 
 });
+
+
 
 
 

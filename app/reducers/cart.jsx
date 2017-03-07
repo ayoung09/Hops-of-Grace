@@ -21,14 +21,15 @@ const cartReducer = (prevState = initState, action) => {
       break;
       // for click cart button, edit later
 
-    case ADD_ITEM_FULL:
-    	if (nextState.currentCart.hasOwnProperty(action.item[0])){
-    		nextState.currentCart[action.item[0]] += +action.item[1];
-    	} else {
-      		nextState.currentCart[action.item[0]] = action.item[1];
-      	}
-      	break;
-      // for full product page entry
+    case SUBTRACT_ITEM:
+      if (nextState.currentCart.hasOwnProperty(action.item)){
+          nextState.currentCart[action.item] -= 1;
+      } else {
+        nextState.currentCart[action.item] = 0;
+      }
+      break;
+      // for click cart button, edit later
+
 
     case EDIT_ITEM:
       	nextState.currentCart[action.item[0]] += +action.item[1]; //list as positive or negative on + or - buttons
@@ -44,7 +45,7 @@ const cartReducer = (prevState = initState, action) => {
 
 const GET_CART_START='GET_CART_START';
 const ADD_ITEM='ADD_ITEM';
-const ADD_ITEM_FULL='ADD_ITEM_FULL';
+const SUBTRACT_ITEM='SUBTRACT_ITEM';
 const EDIT_ITEM ='EDIT_ITEM';
 
 
@@ -59,6 +60,14 @@ export const getCartStart = (() => {
 export const addItem = (item => {
   return {
     type: ADD_ITEM,
+    item
+  }
+
+});
+
+export const subtractItem = (item => {
+  return {
+    type: SUBTRACT_ITEM,
     item
   }
 

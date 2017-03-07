@@ -183,13 +183,28 @@ a {
 	border: #ffffff solid 4px;
 }
 
+.singleRimg{
+	height:80px;
+	width: 80px;
+	border-radius: 5px;
+	margin-right: 20px;
+	margin-bottom: 10px;
+	border: #ffffff solid 4px;
+}
+
 .purchaseMe{
-	height: 32vh;
 	border-radius: 5px;
 	background-color: #ffffff;
 	border: #e8c15f solid 5px;
 	align-content: center;
 
+}
+
+.reviews{
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	background-color: #f8ecce;
 }
 
 .CL{
@@ -225,10 +240,24 @@ a {
 .CRP{
 	position: relative;
     top: 0px;
-    right: -12%;
+    right: -10px;
 }
 
 .CRP:hover{
+	color: #daa520;
+}
+
+.pbox{
+	height: 32px;
+	margin: 0 40%;
+	border-radius: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: #786211 solid 3px;
+}
+
+.cartB:hover{
 	color: #daa520;
 }
 

@@ -107,6 +107,7 @@ export const getAllReviews = (() => {
 export const addReview = (itemObj => {
 
     //to preformat in review form or in here...
+    console.log(itemObj);
 
     axios.post('/api/reviews/', itemObj)
     .then(product=> product.data)
