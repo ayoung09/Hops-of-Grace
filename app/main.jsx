@@ -30,20 +30,6 @@ import ProductsPage from './components/Products'
 import ProductPage from './components/Product'
 
 
-
-
-const ExampleApp = connect(
-  ({ auth }) => ({ user: auth })
-) (
-  ({ user, children }) =>
-    <div>
-      <nav>
-        {user ? <WhoAmI/> : <Login/>}
-      </nav>
-      {children}
-    </div>
-)
-
 const onEnter = (nextRouterState) => {
 
 
@@ -59,7 +45,7 @@ const onEnter = (nextRouterState) => {
       .then(([products, sellers, brews, flavors]) => {
 
 
-        //store.dispatch(loadAllProducts(products));
+        store.dispatch(loadAllProducts(products));
         store.dispatch(loadAllSellers(sellers));
         store.dispatch(loadAllBrews(brews));
         store.dispatch(loadAllFlavors(flavors));
