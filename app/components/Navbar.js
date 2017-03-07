@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import { filterByBrew } from 'APP/app/reducers/products';
 
 class Navbar extends React.Component {
@@ -99,9 +100,18 @@ class Navbar extends React.Component {
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    filterByBrew(allProducts, filterName){
+      dispatch(filterByBrew(allProducts, filterName));
+      browserHistory.push(`/products/brewType-${filterName}`);
+    }
+  };
+};
+
 export default connect(
   state => ({
     allProducts: state.products.allProducts,
   }),
-  { filterByBrew }
+  mapDispatchToProps
 )(Navbar);

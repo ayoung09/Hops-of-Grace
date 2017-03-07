@@ -33,8 +33,7 @@ const productsReducer = (prevState = initState, action) => {
 
     case FILTER_BY_BREW:
       nextState.filterName = action.filterName;
-      nextState.filteredProducts = action.products;
-      console.log('got to products reducer and nextState is: ', nextState);
+      nextState.filteredProducts = action.filteredProducts;
       break;
 
     case FILTERONE_PRODUCTS:
