@@ -12,6 +12,7 @@ import axios from 'axios';
 */
 let initState={
   allProducts : [], //load all and update on create
+  allInventory: [],
   filteredProducts : [], //MULTI OR ONE CATEGORY SEARCH,
   currentProduct : {}, //single page focus - from link or typed search
   currentInventory : {}, //what's available
@@ -48,6 +49,10 @@ const productsReducer = (prevState = initState, action) => {
       nextState.currentInventory = action.inventory;
       break;
 
+    case ALL_INVENTORY:
+      nextState.allInventory = action.inventory;
+      break;
+
     case SET_FILTERS:
       nextState.filters = action.filter;
       break;
@@ -63,6 +68,7 @@ const FILTER_BY_BREW='FILTER_BY_BREW';
 const FILTERONE_PRODUCTS='FILTERONE_PRODUCTS';
 const SELECT_PRODUCT ='SELECT_PRODUCT';
 const GET_INVENTORY ='GET_INVENTORY';
+const ALL_INVENTORY ='ALL_INVENTORY';
 const CREATE_PRODUCT = 'CREATE_PRODUCT';
 const SET_FILTERS = 'SET_FILTERS';
 
@@ -75,6 +81,16 @@ export const loadAllProducts = (products => {
 
 });
 
+
+export const allInventories = (inventory => {
+
+      return {
+            type: ALL_INVENTORY,
+            inventory
+          }
+});
+
+
 export const filterByBrew = ((products, filterName) => {
 
   let filteredProducts = products.filter(product => (product.brew.name === filterName));
@@ -84,6 +100,7 @@ export const filterByBrew = ((products, filterName) => {
     filterName,
     filteredProducts,
   }
+
   //given products as all products, check the filters received, the .filter().filter() etc. by those.
 
   /* in each product:
@@ -145,18 +162,20 @@ export const selectProduct = ((products, productId) => {
 
 export const getInventory = (productId => {
 
-  axios.get('/api/inventories/'+productId)
+  axios.get('/api/inventories/'+ productId)
     .then(product=> product.data)
-    .then(selected=>{
-      console.log('get inventory: ', selected);
+    .then(inventory=>{
+      console.log('get inventory: ', inventory);
       return {
             type: GET_INVENTORY,
-            inventory : selected,
+            inventory
           };
     })
     .catch(err=>{console.log('dispatch?: ', err)});
 
 });
+
+
 
 
 

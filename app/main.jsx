@@ -8,7 +8,7 @@ import axios from 'axios'
 import store from './store'
 
 //actions
-import {loadAllProducts} from './reducers/products'
+import {loadAllProducts, allInventories} from './reducers/products'
 import {loadAllSellers, loadAllStates} from './reducers/sellers'
 import {loadAllBrews} from './reducers/brews'
 import {loadAllFlavors} from './reducers/flavors'
@@ -37,21 +37,23 @@ const onEnter = (nextRouterState) => {
       const sellersA = axios.get('/api/sellers');
       const brewsA = axios.get('/api/brewTypes');
       const flavorsA = axios.get('/api/flavors');
+      const inventoryA = axios.get('/api/inventories');
 
 
       return Promise
-      .all([productsA, sellersA, brewsA, flavorsA])
+      .all([productsA, sellersA, brewsA, flavorsA, inventoryA])
       .then(responses => responses.map(r => r.data))
-      .then(([products, sellers, brews, flavors]) => {
+      .then(([products, sellers, brews, flavors, inventory]) => {
 
 
         store.dispatch(loadAllProducts(products));
         store.dispatch(loadAllSellers(sellers));
         store.dispatch(loadAllBrews(brews));
         store.dispatch(loadAllFlavors(flavors));
-        //store.dispatch(loadAllStates(sellers));
+        store.dispatch(loadAllStates(sellers));
+        store.dispatch(allInventories(inventory));
         store.dispatch(getCartStart());
-        //store.dispatch(getFavs()); // rework to load cart, fav, etc. from user and capture existing cart...
+        store.dispatch(getFavs()); // rework to load cart, fav, etc. from user and capture existing cart...
 
       }).catch(err=>{
         console.log(err);
