@@ -53,7 +53,7 @@ class Navbar extends React.Component {
       <div className="row pad10 nav">
         {/* <form> how do we want to have these work options or something else*/}
           <div className="col-sm-12 col-lg-2">
-            <select onChange={this.onBrewTypeChange}className="form-control brown btxt">
+            <select onChange={this.onBrewTypeChange} className="form-control brown btxt">
               <option>Brew Type</option>
               {this.props.brews.map(brew => (
                 <option key={brew.id}>{brew.name}</option>))
