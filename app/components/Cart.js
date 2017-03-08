@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import CartItem from './CartItem';
 import { setItemQty, removeItem, clearCart, incrementItem } from '../reducers/cart.jsx';
 
 const mapStateToProps = (state => {
@@ -10,10 +11,14 @@ const mapStateToProps = (state => {
   };
 })
 
-//import actions from reducers
 const mapDispatchToProps = (dispatch => {
   return {
-
+    removeItem(itemId){
+      dispatch(removeItem(itemId));
+    },
+    setItemQty(itemId, quantity){
+      dispatch(setItemQty(itemId, quantity));
+    }
   }
 })
 
@@ -23,6 +28,21 @@ export default connect(
 )(class extends Component {
     constructor(props){
       super(props);
+
+      this.setNewQty = this.setNewQty.bind(this);
+      this.removeFromCart = this.removeFromCart.bind(this);
+    }
+
+    setNewQty(e){
+      const item = e.target.name;
+      const qty = e.target.value;
+      this.props.setItemQty(item, qty);
+    }
+
+    removeFromCart(e){
+      e.preventDefault();
+      const item = Number(e.target.name);
+      this.props.removeItem(item);
     }
 
     render() {
@@ -49,13 +69,7 @@ export default connect(
                   })[0]
 
                   return (
-                    <tr key={productId}>
-                      <td><img className="singleBimg bshadow" src={beer.photo.source} /></td>
-                      <td><input type="text" value={cart[productId]} /></td>
-                      <td className="Choplin-Light">{beer.name}</td>
-                      <td className="Choplin-Light">{beer.price}</td>
-                      <td><button type="button" className="btn btn-danger Choplin-Light">Remove From Cart</button></td>
-                  </tr>
+                    <CartItem beer={beer} cart={cart} setNewQty={this.setNewQty} removeFromCart={this.removeFromCart} />
                   )
 
                 })

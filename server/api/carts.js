@@ -12,16 +12,23 @@ const { mustBeLoggedIn, forbidden } = require('./auth.filters');
 module.exports = require('express').Router()
 // list all carts
 	.get('/', (req, res, next) =>
-		Cart.findAll({ where: req.query })
-		.then(carts => res.json(carts))
+		Cart.findOrCreate({
+				where: {
+			session: req.session.userId,
+			}
+	 	})
+		.spread((cart, found) => {
+			res.json(cart)
+		})
 		.catch(next))
 // get a single cart
 	.get('/:cartId', (req, res, next) =>
-		Cart.findOne({
-			where: {id: req.params.cartId},
-			include: [ Product, CartProductQty ],
+		Cart.findOrCreate({
+			where: {user_id: req.params.cartId},
 		})
-		.then(cart => res.json(cart))
+		.spread((cart, found) => {
+			res.json(cart)
+		})
 		.catch(next))
 // make a new cart
 	.post('/', (req, res, next) =>

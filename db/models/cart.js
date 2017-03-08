@@ -5,7 +5,7 @@ const db = require('APP/db');
 
 const Cart = db.define('carts', {
   session: { //from cookies when logged-in
-    type: Sequelize.STRING,
+    type: Sequelize.INTEGER,
     //allowNull: false, //comment back in later
   },
   lastEdited: { //track last edits and auto-save

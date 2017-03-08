@@ -5,6 +5,7 @@ let initState = {
 }
 
 //constants
+const LOAD_CART = 'LOAD_CART';
 const ADD_ITEM = 'ADD_ITEM';
 const INCREMENT_ITEM = 'INCREMENT_ITEM';
 const DECREMENT_ITEM = 'DECREMENT_ITEM';
@@ -17,6 +18,10 @@ const cartReducer = (prevState = initState, action) => {
   const nextState = Object.assign({}, prevState);
 
   switch (action.type) {
+
+    case LOAD_CART:
+      nextState.currentCart = action.cart;
+      break;
 
     case ADD_ITEM:
       nextState.currentCart[action.itemId] = 1;
@@ -50,6 +55,13 @@ const cartReducer = (prevState = initState, action) => {
  }
 
 //action creators
+export const loadCart = (cart) => {
+  return {
+    type: LOAD_CART,
+    cart
+  }
+};
+
 export const addItem = (itemId) => {
   return {
     type: ADD_ITEM,
