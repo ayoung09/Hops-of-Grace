@@ -42,7 +42,6 @@ module.exports = require('express').Router()
 		.catch(next))
 
 		// include: [ Cart ]
-
 // create a new user
 	.post('/', (req, res, next) =>
 		User.create(req.body)

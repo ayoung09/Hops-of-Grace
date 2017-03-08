@@ -12,12 +12,14 @@ module.exports = require('express').Router()
 // list all  products and qtys given a cartId
   .get('/:cartId', (req, res, next) =>
     CartProductQty.findAll({
+      attributes: ['product_id', 'quantity'],
       where: {
         cart_id: req.params.cartId,
       },
-      include: [ Product ],
     })
-    .then(cartProductQtys => res.json(cartProductQtys))
+    .then(cartProductQtys => {
+      res.json(cartProductQtys)
+      })
     .catch(next))
 // omitting a second get request for now
 

@@ -8,11 +8,11 @@ import axios from 'axios'
 import store from './store'
 
 //actions
+import { loadCart } from './reducers/cart';
 import {loadAllProducts, allInventories} from './reducers/products'
 import {loadAllSellers, loadAllStates} from './reducers/sellers'
 import {loadAllBrews} from './reducers/brews'
 import {loadAllFlavors} from './reducers/flavors'
-import {getCartStart} from './reducers/cart'
 import {getFavs} from './reducers/reviews'
 
 //jokes to be combined
@@ -28,10 +28,15 @@ import StartPage from './components/Start'
 import Login from './components/Login'
 import ProductsPage from './components/Products'
 import ProductPage from './components/Product'
+import Cart from './components/Cart'
 
 
 const onEnter = (nextRouterState) => {
 
+      const cartId = nextRouterState.auth ? nextRouterState.auth.id : "";
+      const cart = axios.get(`/api/carts/${cartId}`)
+        .then(cartFound => cartFound.data)
+        .then(cartData => axios.get(`/api/cartProductQtys/${cartData.id}`));
 
       const productsA = axios.get('/api/products');
       const sellersA = axios.get('/api/sellers');
@@ -41,19 +46,22 @@ const onEnter = (nextRouterState) => {
 
 
       return Promise
-      .all([productsA, sellersA, brewsA, flavorsA, inventoryA])
+      .all([productsA, sellersA, brewsA, flavorsA, inventoryA, cart])
       .then(responses => responses.map(r => r.data))
-      .then(([products, sellers, brews, flavors, inventory]) => {
+      .then(([products, sellers, brews, flavors, inventory, userCart]) => {
+        const cartToDispatch = {};
+        userCart.map(item => {
+          cartToDispatch[item.product_id] = item.quantity;
+        });
 
-
+        store.dispatch(loadCart(cartToDispatch));
         store.dispatch(loadAllProducts(products));
         store.dispatch(loadAllSellers(sellers));
         store.dispatch(loadAllBrews(brews));
         store.dispatch(loadAllFlavors(flavors));
         store.dispatch(loadAllStates(sellers));
         store.dispatch(allInventories(inventory));
-        store.dispatch(getCartStart());
-        store.dispatch(getFavs()); // rework to load cart, fav, etc. from user and capture existing cart...
+        store.dispatch(getFavs());
 
       }).catch(err=>{
         console.log(err);
@@ -79,6 +87,7 @@ render (
 
         <Route path="/products" component={ProductsPage} />
         <Route path="/product/:productId" component={ProductPage} />
+        <Route path="/cart" component={Cart} />
 
         {/*<Route path="/signIn" component={SignIn} />
 

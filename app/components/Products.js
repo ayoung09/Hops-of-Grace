@@ -7,7 +7,7 @@ import fakePhotos from './utilities';
 
 //import {actions} from
 import {selectProduct, getInventory} from '../reducers/products';
-import {addItem} from '../reducers/cart';
+import { addItem, incrementItem } from '../reducers/cart';
 import {addFavs, getReviews} from '../reducers/reviews';
 
 
@@ -41,8 +41,11 @@ class Products extends React.Component { // (props => {
 
 	addToCart= (event => {
 		let prodId = event.target.attributes.value.value;
-		this.props.addItem(prodId);
-
+		if(this.props.currentCart[prodId]){
+			this.props.incrementItem(prodId);
+		} else {
+			this.props.addItem(prodId);
+		}
 		let cart = this.state.localCartColor;
 		if (!cart.indexOf(+prodId)){cart = cart.concat(+prodId)};
 		this.setState({localCartColor:cart});
@@ -184,7 +187,7 @@ class Products extends React.Component { // (props => {
 const mapStateToProps = (state => {
 	return {
     allProducts : state.products.allProducts,
-	filteredproducts : state.products.filteredproducts,
+		filteredproducts : state.products.filteredproducts,
   	userproducts : state.products.userproducts,
   	filters : state.products.filters,
   	currentCart : state.cart.currentCart,
@@ -198,6 +201,9 @@ const mapDispatchToProps = (dispatch => {
 	    addItem(itemId){
 	      dispatch(addItem(itemId));
 	    },
+			incrementItem(itemId){
+				dispatch(incrementItem(itemId));
+			},
 	    selectProduct(products, itemId){
 	      dispatch(selectProduct(products, itemId));
 	    },

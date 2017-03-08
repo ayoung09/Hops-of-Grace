@@ -40,7 +40,7 @@ const Header = ({ user, logout }) => {
       }
 
         <div className="col-lg-4 navL block-center">
-          <button className="btn btn-default btxt" type="">cart</button>
+          <button className="btn btn-default btxt" type=""><Link to='/cart'>cart</Link></button>
         </div>
 
       {/* nav bar core functions - mobile screen */}

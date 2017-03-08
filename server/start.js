@@ -36,13 +36,21 @@ module.exports = app
   .use(require('cookie-session') ({
     name: 'session',
     keys: [process.env.SESSION_SECRET || 'an insecure secret key'],
+    maxAge: 24 * 60 * 60 * 1000,
   }))
 
-  //session-logging middleware
-  // .use((req, res, next) => {
-  //   console.log('Session is: ', req.session);
-  //   next();
-  // })
+  .use((req, res, next) => {
+    if (!req.session.userId){
+      req.session.userId = Math.floor(Math.random() * 1000);
+    }
+    next();
+  })
+
+  // session-logging middleware
+  .use((req, res, next) => {
+    console.log('Session is: ', req.session);
+    next();
+  })
 
   // Body parsing middleware
   .use(bodyParser.urlencoded({ extended: true }))

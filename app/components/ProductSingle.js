@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import { browserHistory, Link } from 'react-router';
 
 //import {actions} from
-import {addItem, subtractItem} from '../reducers/cart';
+import { addItem, incrementItem, decrementItem, removeItem } from '../reducers/cart';
 import {addFavs, addReview } from '../reducers/reviews';
 
 import SubmitToCart from './SubmitToCart.js';
@@ -34,7 +34,11 @@ class ProductSingle extends React.Component { // (props => {
 
 	addToCart= (event => {
 		let prodId = event.target.attributes.value.value;
-		this.props.addItem(prodId);
+		if(this.props.currentCart[prodId]){
+			this.props.incrementItem(prodId);
+		} else {
+			this.props.addItem(prodId);
+		}
 
 		let cart = this.state.localCartColor;
 		if (cart.indexOf(+prodId)){cart = cart.concat(+prodId)};
@@ -45,10 +49,13 @@ class ProductSingle extends React.Component { // (props => {
 
 	subtractFromCart= (event => {
 		let prodId = event.target.attributes.value.value;
-		this.props.subtractItem(prodId);
+		if(this.props.currentCart[prodId] > 1){
+			this.props.decrementItem(prodId);
+		} else if(this.props.currentCart === 1) {
+			this.props.removeItem(prodId);
+		}
 
 		let cart = this.state.localCartColor; //.concat(+prodId);
-		console.log(cart);
 		let subtract;
 		if (this.state.existingCartCount===undefined || this.state.existingCartCount<=0){ subtract = 0 } else { subtract = -1 + this.state.existingCartCount};
 		this.setState({localCartColor:cart, existingCartCount:subtract});
@@ -63,8 +70,6 @@ class ProductSingle extends React.Component { // (props => {
 	});
 
 	render(){
-
-		console.log(this.props);
 
 		let product = this.props.currentProduct;
 		if (this.props.currentProduct===[]){
@@ -98,7 +103,8 @@ class ProductSingle extends React.Component { // (props => {
 		        	<div className="col-xs-12 col-sm-12 col-lg-4">
 		        			<h3 className="bclose tclose CoreMagic brown">{product.name}</h3>
 			        		<h4 className="Choplin-Medium gold">Brewed by : {product.seller.breweryName}</h4>
-			        		<h5 className="Choplin-Medium gold"> ${product.price}</h5>
+
+			        		<h5 className="Choplin-Medium gold">${product.price}</h5>
 		        			<div>
 			        			<span className={`glyphicon glyphicon-shopping-cart tshadowl CLP ${cartColor}`} onClick={this.addToCart} value={product.id}>
 			        			</span>
@@ -122,10 +128,9 @@ class ProductSingle extends React.Component { // (props => {
 
 const mapStateToProps = (state => {
 	return {
-	allproducts : state.products.allproducts,
-	allInventory : state.products.allInventory,
+		allproducts : state.products.allproducts,
+		allInventory : state.products.allInventory,
     currentProduct : state.products.currentProduct, //includes reviews, etc.
-    //currentInventory : state.products.currentInventory, //not working -
   	currentCart : state.cart.currentCart,
   	currentFavs : state.reviews.currentFavs,
   }
@@ -133,15 +138,18 @@ const mapStateToProps = (state => {
 
 const mapDispatchToProps = (dispatch => {
 	return {
-	    addItemFull(itemId, count){ // item to cart w/ specifications
-	      dispatch(addItem(itemId, count));
-	    },
 	    addItem(itemId){ // item to cart simple
 	      dispatch(addItem(itemId));
 	    },
-	    subtractItem(itemId){ // item to cart simple
-	      dispatch(subtractItem(itemId));
-	    },
+			incrementItem(itemId){
+				dispatch(incrementItem(itemId));
+			},
+			decrementItem(itemId){
+				dispatch(decrementItem(itemId));
+			},
+			removeItem(itemId){
+				dispatch(removeItem(itemId));
+			},
 	    getInventory(itemId){
 	    	dispatch(getInventory(itemId));
 	    },

@@ -1,39 +1,49 @@
-import axios from 'axios';
-
-let initState={
-  currentCart : {}, //load all and update
+let initState = {
+  currentCart: {},
 }
 
-const cartReducer = (prevState = initState, action) => {
-  let nextState = Object.assign({}, prevState);
+//constants
+const LOAD_CART = 'LOAD_CART';
+const ADD_ITEM = 'ADD_ITEM';
+const INCREMENT_ITEM = 'INCREMENT_ITEM';
+const DECREMENT_ITEM = 'DECREMENT_ITEM';
+const SET_ITEM_QTY = 'SET_ITEM_QTY';
+const REMOVE_ITEM = 'REMOVE_ITEM';
+const CLEAR_CART = 'CLEAR_CART';
 
-  switch(action.type) {
-    case GET_CART_START:
+//reducer
+const cartReducer = (prevState = initState, action) => {
+  const nextState = Object.assign({}, prevState);
+
+  switch (action.type) {
+
+    case LOAD_CART:
       nextState.currentCart = action.cart;
       break;
 
     case ADD_ITEM:
-    	if (nextState.currentCart.hasOwnProperty(action.item)){
-      		nextState.currentCart[action.item] += 1;
-    	} else {
-    		nextState.currentCart[action.item] = 1;
-    	}
+      nextState.currentCart[action.itemId] = 1;
       break;
-      // for click cart button, edit later
 
-    case SUBTRACT_ITEM:
-      if (nextState.currentCart.hasOwnProperty(action.item)){
-          nextState.currentCart[action.item] -= 1;
-      } else {
-        nextState.currentCart[action.item] = 0;
-      }
+    case INCREMENT_ITEM:
+      nextState.currentCart[action.itemId]++;
       break;
-      // for click cart button, edit later
 
+    case DECREMENT_ITEM:
+      nextState.currentCart[action.itemId]--;
+      break;
 
-    case EDIT_ITEM:
-      	nextState.currentCart[action.item[0]] += +action.item[1]; //list as positive or negative on + or - buttons
-      	break;
+    case SET_ITEM_QTY:
+    	nextState.currentCart[action.itemId] = action.quantity;
+      break;
+
+    case REMOVE_ITEM:
+      delete nextState.currentCart[action.itemId];
+      break;
+
+    case CLEAR_CART:
+      nextState.currentCart = {};
+      break;
 
     default:
     	return prevState;
@@ -42,35 +52,54 @@ const cartReducer = (prevState = initState, action) => {
     return nextState;
  }
 
-
-const GET_CART_START='GET_CART_START';
-const ADD_ITEM='ADD_ITEM';
-const SUBTRACT_ITEM='SUBTRACT_ITEM';
-const EDIT_ITEM ='EDIT_ITEM';
-
-
-export const getCartStart = (() => {
+//action creators
+export const loadCart = (cart) => {
   return {
-    type: GET_CART_START,
-    cart: {}
+    type: LOAD_CART,
+    cart
   }
+};
 
-});
-
-export const addItem = (item => {
+export const addItem = (itemId) => {
   return {
     type: ADD_ITEM,
-    item
+    itemId
   }
+};
 
-});
-
-export const subtractItem = (item => {
+export const incrementItem = (itemId) => {
   return {
-    type: SUBTRACT_ITEM,
-    item
+    type: INCREMENT_ITEM,
+    itemId
   }
+}
 
-});
+export const decrementItem = (itemId) => {
+  return {
+    type: DECREMENT_ITEM,
+    itemId
+  }
+}
+
+export const setItemQty = (itemId, quantity) => {
+  return {
+    type: SET_ITEM_QTY,
+    itemId,
+    quantity
+  }
+};
+
+export const removeItem = (itemId) => {
+  return {
+    type: REMOVE_ITEM,
+    itemId
+  }
+};
+
+export const clearCart = () => {
+  return {
+    type: CLEAR_CART
+  }
+}
 
 export default cartReducer;

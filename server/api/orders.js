@@ -23,14 +23,15 @@ module.exports = require('express').Router()
 	.get('/:orderId', (req, res, next) =>
 		Order.findOne({
 			where: {id: req.params.orderId},
-			include: [ {
-				model: Cart,
-				include: [ {
-					model: User}, {
-					model: CartProductQty,
-					include: [ Product ]}
-				]
-			}]
+			include: [ Cart ]
+			// include: [ {
+			// 	model: Cart,
+			// 	include: [ {
+			// 		model: User}, {
+			// 		model: CartProductQty,
+			// 		include: [ Product ]}
+			// 	]
+			// }]
 		})
 		.then(order => res.json(order))
 		.catch(next))

@@ -5,7 +5,7 @@ import { browserHistory, Link } from 'react-router';
 
 //import {actions} from
 import {selectProduct} from '../reducers/products';
-import {addItem, subtractItem } from '../reducers/cart';
+import { addItem, setItemQty, removeItem } from '../reducers/cart';
 import {addFavs, addReview } from '../reducers/reviews';
 
 
@@ -20,8 +20,7 @@ const SubmitToCart = ((props) => {
 	let totals = props.cart;
 	if (totals===undefined){ totals = 0 };
 
-	let price = props.product.price * totals;
-
+	let price = (props.product.price * totals).toFixed(2);
 	let id = props.product.id;
 
 	console.log(props);
@@ -38,7 +37,7 @@ const SubmitToCart = ((props) => {
 	        		</div>
 	        	<span className="glyphicon glyphicon-triangle-bottom brown cartB" onClick={props.interact.subtractFromCart} value={id}></span><br/>
 	        	<p className="Choplin-Medium brown">total = ${price}</p>
-	        	<button className="btn btn-default Choplin-Light" onClick={e=>{e.preventDefault()}}>save to cart</button> <Link to="/cart"><button className="btn btn-default Choplin-Light" onClick={e=>{e.preventDefault()}}>go to cart</button></Link>
+	        	 <button className="btn btn-default Choplin-Light" onClick={e=>{e.preventDefault()}}><Link to="/cart">go to cart</Link></button>
 	        	</form>
 
 	        	</div>
@@ -48,7 +47,9 @@ const SubmitToCart = ((props) => {
 });
 
 
-//inherit all the things and interactions.
+//inherit all the things and interaction
+
+// <button className="btn btn-default Choplin-Light" onClick={e=>{e.preventDefault()}}>save to cart</button>
 
 
 export default SubmitToCart;
