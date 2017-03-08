@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 let initState = {
   currentCart: {},
 }
