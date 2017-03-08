@@ -7,6 +7,7 @@ let initState = {
 //constants
 const ADD_ITEM = 'ADD_ITEM';
 const INCREMENT_ITEM = 'INCREMENT_ITEM';
+const DECREMENT_ITEM = 'DECREMENT_ITEM';
 const SET_ITEM_QTY = 'SET_ITEM_QTY';
 const REMOVE_ITEM = 'REMOVE_ITEM';
 const CLEAR_CART = 'CLEAR_CART';
@@ -23,6 +24,10 @@ const cartReducer = (prevState = initState, action) => {
 
     case INCREMENT_ITEM:
       nextState.currentCart[action.itemId]++;
+      break;
+
+    case DECREMENT_ITEM:
+      nextState.currentCart[action.itemId]--;
       break;
 
     case SET_ITEM_QTY:
@@ -55,6 +60,13 @@ export const addItem = (itemId) => {
 export const incrementItem = (itemId) => {
   return {
     type: INCREMENT_ITEM,
+    itemId
+  }
+}
+
+export const decrementItem = (itemId) => {
+  return {
+    type: DECREMENT_ITEM,
     itemId
   }
 }

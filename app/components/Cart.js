@@ -43,20 +43,21 @@ export default connect(
             </thead>
             <tbody>
               {
-                Object.keys(cart).map(productId => {
+                  Object.keys(cart).map(Number).map(productId => {
                   const beer = allProducts.filter(product => {
                     return product.id === productId;
-                  })[0];
+                  })[0]
 
                   return (
                     <tr key={productId}>
-                      <td><img src={beer.photo} /></td>
+                      <td><img className="singleBimg bshadow" src={beer.photo.source} /></td>
                       <td><input type="text" value={cart[productId]} /></td>
-                      <td>{beer.name}</td>
-                      <td>{beer.price}</td>
-                      <td><button type="button" className="btn btn-danger"></button>Remove From Cart</td>
+                      <td className="Choplin-Light">{beer.name}</td>
+                      <td className="Choplin-Light">{beer.price}</td>
+                      <td><button type="button" className="btn btn-danger Choplin-Light">Remove From Cart</button></td>
                   </tr>
                   )
+
                 })
               }
               <tr>
