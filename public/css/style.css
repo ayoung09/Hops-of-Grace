@@ -395,6 +395,7 @@ input.form-like[disabled] {
 
 .checkout {
 	display: flex;
+	align-items: center;
 	justify-content: center;
 	height: 80vh;
 	background-color: #f2dba1;

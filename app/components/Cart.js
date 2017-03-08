@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { setItemQty, removeItem, clearCart } from '../reducers/cart.jsx';
+import { setItemQty, removeItem, clearCart, incrementItem } from '../reducers/cart.jsx';
 
 const mapStateToProps = (state => {
   return {
@@ -30,7 +30,7 @@ export default connect(
       const allProducts = this.props.products;
 
       return (
-        <div className="checkout row text-center table-responsive">
+        <div className="checkout text-center row table-responsive">
           <table className="table">
             <thead>
               <tr>
@@ -51,7 +51,7 @@ export default connect(
                   return (
                     <tr key={productId}>
                       <td><img src={beer.photo} /></td>
-                      <td>{cart[productId]}</td>
+                      <td><input type="text" value={cart[productId]} /></td>
                       <td>{beer.name}</td>
                       <td>{beer.price}</td>
                       <td><button type="button" className="btn btn-danger"></button>Remove From Cart</td>
