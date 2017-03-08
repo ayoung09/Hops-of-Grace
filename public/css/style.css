@@ -392,3 +392,12 @@ input.form-like:focus {
 input.form-like[disabled] {
     border-color: transparent;
 }
+
+.checkout {
+	display: flex;
+	justify-content: center;
+	height: 80vh;
+	background-color: #f2dba1;
+}
+
+

@@ -30,14 +30,14 @@ export default connect(
       const allProducts = this.props.products;
 
       return (
-        <div>
-          <table>
+        <div className="checkout row text-center table-responsive">
+          <table className="table">
             <thead>
               <tr>
-                <th>Photo</th>
-                <th>Qty</th>
-                <th>Product</th>
-                <th>Line Total</th>
+                <th></th>
+                <th className="Choplin-Light">Quantity</th>
+                <th className="Choplin-Light">Product</th>
+                <th className="Choplin-Light">Line Total</th>
                 <th>&nbsp;</th>
               </tr>
             </thead>
@@ -60,18 +60,18 @@ export default connect(
                 })
               }
               <tr>
-                <td>Shipping & Tax</td>
+                <td className="Choplin-Medium">Shipping & Tax</td>
                 <td colSpan="2"></td>
-                <td>An amount of Money!</td>
+                <td className="Choplin-Medium">An amount of Money!</td>
                 <td>&nbsp;</td>
               </tr>
               <tr>
-                <td>Total:</td>
+                <td className="Choplin-Medium">Total:</td>
                 <td colSpan="2">&nbsp;</td>
-                <td colSpan="2">$225.45</td>
+                <td colSpan="2" className="Choplin-Medium">$225.45</td>
               </tr>
               <tr>
-                <td colSpan="5"><button>Checkout Now!</button></td>
+                <td colSpan="5"><button type="button" className="btn btn-primary Choplin-Light">Checkout Now!</button></td>
               </tr>
             </tbody>
           </table>
@@ -81,4 +81,4 @@ export default connect(
 })
 
 //<h4 className="Choplin-Medium bclose thumbT" value={entry.id} >{entry.name}</h4>
-//<p className="Choplin-Light sm thumbT" value={entry.id} >{entry.brew.name}</p>
+//<p className="Choplin-Light" sm thumbT" value={entry.id} >{entry.brew.name}</p>
