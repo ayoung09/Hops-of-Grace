@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import CartItem from './CartItem';
-import { setItemQty, removeItem, clearCart, incrementItem } from '../reducers/cart.jsx';
+import { setItemQty, removeItem } from '../reducers/cart.jsx';
 
 const mapStateToProps = (state => {
   return {
-    currentCart: state.cart.currentCart,
+    cart: state.cart,
     products: state.products.allProducts,
   };
 })
@@ -31,6 +30,8 @@ export default connect(
 
       this.setNewQty = this.setNewQty.bind(this);
       this.removeFromCart = this.removeFromCart.bind(this);
+      this.calculateTotal = this.calculateTotal.bind(this);
+      this.calculateTaxes = this.calculateTaxes.bind(this);
     }
 
     setNewQty(e){
@@ -45,8 +46,16 @@ export default connect(
       this.props.removeItem(item);
     }
 
+    calculateTotal(){
+
+    }
+
+    calculateTaxes(){
+
+    }
+
     render() {
-      const cart = this.props.currentCart;
+      const cart = this.props.cart.currentCart;
       const allProducts = this.props.products;
 
       return (
@@ -57,7 +66,7 @@ export default connect(
                 <th></th>
                 <th className="Choplin-Light">Quantity</th>
                 <th className="Choplin-Light">Product</th>
-                <th className="Choplin-Light">Line Total</th>
+                <th className="Choplin-Light">Price</th>
                 <th>&nbsp;</th>
               </tr>
             </thead>
@@ -77,13 +86,13 @@ export default connect(
               <tr>
                 <td className="Choplin-Medium">Shipping & Tax</td>
                 <td colSpan="2"></td>
-                <td className="Choplin-Medium">An amount of Money!</td>
+                <td className="Choplin-Medium">{this.calculateTaxes()}</td>
                 <td>&nbsp;</td>
               </tr>
               <tr>
                 <td className="Choplin-Medium">Total:</td>
                 <td colSpan="2">&nbsp;</td>
-                <td colSpan="2" className="Choplin-Medium">$225.45</td>
+                <td colSpan="2" className="Choplin-Medium">{this.calculateTotal()}</td>
               </tr>
               <tr>
                 <td colSpan="5"><button type="button" className="btn btn-primary Choplin-Light">Checkout Now!</button></td>
@@ -94,6 +103,3 @@ export default connect(
       )
     }
 })
-
-//<h4 className="Choplin-Medium bclose thumbT" value={entry.id} >{entry.name}</h4>
-//<p className="Choplin-Light" sm thumbT" value={entry.id} >{entry.brew.name}</p>

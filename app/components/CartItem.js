@@ -2,8 +2,8 @@ import React from 'react';
 
 const CartItem = ({ beer, cart, setNewQty, removeFromCart }) => {
   return (
-    <tr key={beer.id}>
-      <td><img className="singleBimg bshadow" src={beer.photo.source} /></td>
+    <tr key={beer.id} >
+      <td><img className="thumbBimg bshadow" src={beer.photo.source} /></td>
       <td>
         <select
         className="form-control"
