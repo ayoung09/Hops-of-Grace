@@ -65,23 +65,48 @@ const seedUnits = () => db.Promise.map([
 
 
 const seedProducts = () => db.Promise.map([
-  {name: 'Penguin Popper Ale', flavor: ['nutty', 'caramel'], description: 'So good, your penguin waiter might take a sip first', price: 19.95, unit_id: 1, seller_id: 1, brew_id: 6, inventory_id: 1},
+  {name: 'Penguin Popper Ale', description: 'So good, your penguin waiter might take a sip first', price: 19.95, unit_id: 1, seller_id: 1, brew_id: 6, inventory_id: 1},
+  {name: 'St. Botolphe\'s Town', description: 'A rustic brown ale, named for the patron saint of Boston and his Yorkshire roots', price: 21.95, seller_id: 2, brew_id: 3, unit_id: 2, photo_id: 1},
+  {name: 'Back in Black', description: 'Inspired by Paul Revere‚Äôs midnight ride, we rebelled against the British style IPA, embraced the more aggressive American version and then recast it in bold, brave, defiant black.', price: 14.95, seller_id: 1, brew_id: 6, unit_id: 2, photo_id: 3},
+  {name: 'Hippotizing IPA', description: 'A River Horse brew (an American IPA) that is a cross between the West Coast and New England styles. It‚Äôs brewed with a pale malt profile to allow the hops to shine through, then dry hopped with over two pounds per barrel worth of Mosaic.', price: 14.95, seller_id: 1, brew_id: 6, unit_id: 2, photo_id: 4},
+  {name: 'Mariposa Ale', description: 'From Almanac (in San Fancisco), Maripos is a dry hopped wild ale that is barrel aged. Sweet and dry, it gets its name and flavor from  mariposa plums.', price: 25.95, seller_id: 2, brew_id: 7, unit_id: 1, photo_id: 5},
+  {name: 'Daisy Cutter Pale Ale', description: 'From Chicago\'s Half Acre, this pale ale offers the sharp, grassy, refreshing taste of a sunny summer afternoon', price: 12.95, seller_id: 1, brew_id: 1, unit_id: 2, photo_id: 6}
   ], product => db.model('products').create(product));
 
   const seedInventories = () => db.Promise.map([
-  {qtyAvailable: 20, qtySold: 5, lastPurchaed: '2015-02-09'},
+  {qtyAvailable: 20, qtySold: 5, lastPurchaed: '2015-02-09', product_id: 4},
+  {qtyAvailable: 50, qtySold: 10, product_id: 2},
+  {qtyAvailable: 23, qtySold: 7, product_id: 3},
+  {qtyAvailable: 8, qtySold: 2, product_id: 1},
+  {qtyAvailable: 120, qtySold: 60, product_id: 5},
+  {qtyAvailable: 22, qtySold: 10, product_id: 6},
   ], inventory => db.model('inventories').create(inventory));
 
 
 const seedPhotos = () => db.Promise.map([
-  {source: 'this is a photo url', caption: 'Some dang good beer', product_id: 1, seller_id: 1},
-  {source: 'this is a second photo url', caption: 'Your penguin waiter will definitely take a sip', product_id: 1, seller_id: 1}
+  {source: 'http://localhost:1337/img/s01.jpg', caption: 'Some dang good beer'},
+  {source: 'http://localhost:1337/img/s02.jpg', caption: 'Your penguin waiter will definitely take a sip'},
+  {source: 'http://localhost:1337/img/s03.jpg'},
+  {source: 'http://localhost:1337/img/s04.jpg'},
+  {source: 'http://localhost:1337/img/s05.jpg'},
+  {source: 'http://localhost:1337/img/s06.jpg'},
+  {source: 'http://localhost:1337/img/s07.jpg'},
+  {source: 'http://localhost:1337/img/s08.jpg'},
+  {source: 'http://localhost:1337/img/s09.jpg'},
+  {source: 'http://localhost:1337/img/s10.jpg'},
   ], photo => db.model('photos').create(photo));
 
 
 const seedReviews = () => db.Promise.map([
-  {writeUp: 'Definitely a must-try! Just trust me, you NEED to buy this!', stars: 5, product_id: 1, user_id: 3},
-  {writeUp: 'Eh... It was okay. Not super impressive, but I might consider buying again.', stars: 3, product_id: 1, user_id: 2}
+  {writeUp: 'Definitely a must-try! Just trust me, you NEED to buy this!', stars: 5, user_id: 3, product_id: 1},
+  {writeUp: 'Eh... It was okay. Not super impressive, but I might consider buying again.', stars: 3,  user_id: 2, product_id: 1},
+  {writeUp: 'skip this and go for their other ipa\'s or stout.', stars: 2, user_id: 1, product_id: 3},
+  {writeUp: 'you haven\'t lived if you\'ve not tried his beer.', stars: 2, user_id: 2, product_id: 5},
+  {writeUp: 'best of the brews!', stars: 5, user_id: 2, product_id: 4},
+  {writeUp: 'never again.', stars: 4, user_id: 3, product_id: 4},
+  {writeUp: 'dark and rich with a clean finish. could have more body, but definitely good.', stars: 5, user_id: 3, product_id: 5},
+  {writeUp: 'alright. last year\'s batch was better.', stars: 3, user_id: 3, product_id: 2},
+  {writeUp: 'sharp and hoppy with citrus overtones, but not sooo dramatic as to overshadow a good meal. perfect bbq-picnic beer.', stars: 2, user_id: 3, product_id: 2},
   ], review => db.model('reviews').create(review));
 
 
@@ -104,9 +129,9 @@ const seedOrders = () => db.Promise.map([
 db.didSync
   .then(() => db.sync({force: true}))
   .then(() => Promise.all([seedUsers(), seedAddresses(), seedBrewTypes(), seedFlavors(), seedUnits()]))
-  .then(() => Promise.all([seedSellers()]))
+  .then(() => Promise.all([seedSellers(), seedPhotos()]))
   .then(() => Promise.all([seedProducts()]))
-  .then(() => Promise.all([seedPhotos(), seedReviews(), seedCarts(), seedOrders(), seedCartProductQtys(), seedInventories()]))
+  .then(() => Promise.all([seedReviews(), seedCarts(), seedOrders(), seedCartProductQtys(), seedInventories()]))
   .then(() => {
     console.log(`Data seeded successfully`);
   })

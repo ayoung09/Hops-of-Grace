@@ -76,7 +76,22 @@ class Products extends React.Component { // (props => {
 	// to assist with extra seeding and appearance of full database...
 	productsEnlarged = (()=>{ //creating fake-larger product list.
 		var productsE =[];
-		if (this.props.allProducts && this.props.allProducts.length<10){
+		if (this.props.filteredProducts){
+
+		if (this.props.filteredProducts.length<10){
+			productsE = this.props.allProducts;
+
+			let multipage=Math.floor(Math.random()*25) + 10; // up to 18 entries
+			for (let i=this.props.filteredProducts.length; i<multipage; i++){
+				let originalRandom = Math.floor(Math.random()*i); // copy from existing
+				productsE.push(productsE[originalRandom]);
+			}; //padded # of products
+		} else if (this.props.filteredProducts.length>=6){
+			productsE = this.props.filteredProducts;
+		};
+	} else if (this.props.allProducts){
+
+			if (this.props.filteredProducts.length<10){
 			productsE = this.props.allProducts;
 
 			let multipage=Math.floor(Math.random()*25) + 10; // up to 18 entries
@@ -87,6 +102,8 @@ class Products extends React.Component { // (props => {
 		} else if (this.props.allProducts && this.props.allProducts.length>=6){
 			productsE = this.props.allProducts;
 		};
+
+	}
 
 		return productsE;
 	})
@@ -187,7 +204,7 @@ class Products extends React.Component { // (props => {
 const mapStateToProps = (state => {
 	return {
     allProducts : state.products.allProducts,
-		filteredproducts : state.products.filteredproducts,
+		filteredProducts : state.products.filteredProducts,
   	userproducts : state.products.userproducts,
   	filters : state.products.filters,
   	currentCart : state.cart.currentCart,
