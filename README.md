@@ -20,4 +20,4 @@ This project was created by [Alexia Young](https://github.com/ayoung09), [Meg St
 
 ## Acknowledgments
 
-This project was built with Fullstack Academy's "Bones" starter code which is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+This project was built with Fullstack Academy's "Bones" starter code which is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
